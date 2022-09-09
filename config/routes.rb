@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # User.rb routes
+  get '/users', to: 'users#index'
+  get '/users/:id', to: 'users#show'
+  post '/users', to: 'users#create'     # params : name, password, email
+  patch '/users/:id', to: 'users#update'    # params : funds
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # PurchasedCoins.rb routes
+  get '/purchasedcoins', to: 'purchasedcoins#index'
+  patch '/purchasedcoins/:id', to: 'purchasedcoins#update'    #update the quantity when you purchase
+  delete '/purchasedcoins/:id', to: 'purchasedcoins#destroy'
+  
+  #
 end
