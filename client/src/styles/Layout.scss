@@ -1,0 +1,9 @@
+@import '../styles/util-styles/template.module.scss';
+
+.header {
+   @extend .layout-template;
+}
+
+.footer {
+   @extend .layout-template;
+}

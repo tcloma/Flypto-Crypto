@@ -1,0 +1,12 @@
+@import './colors.module.scss';
+
+.layout-template {
+   background-color: $background-color;
+   color: $text-color;
+   outline: .2rem $text-color solid;
+  //  
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   min-height: 10vh;
+}
