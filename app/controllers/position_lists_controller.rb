@@ -1,0 +1,2 @@
+class PositionListsController < ApplicationController
+end

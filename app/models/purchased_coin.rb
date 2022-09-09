@@ -1,0 +1,2 @@
+class PurchasedCoin < ApplicationRecord
+end
