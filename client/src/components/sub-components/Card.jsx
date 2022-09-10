@@ -1,3 +1,4 @@
+
 const Card = ({ name, price }) => {
 
   const decimalCheck = (value) => {
