@@ -12,8 +12,8 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_09_09_192639) do
   create_table "position_lists", force: :cascade do |t|
-    t.integer "time_of_purchase"
-    t.integer "price_of_purchase"
+    t.string "time_of_purchase"
+    t.float "price_of_purchase"
     t.integer "purchased_coin_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_192639) do
     t.string "name"
     t.string "symbol"
     t.string "quantity"
+    t.float "price"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -30,9 +31,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_192639) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "password"
+    t.string "password_digest"
     t.string "email"
-    t.integer "funds"
+    t.float "funds"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

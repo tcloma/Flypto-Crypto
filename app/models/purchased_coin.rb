@@ -1,4 +1,4 @@
 class PurchasedCoin < ApplicationRecord
-  has_many :position_lists
   belongs_to :user
+  has_many :position_lists
 end

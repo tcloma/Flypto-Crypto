@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :password_digest
       t.string :email
-      t.integer :funds
+      t.float :funds
 
       t.timestamps
     end

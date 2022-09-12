@@ -4,6 +4,7 @@ class CreatePurchasedCoins < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :symbol
       t.string :quantity
+      t.float :price
       t.integer :user_id
 
       t.timestamps

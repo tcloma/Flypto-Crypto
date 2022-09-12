@@ -16,5 +16,4 @@ Rails.application.routes.draw do
   delete '/watchlists/:id', to: 'watchlist#destroy'
 
   
-  #
 end
