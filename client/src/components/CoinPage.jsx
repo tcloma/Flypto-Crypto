@@ -6,17 +6,18 @@ import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import ReactFC from 'react-fusioncharts';
 import moment from 'moment';
 import { useQuery } from "react-query";
-import axios from "axios"
+import { getCoin, getCoinGraphData } from '../coinApi';
 
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
 const CoinPage = () => {
-    const { isLoading, data } = useQuery('crypto', () =>
-    axios(`https://api.coincap.io/v2/assets/solana/history?interval=d1`)
-  );
   
+  let selectedCoin = 'bitcoin'
+  const { isLoading: coinLoading, data: specCoinData } = useQuery('coinData', () => getCoin(selectedCoin));
+  const { isLoading: graphLoading, data: graphData } = useQuery('graph', () => getCoinGraphData(selectedCoin));
 
-  const coinData = isLoading ? null : data.data.data
+
+  const coinData = graphData
 
   const newData = coinData?.map((day) => {
     const newObj = {};
@@ -28,8 +29,7 @@ const CoinPage = () => {
 
   const dataSource = {
     chart: {
-      caption: 'Bitcoin',
-      baseFont: 'Gilroy',
+      caption: `${specCoinData?.name}`,
       plotFillColor: '#2E5984',
       outCnvBaseFontColor: '#FFFFFF',
       drawFullAreaBorder: true,
@@ -38,7 +38,7 @@ const CoinPage = () => {
       setAdaptiveYMin: true,
       labelStep: 50,
       bgColor: '#222222',
-      subCaption: '(BTC)',
+      subCaption: `(${specCoinData?.symbol})`,
       xAxisName: 'Day',
       yAxisName: 'Price ($USD)',
       numberPrefix: '$',
@@ -55,11 +55,13 @@ const CoinPage = () => {
     dataSource: dataSource
   };
 
-    return(
-        <div>
-            <ReactFC {...chartConfigs} />
-        </div>
-    )
+  return (
+    <div className='coin-chart-container'>
+      <div className='coin-chart'>
+        {graphLoading ? <p>Loading ...</p> : <ReactFC {...chartConfigs} />}
+      </div>
+    </div>
+  )
 }
 
 export default CoinPage
