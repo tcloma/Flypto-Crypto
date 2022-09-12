@@ -19,15 +19,15 @@
 */
 * {
   margin: 0;
-  font-family: 'Open-sans', sans-serif;
 }
 
 /*
-  3. Allow percentage-based heights in the application
+3. Allow percentage-based heights in the application
 */
 html,
 body {
   height: 100%;
+  font-family: 'Gilroy';
 }
 
 /*
@@ -81,4 +81,9 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
 }

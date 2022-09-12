@@ -4,16 +4,24 @@ const Header = () => {
   return (
     <div className='header'>
       <Link to='/'>
-        <p> Nav1 </p>
+        <div className="logo-container">
+          <p style={{fontSize: '2em'}}> 🪙 </p>
+        </div>
       </Link>
-      <Link to='/'>
-        <p> Nav2 </p>
-      </Link>
-      <Link to='/'>
-        <p> Nav3 </p>
-      </Link>
-      <Link to='/'>
-        <p> Nav4 </p>
+      <div className="nav-buttons">
+        <Link to='/trade'>
+          <p> Trade </p>
+        </Link>
+        <Link to='/crypto'>
+          <p> Crypto </p>
+        </Link>
+        <Link to='/profile'>
+          <p> Profile </p>
+        </Link>
+      </div>
+
+      <Link to='/login'>
+        <p> Login </p>
       </Link>
     </div>
   )

@@ -1,0 +1,33 @@
+@import '../styles/util-styles/colors.module.scss';
+@import '../styles/util-styles/template.module.scss';
+
+.profile-container {
+  @extend .container-template;
+  padding: 1em 0em;
+}
+
+.portfolio-page {
+  display: flex;
+  flex-direction: column;
+  outline: 3px solid grey;
+  width: 85%;
+  min-height: 100vh;
+  gap: 1em;
+}
+
+.portfolio-graph {
+  outline: 3px solid red;
+  min-height: 30vh;
+  text-align: center;
+}
+
+.watchlist-container {
+  outline: 3px solid green;
+  display: flex;
+  justify-content: space-around;
+}
+
+.owned-coins-list {
+  outline: 3px solid yellow;
+  // justify-content: center;
+}

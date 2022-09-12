@@ -1,36 +1,98 @@
 @import '../styles/util-styles/colors.module.scss';
+@import '../styles/util-styles/template.module.scss';
 
 .App {
-  background-color: $background-color;
-  color: $text-color;
-  font-size: calc(10px + 2vmin);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+   @extend .container-template;
+   font-size: calc(10px + 2vmin);
+   min-height: 80vh;
+}
+
+.overlay
+{
+  position: absolute;
+  top: 50%;
+  left: 32%;
+  height: 2vw;
+  z-index: 0;
+}
+
+.button-home-div
+{
+  margin-top:20px;
+}
+
+#get-started
+{
+  border-radius: 20px;
+  font-size: 80%;
+  padding: 20px;
+  width: 50%;
+  background-color: #459DBA;
+  border-color: #459DBA;
+  color: white;
+  font-weight: bold;
+}
+
+#get-started:hover {
+  transition-duration: .5s;
+  background-color: white;
+  border-color: white;
+  color: black;
+  font-weight: normal;
+  cursor:pointer;
+}
+
+.home-video
+{
+  z-index: 1;
 }
 
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 1em;
-  gap: .5em;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   margin: 1em;
+   gap: 0.5em;
 }
 
+
+
 .card {
-  border: 3px solid $outline-color;
-  background-color: $accent-bg-color;
-  padding: 1em;
-  border-radius: .5em;
-  width: 20%;
-  height: 10rem;
+   border: 3px solid $outline-color;
+   background-color: $accent-bg-color;
+   padding: 1em;
+   border-radius: 0.5em;
+   width: 19%;
+   height: 10rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
 }
 
 .card:hover {
   transform: scale(1.02);
   transition-duration: .5s;
   border: 3px solid $highlight-color;
+  cursor:pointer;
 }
+
+.profile-container{
+  @extend .container-template;
+  min-height: 80vh;
+}
+
+#time-period
+{
+  position: absolute;
+  top:12%;
+  right: 15%;
+}
+
+.fusioncharts-container{
+  // display: inline-block !important;
+  // width: 50em !important;
+  // height: 50em !important;
+  // overflow: visible !important;
+}
+

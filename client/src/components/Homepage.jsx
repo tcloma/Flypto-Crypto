@@ -1,35 +1,60 @@
 import { useQuery } from "react-query";
-import axios from "axios"
 import Card from "./sub-components/Card";
+import backgroundImage from '../assets/background.mp4'
+import { getAllCoins } from "../coinApi";
 
-const Homepage = () => {
-  const { isLoading, data } = useQuery('crypto', () =>
-    axios(`https://api.coincap.io/v2/assets`)
-  );
-
-  const coinData = isLoading ? null : data.data.data
+const Homepage = ({setSelectedCoin}) => {
+  const { status, error, data: allCoins } = useQuery('coins', () => getAllCoins())
+  console.log('Fetch Status: ', status)
+  console.log('Data: ', allCoins)
 
   const renderCards = () => {
     return (
-      coinData.map((coin) => {
+      <div>
+      <video className="home-video" muted autoPlay loop>
+        <source src={backgroundImage} type="video/mp4"/>
+      </video>
+      <div className="overlay">
+          <h1>Flypto</h1>
+          <h5>Buy, sell, and exchange your cryptocurrency with no extra fees.</h5>
+          <div className='button-home-div'>
+            <button id='get-started' className='home-buttons'>Get Started</button>
+          </div>
+    </div>
+      <div className='card-container'>
+      {allCoins.slice(0,5).map((coin) => {
         return (
           <Card
+            setSelectedCoin={setSelectedCoin}
             key={coin.id}
+            id={coin.id}
             name={coin.name}
             price={coin.priceUsd}
           />
         )
-      })
+      })}
+      </div>
+      </div>
     )
   }
 
-  // console.log(error)
-  // if (error) return <div className="app"><h1> Error: {error.message}</h1></div>;
+  const renderContent = () => {
+    switch (status){
+      case 'success':
+        return renderCards()
+      case 'loading':
+        return <p> Loading... </p>
+      case 'error':
+        return <p> {error.message} </p>
+      default:
+        return null
+    }
+  }
 
   return (
     <div className="App">
       <div className="card-container">
-        {isLoading ? <p> Loading ...</p> : renderCards()}
+        {renderContent()}
       </div>
     </div>
   )

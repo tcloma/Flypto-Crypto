@@ -3,10 +3,19 @@
 .layout-template {
    background-color: $background-color;
    color: $text-color;
-   outline: .2rem $text-color solid;
-  //  
+   outline: 0.2rem $text-color solid;
    display: flex;
    justify-content: space-around;
    align-items: center;
    min-height: 10vh;
+}
+
+.container-template {
+   background-color: $background-color;
+   color: $text-color;
+   display: flex;
+   flex-flow: column;
+   align-items: center;
+   justify-content: center;
+   outline: 3px solid grey;
 }

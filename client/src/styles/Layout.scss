@@ -2,6 +2,13 @@
 
 .header {
    @extend .layout-template;
+   justify-content: space-between;
+   padding: 0em 1em;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 5em
 }
 
 .footer {
