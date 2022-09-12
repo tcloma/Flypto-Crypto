@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # User.rb routes
   get '/users', to: 'users#index'
   get '/me', to: 'users#show'
-  post '/users', to: 'users#create'     # params : name, password, email
+  post '/signup', to: 'users#create'     # params : name, password, email
   patch '/users/:id', to: 'users#update'    # params : funds
 
   post '/login', to: 'sessions#create'
