@@ -11,9 +11,16 @@ const Homepage = ({setSelectedCoin}) => {
   const renderCards = () => {
     return (
       <div>
-      <video muted autoPlay loop>
+      <video className="home-video" muted autoPlay loop>
         <source src={backgroundImage} type="video/mp4"/>
       </video>
+      <div className="overlay">
+          <h1>Flypto</h1>
+          <h5>Buy, sell, and exchange your cryptocurrency with no extra fees.</h5>
+          <div className='button-home-div'>
+            <button id='get-started' className='home-buttons'>Get Started</button>
+          </div>
+    </div>
       <div className='card-container'>
       {allCoins.map((coin) => {
         return (
