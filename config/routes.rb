@@ -16,5 +16,7 @@ Rails.application.routes.draw do
   delete '/watchlists/:id', to: 'watchlist#destroy'
 
   
-  #
+  # Cookie and Session route
+  get '/cookie_click', to: 'sessions#click'
+  get '/sessions', to: 'sessions#index'
 end
