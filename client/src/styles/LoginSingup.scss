@@ -1,0 +1,46 @@
+@import '../styles/util-styles/colors.module.scss';
+@import '../styles/util-styles/template.module.scss';
+
+.login-container {
+   @extend .container-template;
+   min-height: 80vh;
+}
+
+.form-header {
+   display: flex;
+   align-items: flex-start;
+   width: 80%;
+}
+
+.login-form {
+   @extend .container-template;
+   margin: 1em;
+   width: 50%;
+   height: 25em;
+   padding: 2em 1em;
+   gap: 1em;
+}
+
+.login-form input {
+   padding: 1em 2em;
+   width: 80%;
+}
+
+.login-form button {
+   min-height: 3.5em;
+   width: 80%;
+   border-radius: 1em;
+}
+
+.signup-name {
+   display: flex;
+   width: 80%;
+   gap: 0.5em;
+}
+
+.redirect-text {
+   @extend .container-template;
+   margin: 1em;
+   width: 50%;
+   height: 4em;
+}

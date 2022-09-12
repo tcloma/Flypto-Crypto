@@ -1,48 +1,36 @@
 @import '../styles/util-styles/colors.module.scss';
+@import '../styles/util-styles/template.module.scss';
 
 .App {
-  background-color: $background-color;
-  color: $text-color;
-  font-size: calc(10px + 2vmin);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+   @extend .container-template;
+   font-size: calc(10px + 2vmin);
+   min-height: 80vh;
 }
 
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 1em;
-  gap: .5em;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   margin: 1em;
+   gap: 0.5em;
 }
 
 .card {
-  border: 3px solid $outline-color;
-  background-color: $accent-bg-color;
-  padding: 1em;
-  border-radius: .5em;
-  width: 20%;
-  height: 10rem;
+   border: 3px solid $outline-color;
+   background-color: $accent-bg-color;
+   padding: 1em;
+   border-radius: 0.5em;
+   width: 20%;
+   height: 10rem;
 }
 
 .card:hover {
-  transform: scale(1.02);
-  transition-duration: .5s;
-  border: 3px solid $highlight-color;
+   transform: scale(1.02);
+   transition-duration: 0.5s;
+   border: 3px solid $highlight-color;
 }
 
-.coin-chart-container {
-  // background-color: red;
+.profile-container{
+  @extend .container-template;
   min-height: 80vh;
-}
-
-.fusioncharts-container{
-  // display: inline-block !important;
-  // width: 50em !important;
-  // height: 50em !important;
-  // overflow: visible !important;
 }

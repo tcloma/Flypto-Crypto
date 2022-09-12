@@ -4,7 +4,7 @@ import { getAllCoins } from "../coinApi";
 
 const Homepage = () => {
   const { status, error, data: allCoins } = useQuery('coins', () => getAllCoins())
-  console.log('Status', status)
+  console.log('Fetch Status: ', status)
   console.log('Data: ', allCoins)
 
   const renderCards = () => {
