@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <div className='header'>
-      <Link to='/'>
-        <p> Nav1 </p>
+      <Link to='/coin'>
+        <p> Bitcoin </p>
       </Link>
       <Link to='/'>
         <p> Nav2 </p>

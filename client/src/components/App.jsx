@@ -2,7 +2,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import React from "react";
 import Homepage from './Homepage';
 import Layout from './Layout';
-import CoinPage from './CoinPage'
+import CoinPage from './CoinPage.jsx'
 import '../styles/App.scss';
 import { QueryClient, QueryClientProvider } from 'react-query'
 
