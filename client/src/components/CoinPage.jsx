@@ -29,8 +29,14 @@ const CoinPage = () => {
   const dataSource = {
     chart: {
       caption: 'Bitcoin',
+      plotFillColor: '#2E5984',
+      outCnvBaseFontColor: '#FFFFFF',
+      drawFullAreaBorder: true,
+      showPlotBorder: true,
+      plotBorderThickness: 3,
       setAdaptiveYMin: true,
-      bgColor: '#FFFFFF',
+      labelStep: 50,
+      bgColor: '#222222',
       subCaption: '(BTC)',
       xAxisName: 'Day',
       yAxisName: 'Price ($USD)',
