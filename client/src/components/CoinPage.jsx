@@ -10,8 +10,8 @@ import { getCoin, getCoinGraphData } from '../coinApi';
 
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
-const CoinPage = () => {
-  let selectedCoin = 'bitcoin'
+const CoinPage = ({selectedCoin}) => {
+  
   const { isLoading: coinLoading, data: specCoinData } = useQuery('coinData', () => getCoin(selectedCoin));
   const { isLoading: graphLoading, data: graphData } = useQuery('graph', () => getCoinGraphData(selectedCoin));
 
@@ -31,6 +31,7 @@ const CoinPage = () => {
       caption: `${specCoinData?.name}`,
       plotFillColor: '#2E5984',
       outCnvBaseFontColor: '#FFFFFF',
+      baseFont: 'Gilroy',
       drawFullAreaBorder: true,
       showPlotBorder: true,
       plotBorderThickness: 3,

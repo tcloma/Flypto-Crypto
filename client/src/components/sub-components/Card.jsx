@@ -1,5 +1,14 @@
+import { useNavigate } from "react-router-dom";
 
-const Card = ({ name, price }) => {
+
+const Card = ({ name, price, id, setSelectedCoin }) => {
+  let navigate = useNavigate();
+
+  const getCoin = () => {
+    setSelectedCoin(id)
+    console.log(id)
+    navigate('/trade')
+  } 
 
   const decimalCheck = (value) => {
     if (value <= 2) {
@@ -14,7 +23,7 @@ const Card = ({ name, price }) => {
   }
 
   return (
-    <div className="card">
+    <div className="card" onClick={getCoin}>
       <h3> {name} </h3>
       <p> ${decimalCheck(price)} </p>
     </div>

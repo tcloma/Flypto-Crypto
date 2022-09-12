@@ -8,7 +8,6 @@ const Header = () => {
           <p style={{fontSize: '2em'}}> 🪙 </p>
         </div>
       </Link>
-
       <div className="nav-buttons">
         <Link to='/trade'>
           <p> Trade </p>
