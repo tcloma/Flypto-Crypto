@@ -1,11 +1,23 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import '../styles/LoginSingup.scss'
 
 
 const SignupPage = () => {
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(e.target)
+    const formData = {
+      'name': `${firstName} ${lastName}`,
+      'email': email,
+      'password': password
+    }
+    console.log(formData)
   }
 
   return (
@@ -15,11 +27,31 @@ const SignupPage = () => {
           <h1>Sign up</h1>
         </div>
         <div className="signup-name">
-          <input type='text' placeholder="First Name" />
-          <input type='text' placeholder="Last Name" />
+          <input
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+            type='text'
+            placeholder="First Name"
+          />
+          <input
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+            type='text'
+            placeholder="Last Name"
+          />
         </div>
-        <input type='text' placeholder="Email" />
-        <input type='password' placeholder="Password" />
+        <input
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          type='text'
+          placeholder="Email"
+        />
+        <input
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          type='password'
+          placeholder="Password"
+        />
         <button> Submit </button>
       </form>
       <div className="redirect-text">
