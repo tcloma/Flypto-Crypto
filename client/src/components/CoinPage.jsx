@@ -12,7 +12,7 @@ ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
 const CoinPage = () => {
     const { isLoading, data } = useQuery('crypto', () =>
-    axios(`https://api.coincap.io/v2/assets/bitcoin/history?interval=d1`)
+    axios(`https://api.coincap.io/v2/assets/solana/history?interval=d1`)
   );
   
 
@@ -29,6 +29,7 @@ const CoinPage = () => {
   const dataSource = {
     chart: {
       caption: 'Bitcoin',
+      baseFont: 'Gilroy',
       plotFillColor: '#2E5984',
       outCnvBaseFontColor: '#FFFFFF',
       drawFullAreaBorder: true,

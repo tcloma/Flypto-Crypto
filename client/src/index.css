@@ -19,7 +19,6 @@
 */
 * {
   margin: 0;
-  font-family: 'Open-sans', sans-serif;
 }
 
 /*
@@ -28,6 +27,7 @@
 html,
 body {
   height: 100%;
+  font-family: 'Gilroy';
 }
 
 /*
