@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   patch '/users/:id', to: 'users#update'    # params : funds
 
   post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
 
   # PurchasedCoins.rb routes
   get '/purchasedcoins', to: 'purchasedcoins#index'

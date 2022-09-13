@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize, only: :create
-  # before_action :authorize, only: [:show]
+  # before_action :authorize
+  # skip_before_action :authorize, only: :create
+  before_action :authorize, only: [:show]
+  # skip_before_filter :verify_authenticity_token 
 
   def create
-    user = User.create(user_params)
+    user = User.create!(user_params)
     if user.valid?
       session[:user_id] = user.id
       render json: user, status: :created
@@ -19,7 +21,7 @@ class UsersController < ApplicationController
 
   private
   def user_params 
-    params.permit(:name, :email, :password)
+    params.permit(:name, :email, :password, :funds)
   end
 
 end
