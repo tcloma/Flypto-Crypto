@@ -1,15 +1,9 @@
 Rails.application.routes.draw do
   # User.rb routes
   get '/users', to: 'users#index'
-<<<<<<< HEAD
-  get '/users/:id', to: 'users#show'       # staying logged in 
-  post '/signup', to: 'users#create'     # params : name, password, email
-  patch '/users/:id', to: 'users#update'    # params : funds
-=======
   get '/me', to: 'users#show'       # staying logged in 
   post '/signup', to: 'users#create'     # params : name, password, email, funds
   patch '/users', to: 'users#update'    # params : funds
->>>>>>> main
 
   # Login and Logout Routes - Sessions
   get '/login', to: 'sessions#login'
@@ -32,17 +26,10 @@ Rails.application.routes.draw do
   delete '/purchasedcoins/:id', to: 'purchased_coins#destroy'
   
 
-<<<<<<< HEAD
-  # WatchList.rb routes
-  get '/watchlists', to: 'watchlists#index'
-  get '/watchlists/:id', to: 'watchlists#show'
-  delete '/watchlists/:id', to: 'watchlist#destroy' 
-=======
   # PositionList.rb routes
   get '/positionlists', to: "position_lists#index"
   get '/positionlists/:id', to: "position_lists#show"
   post '/positionlists', to: "position_lists#create"
 
   
->>>>>>> main
 end

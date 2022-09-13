@@ -10,7 +10,7 @@ const SignupPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [username, setUsername] = useState('')
-  const [signUp, setSignUp] = useState([])
+  // const [signUp, setSignUp] = useState([])
 
 
   const handleSubmit = ((e) => {
@@ -20,7 +20,7 @@ const SignupPage = () => {
       'email': email,
       'password': password
     }
-    fetch('http://localhost:3000/signup', {
+    fetch('/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ const SignupPage = () => {
 
   return (
     <div className="login-container">
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleSubmit}>
         <div className="form-header">
           <h1>Sign up</h1>
         </div>
@@ -87,19 +87,19 @@ const SignupPage = () => {
           placeholder="Email"
         />
         {/* ******* Adding username input ******* */}
-        <input
+        {/* <input
           value={username}
           onChange={e => setUsername(e.target.value)}
           type='text'
           placeholder='Username'
-        />
+        /> */}
         <input
           value={password}
           onChange={e => setPassword(e.target.value)}
           type='password'
           placeholder="Password"
         />
-        <button onSubmit={e => handleSubmit(e)}> Submit </button>
+        <button> Submit </button>
       </form>
       <div className="redirect-text">
         <p> Already have an account? <Link to='/login'>Login</Link> </p>
