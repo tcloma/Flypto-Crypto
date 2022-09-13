@@ -13,6 +13,7 @@ ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 const CoinPage = ({selectedCoin}) => {
 
   const [timePeriod, setTimePeriod] = useState('m1')
+  const [transaction, setTransaction] = useState('buy')
 
   const { isLoading: coinLoading, data: specCoinData } = useQuery('coinData', () => getCoin(selectedCoin));
   const { isLoading: graphLoading, data: graphData, refetch} = useQuery(timePeriod, () => getCoinGraphData(selectedCoin, timePeriod));
@@ -62,8 +63,8 @@ const CoinPage = ({selectedCoin}) => {
 
   const chartConfigs = {
     type: 'area2d',
-    width: 1800,
-    height: 500,
+    width: "70%",
+    height: "60%",
     dataFormat: 'json',
     dataSource: dataSource
   };
@@ -73,12 +74,27 @@ const CoinPage = ({selectedCoin}) => {
     refetch();
   }
 
+  const renderTrade = () => {
+    if(transaction === 'buy')
+    {
+        return(
+            <div className='buy-input-container'>
+                <form>
+                <input type="text" id='amount-input-buy' name="amount" />
+                <h2>{specCoinData?.symbol}</h2>
+                <input id='buy-button' type="submit" value="Buy" />
+                </form>
+            </div>
+        )
+        }
+  }
+
   return (
+    <div>
     <div className='coin-chart-container'>
       <div className='coin-chart'>
         {graphLoading ? <p>Loading ...</p> : <ReactFC {...chartConfigs} />}
-      </div>
-    <div className='time-choices'>
+        <div className='time-choices'>
         {/* <label htmlFor="day">Today</label>
         <input onClick={()=> {setTimePeriod('m1'); refetch()}} type="radio" id="day" name="time-period-setter" value="day"/>
         <label htmlFor="month">This Month</label>
@@ -90,6 +106,23 @@ const CoinPage = ({selectedCoin}) => {
             <option value="h1">This Month</option>
             <option value="d1">This Year</option>
         </select>
+    </div>
+      </div>
+    <div className='buy-sell-container'>
+        <div className='info-container'>
+            <h2>Trade</h2>
+        </div>
+        <div className='info-button-container'>
+            <button onClick={()=> setTransaction('buy')} className='info-buttons'>Buy</button>
+            <button onClick={()=> setTransaction('sell')} className='info-buttons'>Sell</button>
+            <button onClick={()=> setTransaction('convert')} className='info-buttons'>Convert</button>
+        </div>
+        <div className='trade-component'>
+            {renderTrade()}
+        </div>
+    </div>
+    </div>
+    <div className='coin-extra-info'>
     </div>
     </div>
   )
