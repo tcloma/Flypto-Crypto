@@ -3,32 +3,67 @@
 
 .profile-container {
   @extend .container-template;
-  padding: 1em 0em;
-  padding-top: 4em;
+  // padding: 4em 0em;
+  padding-top: 6em;
 }
 
 .portfolio-page {
   display: flex;
   flex-direction: column;
-  outline: 3px solid grey;
-  width: 85%;
+  // outline: 3px solid $text-color-dark;
+  box-shadow: 7px 7px 0px $shadow-color;
+  width: 100%;
   min-height: 100vh;
   gap: 1em;
+  align-items: center;
+  background-color: $background-color;
 }
 
 .portfolio-graph {
-  outline: 3px solid red;
-  min-height: 30vh;
+  // outline: 3px solid $accent-color;
+  box-shadow: 7px 7px 0px $accent-color;
+  background-color: $off-background-color;
+  min-height: 40vh;
   text-align: center;
+  width: 85%;
 }
 
 .watchlist-container {
-  outline: 3px solid green;
+  // outline: 3px solid green;
   display: flex;
-  justify-content: space-around;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+  background-color: $background-color;
+  min-height: 40vh;
+  padding-top: 1em;
 }
 
-.owned-coins-list {
-  outline: 3px solid yellow;
-  // justify-content: center;
+.watchlist-container h2 {
+  position: absolute;
+  // align-self: center;
+  top: 1em;
+}
+
+
+
+.owned-coins-table {
+  background-color: $off-background-color;
+  box-shadow: 4px 4px 0px $shadow-color;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.owned-coins-table td {
+  padding: 1em;
+  border: 0;
+}
+
+.owned-coins-table tbody tr:nth-child(odd){
+  background-color: $background-color;
+}
+
+.owned-coins-table tbody tr:nth-child(even){
+  background-color: $accent-color;
 }

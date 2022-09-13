@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export const decimalCheck = (value) => {
+export const decimalRound = (value) => {
   if (value <= 2) {
     return Number.parseFloat(value).toFixed(5)
   }
@@ -12,21 +12,39 @@ export const decimalCheck = (value) => {
   }
 }
 
+const twoDecimalPlaces = (number) => {
+  return parseFloat(number).toFixed(2)
+}
+
 const Card = ({ name, price, id, setSelectedCoin, change24Hr }) => {
   let navigate = useNavigate();
 
-  console.log(change24Hr)
+  // console.log(change24Hr)
   const getCoin = () => {
     setSelectedCoin(id)
     console.log(id)
     navigate('/trade')
-  } 
+  }
+
+  const priceChangeColor = () => {
+    if (change24Hr > 0) {
+      return 'price-up'
+    }
+    else if (change24Hr < 0) {
+      return 'price-down'
+    }
+  }
 
   return (
     <div className="card" onClick={getCoin}>
       <h3> {name} </h3>
-      <p> ${decimalCheck(price)} </p>
-      {change24Hr !== undefined ? <p> { parseFloat(change24Hr).toFixed(2) } % </p> : null }
+      <p> ${decimalRound(price)} </p>
+      {change24Hr !== undefined ?
+        <p className={priceChangeColor()}>
+          {change24Hr > 0 ? '▲' : '▼'}
+          {change24Hr > 0 ? twoDecimalPlaces(change24Hr) : twoDecimalPlaces(change24Hr) * -1}%
+        </p>
+        : null}
     </div>
   )
 }

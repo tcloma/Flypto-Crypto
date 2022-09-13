@@ -25,12 +25,24 @@ class UsersController < ApplicationController
     else
       render json: {error: 'Not Authorize'}
     end
+  end
 
+  def update 
+    user = User.find_by(id: session[:user_id])
+    if user.update(patch_params)
+      render json: user, status: :created
+    else 
+      render json: {error: user.errors.full_messages}
+    end
   end
 
   private
   def user_params 
     params.permit(:name, :email, :password, :funds)
+  end
+
+  def patch_params
+    params.permit(:funds)
   end
 
 end

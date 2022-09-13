@@ -3,26 +3,44 @@
 
 .crypto-page-container {
   @extend .container-template;
-  min-height: 80vh;
-  padding-top: 4em;
-  // width: 100%
+  min-height: 90vh;
+  padding-top: 6em;
+  gap: 1em
 }
 
 .fastest-growing-cards {
   @extend .container-template;
+  justify-content: space-between;
   flex-direction: row;
-  width: 80vw
+  width: 80vw;
+  gap: 1em;
+}
+
+.growth-selector{
+  display: flex;
+  // gap: 1em;
+  font-size: 1.2em; 
 }
 
 .coins-table {
-  border: 1px solid $shadow-color;
+  box-shadow: 4px 4px 0px $shadow-color;
+  border-collapse: collapse;
   width: 80vw;
 }
 
+.coins-table thead {
+  background-color: $accent-color;
+}
+
+.coins-table td {
+  padding: 1em;
+  border: 0;
+}
+
 .coins-table tbody tr:nth-child(odd){
-  background-color: red;
+  background-color: $off-background-color;
 }
 
 .coins-table tbody tr:nth-child(even){
-  background-color: green;
+  background-color: $accent-color;
 }

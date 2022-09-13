@@ -4,7 +4,7 @@
 .App {
    @extend .container-template;
    font-size: calc(10px + 2vmin);
-   min-height: 80vh;
+   min-height: 90vh;
 }
 
 .coin-chart-container
@@ -112,6 +112,23 @@
    flex-direction: column;
    align-items: center;
    justify-content: center;
+   position: relative;
+}
+
+.corner-price-change{
+  position: absolute;
+  top: .5em;
+  right: .5em;
+}
+
+.price-up {
+  @extend .corner-price-change;
+  color: green
+}
+
+.price-down {
+  @extend .corner-price-change;
+  color: red;
 }
 
 .card:hover {

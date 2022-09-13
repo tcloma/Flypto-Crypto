@@ -1,49 +1,47 @@
 import '../styles/Crypto.scss'
 import { getAllCoins } from '../coinApi'
-import { decimalCheck } from './sub-components/Card'
+import { decimalRound } from './sub-components/Card'
 import { useQuery } from 'react-query'
 import Card from './sub-components/Card'
+import { useState } from 'react'
 
-const CryptoPage = () => {
+const CryptoPage = ({ setSelectedCoin }) => {
   const { status, error, data: allCoins } = useQuery('all-coins', () => getAllCoins())
 
-  const highestGrowthCoins = allCoins?.slice()?.sort((coin1, coin2) => {
+  const [bullOrBear, setBullOrBear] = useState('win')
+
+  const sortParams = (coin1, coin2) => {
+    if (bullOrBear === 'bull') {
+      return coin2.changePercent24Hr - coin1.changePercent24Hr
+    } else if (bullOrBear === 'bear') {
+      return coin1.changePercent24Hr - coin2.changePercent24Hr
+    }
+  }
+
+  const winnerLoserCoin = allCoins?.slice()?.sort((coin1, coin2) => {
     return (
-      coin2.changePercent24Hr - coin1.changePercent24Hr
-    )
-  })
-  const lowestGrowthCoins = allCoins?.slice()?.sort((coin1, coin2) => {
-    return (
-      coin1.changePercent24Hr - coin2.changePercent24Hr
+      sortParams(coin1, coin2)
     )
   })
 
-  console.log('Growth Coins: ', highestGrowthCoins?.slice(0, 5))
-  console.log('Lowvalue Coins: ', lowestGrowthCoins?.slice(0, 5))
-  console.log('Fetch status: ', status)
+  // console.log('Growth Coins: ', highestGrowthCoins?.slice(0, 5))
+  // console.log('Lowvalue Coins: ', lowestGrowthCoins?.slice(0, 5))
+  // console.log('Fetch status: ', status)
   // console.log('Data: ', allCoins)
 
   return (
     <div className="crypto-page-container">
-      <h1> Crypto Page </h1>
       <div className='fastest-growing'>
-        <p>Growth in 24h</p>
-        <div className='fastest-growing-cards'>
-          {highestGrowthCoins?.slice(0, 5)?.map(coin => {
-            return (
-              <Card
-                key={coin.id}
-                name={coin.name}
-                price={coin.priceUsd}
-                change24Hr={coin.changePercent24Hr}
-              />
-            )
-          })}
+        <div className='growth-selector'>
+          <button onClick={() => setBullOrBear('bull')}>Bull</button>
+          <button onClick={() => setBullOrBear('bear')}>Bear</button>
         </div>
         <div className='fastest-growing-cards'>
-          {lowestGrowthCoins?.slice(0, 5)?.map(coin => {
+          {winnerLoserCoin?.slice(0, 5)?.map(coin => {
             return (
               <Card
+                setSelectedCoin={setSelectedCoin}
+                id={coin.id}
                 key={coin.id}
                 name={coin.name}
                 price={coin.priceUsd}
@@ -67,7 +65,7 @@ const CryptoPage = () => {
               <tr key={coin.id}>
                 <td> {coin.symbol} </td>
                 <td> {coin.name} </td>
-                <td> {decimalCheck(coin.priceUsd)} </td>
+                <td> {decimalRound(coin.priceUsd)} </td>
               </tr>
             )
           })}
