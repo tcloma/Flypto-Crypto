@@ -6,6 +6,7 @@ import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import ReactFC from 'react-fusioncharts';
 import moment from 'moment';
 import { useQuery } from "react-query";
+import { decimalCheck } from './sub-components/Card'
 import { getCoin, getCoinGraphData } from '../coinApi';
 
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
@@ -28,7 +29,7 @@ const CoinPage = ({selectedCoin}) => {
     let date;
     if(timePeriod === 'm1')
     {
-        date = moment(day.date).format('LT');
+        date = moment(day.date).format('h A');
     }
     if(timePeriod === 'h1')
     {
@@ -43,6 +44,19 @@ const CoinPage = ({selectedCoin}) => {
     return newObj
   })
 
+  const extraCoinInfoFormatter = (num) => {
+        if (num >= 1000000000) {
+           return (num / 1000000000).toFixed(1) + 'B';
+        }
+        if (num >= 1000000) {
+           return (num / 1000000).toFixed(1) + 'M';
+        }
+        if (num >= 1000) {
+           return (num / 1000).toFixed(1) + 'K';
+        }
+        return num;
+  }
+
   const dataSource = {
     chart: {
       caption: `${specCoinData?.name}`,
@@ -53,7 +67,7 @@ const CoinPage = ({selectedCoin}) => {
       showPlotBorder: true,
       plotBorderThickness: 3,
       setAdaptiveYMin: true,
-      labelStep: 80,
+      labelStep: 100,
       bgColor: '#222222',
       subCaption: `(${specCoinData?.symbol})`,
       xAxisName: 'Day',
@@ -61,12 +75,41 @@ const CoinPage = ({selectedCoin}) => {
       numberPrefix: '$',
       theme: 'fusion'
     },
+    annotations: {
+        autoScale: '1',
+        showBelow: '0',
+        groups: [{
+            id: 'price-displays',
+            items: [{
+                id: 'price-display',
+                fillcolor: "#FFFFFF",
+                fontsize: "26",
+                type: "text",
+                bold: 1,
+                text: `$${parseFloat(specCoinData?.priceUsd).toFixed(2)}`,
+                x: "$canvasEndY-220",
+                y: "$canvasEndY - 336",
+            },
+            {
+                id: 'price-display',
+                fillcolor: specCoinData?.changePercent24Hr > 0 ? "39FF14" : "#ff0000",
+                fontsize: "12",
+                italic: 1,
+                type: "text",
+                bold: 1,
+                text: `(${parseFloat(specCoinData?.changePercent24Hr).toFixed(2)}%)`,
+                x: "$canvasEndY-220",
+                y: "$canvasEndY-316",
+            }]
+            
+        }]
+    },
     data: newData
   };
 
   const chartConfigs = {
     type: 'area2d',
-    width: "70%",
+    width: "65%",
     height: "60%",
     dataFormat: 'json',
     dataSource: dataSource
@@ -93,12 +136,12 @@ const CoinPage = ({selectedCoin}) => {
     if(fromBTC)
     {
         const convertedAmount = (value*specCoinData?.priceUsd)
-        setUSDAmount(() => parseFloat(convertedAmount).toFixed(2))
+        setUSDAmount(() => decimalCheck(convertedAmount))
     }
     else
     {
         const convertedAmount = (value/specCoinData?.priceUsd)
-        setCryptoAmount(() => parseFloat(convertedAmount).toFixed(2))
+        setCryptoAmount(() => decimalCheck(convertedAmount))
     }
   }
 
@@ -111,9 +154,8 @@ const CoinPage = ({selectedCoin}) => {
     if(transaction === 'buy')
     {
         return(
-            <div>
             <div className='buy-input-container'>
-                <form>
+                <form id='buy-input-form'>
                 <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
                 <h2>{fromBTC ? specCoinData?.symbol : 'USD'}</h2>
                 <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}`: `${specCoinData?.symbol}-USD`}</button>
@@ -121,25 +163,17 @@ const CoinPage = ({selectedCoin}) => {
                 </form>
                 <h2 id='result-amount'>{fromBTC ? `$${usdAmount}` : `${cryptoAmount} ${specCoinData.symbol}`}</h2>
             </div>
-            </div>
         )
         }
   }
 
   return (
-    <div>
-        <h2 style={{"color":"white", "background-color": "#322f57"}}>{`$${parseFloat(specCoinData?.priceUsd).toFixed(2)}`}</h2>
-        <h4 style= {{"color":"red", "background-color": "#322f57"}}>(${parseFloat(specCoinData?.changePercent24Hr).toFixed(2)}%)</h4>
+    <div className='full-page-container'>
     <div className='coin-chart-container'>
       <div className='coin-chart'>
         {graphLoading ? <p>Loading ...</p> : <ReactFC {...chartConfigs} />}
         <div className='time-choices'>
-        {/* <label htmlFor="day">Today</label>
-        <input onClick={()=> {setTimePeriod('m1'); refetch()}} type="radio" id="day" name="time-period-setter" value="day"/>
-        <label htmlFor="month">This Month</label>
-        <input onClick={()=> {setTimePeriod('h1'); refetch()}} type="radio" id="month" name="time-period-setter" value="month"/>
-        <label htmlFor="year">This Year</label>
-        <input onClick={()=> {setTimePeriod('d1'); refetch()}} type="radio" id="year" name="time-period-setter" value="year"/> */}
+    
         <select  onChange={selectTimePeriod} name="time-period" id="time-period">
             <option value="m1">Today</option>
             <option value="h1">This Month</option>
@@ -162,6 +196,20 @@ const CoinPage = ({selectedCoin}) => {
     </div>
     </div>
     <div className='coin-extra-info'>
+        <div className='coin-extra-info-container'>
+        <div className='coin-extra-info-element'>
+        <h4>Market Cap</h4>
+        <p>{`$${extraCoinInfoFormatter(specCoinData?.marketCapUsd)}`}</p>
+        </div>
+        <div className='coin-extra-info-element'>
+        <h4>Volume (24hr)</h4>
+        <p>{`$${extraCoinInfoFormatter(specCoinData?.volumeUsd24Hr)}`}</p>
+        </div >
+        <div className='coin-extra-info-element'>
+        <h4>Supply</h4>
+        <p>{`${extraCoinInfoFormatter(specCoinData?.supply)} ${specCoinData?.symbol}`}</p>
+        </div>
+    </div>
     </div>
     </div>
   )
