@@ -13,50 +13,50 @@ const SignupPage = () => {
   const [signUp, setSignUp] = useState([])
 
 
-  // const handleSubmit = ((e) => {
-  //   e.preventDefault()
-  //   const formData = {
-  //     'name': `${firstName} ${lastName}`,
-  //     'email': email,
-  //     'password': password
-  //   }
-  //   fetch('/signup', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({formData})
-  //   })
-  //   .then((res) => res.json())
-  //   .then((data) => setSignUp(data))
-  //   console.log(formData)
-  // }, [])
-
   const handleSubmit = ((e) => {
-    // setFirstName('')
-    // setLastName('')
-    // setEmail('')
-    // setPassword('')
-    // setUsername('')
-
     e.preventDefault()
-      fetch('/signup', {
+    const formData = {
+      'name': `${firstName} ${lastName}`,
+      'email': email,
+      'password': password
+    }
+    fetch('http://localhost:3000/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        name: firstName,
-        last_name: lastName,
-        email: email,
-        username: username,
-        password_digest: password
-      })
+      body: JSON.stringify(formData)
     })
-      .then((res) => res.json())
-      .then(data => console.log(data))
-      // .then(data => setSignUp(data))
-  }, [])
+    .then((res) => res.json())
+    .then((data) => {console.log(data)})
+    // console.log(formData)
+  })
+
+  // const handleSubmit = ((e) => {
+  //   // setFirstName('')
+  //   // setLastName('')
+  //   // setEmail('')
+  //   // setPassword('')
+  //   // setUsername('')
+
+  //   e.preventDefault()
+  //     fetch('http:/', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       name: firstName,
+  //       last_name: lastName,
+  //       email: email,
+  //       username: username,
+  //       password: password
+  //     })
+  //   })
+  //     .then((res) => res.json())
+  //     .then(data => console.log(data))
+  //     // .then(data => setSignUp(data))
+  // }, [])
 
 
 
