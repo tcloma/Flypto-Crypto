@@ -6,7 +6,7 @@ import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import ReactFC from 'react-fusioncharts';
 import moment from 'moment';
 import { useQuery } from "react-query";
-import { decimalCheck } from './sub-components/Card'
+import { decimalRound } from './sub-components/Card'
 import { getCoin, getCoinGraphData } from '../coinApi';
 
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
@@ -136,12 +136,12 @@ const CoinPage = ({selectedCoin}) => {
     if(fromBTC)
     {
         const convertedAmount = (value*specCoinData?.priceUsd)
-        setUSDAmount(() => decimalCheck(convertedAmount))
+        setUSDAmount(() => decimalRound(convertedAmount))
     }
     else
     {
         const convertedAmount = (value/specCoinData?.priceUsd)
-        setCryptoAmount(() => decimalCheck(convertedAmount))
+        setCryptoAmount(() => decimalRound(convertedAmount))
     }
   }
 
