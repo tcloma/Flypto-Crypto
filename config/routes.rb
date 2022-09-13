@@ -1,23 +1,26 @@
 Rails.application.routes.draw do
   # User.rb routes
   get '/users', to: 'users#index'
-  get '/users/:id', to: 'users#show'
-  post '/users', to: 'users#create'     # params : name, password, email
+  get '/users/:id', to: 'users#show'       # staying logged in 
+  post '/signup', to: 'users#create'     # params : name, password, email
   patch '/users/:id', to: 'users#update'    # params : funds
 
-  get '/me', to: 'users#show'   # Staying LogedIn
+  # Login and Logout Routes - Sessions
+  get '/login', to: 'sessions#login'
+  post '/login', to: 'sessions#create'
+  post '/logout', to: 'sessions#destroy'
+  delete '/logout', to: 'sessions#destroy'
+
 
   # PurchasedCoins.rb routes
-  get '/purchasedcoins', to: 'purchasedcoins#index'
-  patch '/purchasedcoins/:id', to: 'purchasedcoins#update'    #update the quantity when you purchase
+  get '/purchasedcoins', to: 'purchased_coins#index'
+  get '/purchasedcoins/:id', to: 'purchased_coins#show'
+  # post '/'
+  patch '/purchasedcoins/:id', to: 'purchased_coins#update'    #update the quantity when you purchase
   delete '/purchasedcoins/:id', to: 'purchasedcoins#destroy'
 
   # WatchList.rb routes
   get '/watchlists', to: 'watchlists#index'
   get '/watchlists/:id', to: 'watchlists#show'
   delete '/watchlists/:id', to: 'watchlist#destroy' 
-
-  # Sessions Controller
-  post '/login', to: 'sessions#create' # Create new user login
-  delete '/logout', to: 'sessions#destroy'  # Logging Out
 end

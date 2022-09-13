@@ -1,6 +1,10 @@
 {
   "dependencies": {
+<<<<<<< HEAD
+    "prefix": "^1.0.0"
+=======
     "moment": "^2.29.4",
     "react-fusioncharts": "^4.0.0"
+>>>>>>> main
   }
 }
