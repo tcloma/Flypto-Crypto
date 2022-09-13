@@ -7,6 +7,13 @@
    min-height: 80vh;
 }
 
+.coin-chart-container
+{
+    display: flex;
+    justify-content: center;
+    background-color: $background-color;
+}
+
 .overlay
 {
   position: absolute;
@@ -15,6 +22,10 @@
   height: 2vw;
   z-index: 0;
   color: $text-color-light;
+}
+
+.trade-component
+{
 }
 
 .button-home-div
@@ -79,6 +90,48 @@
   cursor:pointer;
 }
 
+#amount-input-buy
+{
+  margin: auto;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  background-color: $background-color;
+  width:50%;
+  font-size: 2em;
+}
+#swap-button
+{
+  margin: auto;
+  width: 50%;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.buy-input-container
+{
+  position: relative;
+  top: 50px;
+  width:90%;
+  display: flex;
+  justify-content: center;
+}
+
+.trade-component
+{
+  display: flex;
+  justify-content: center;
+}
+
+#result-amount
+{
+  width:150px;
+  font-size: vmax;
+  position: relative;
+  right: 10%;
+}
+
 .profile-container{
   @extend .container-template;
   min-height: 80vh;
@@ -87,6 +140,62 @@
 #time-period
 {
   position: absolute;
-  top:12%;
-  right: 15%;
+  left: 10%;
+  bottom: 77%;
+  border-radius: 10px;
+  // font-weight: bold;
+  padding: 5px;
+}
+
+#buy-button
+{
+  position: relative;
+  top: 30%;
+  left: 48%;
+  width: 70%;
+  border-radius: 10px;
+  font-weight: bold;
+  padding: 15px;
+}
+
+.buy-sell-container
+{
+  min-width: 25vw;
+  min-height: 10vw;
+  background-color: $background-color;
+  color: white;
+  margin-left: 1%;
+}
+
+.info-container
+{
+  display:flex;
+  justify-content: center;
+  border: 2px solid white;
+  margin: 4%;
+}
+
+.info-buttons
+{
+  margin: auto;
+  width: 30%;
+  border-radius: 10px;
+  font-size: 80%;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.info-buttons:hover {
+  transition-duration: .5s;
+  background-color: white;
+  border-color: white;
+  color: black;
+  cursor:pointer;
+}
+
+.info-button-container
+{
+  display:flex;
+  justify-content: center;
+  margin: 4%;
 }
