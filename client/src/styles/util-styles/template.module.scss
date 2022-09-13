@@ -2,8 +2,8 @@
 
 .layout-template {
    background-color: $background-color;
-   color: $text-color;
-   outline: 0.2rem $text-color solid;
+   color: $text-color-dark;
+   outline: 0.2rem $shadow-color solid;
    display: flex;
    justify-content: space-around;
    align-items: center;
@@ -12,10 +12,10 @@
 
 .container-template {
    background-color: $background-color;
-   color: $text-color;
+   color: $text-color-dark;
    display: flex;
    flex-flow: column;
    align-items: center;
    justify-content: center;
-   outline: 3px solid grey;
+  //  outline: 3px solid $shadow-color;
 }

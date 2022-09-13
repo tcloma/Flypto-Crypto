@@ -7,6 +7,13 @@
    min-height: 80vh;
 }
 
+.coin-chart-container
+{
+    display: flex;
+    justify-content: center;
+    background-color: $background-color;
+}
+
 .overlay
 {
   position: absolute;
@@ -14,6 +21,11 @@
   left: 32%;
   height: 2vw;
   z-index: 0;
+  color: $text-color-light;
+}
+
+.trade-component
+{
 }
 
 .button-home-div
@@ -27,9 +39,10 @@
   font-size: 80%;
   padding: 20px;
   width: 50%;
-  background-color: #459DBA;
-  border-color: #459DBA;
-  color: white;
+  background-color:$accent-color;
+  border-color: $accent-color;
+  border: none;
+  color: $text-color-light;
   font-weight: bold;
 }
 
@@ -37,8 +50,8 @@
   transition-duration: .5s;
   background-color: white;
   border-color: white;
-  color: black;
-  font-weight: normal;
+  color: #459DBA;
+  font-weight: bold;
   cursor:pointer;
 }
 
@@ -53,16 +66,16 @@
    justify-content: center;
    margin: 1em;
    gap: 0.5em;
+   width: 100%;
 }
 
 
 
 .card {
-   border: 3px solid $outline-color;
-   background-color: $accent-bg-color;
+   box-shadow: 4px 4px 0px $shadow-color;
+   background-color: $off-background-color;
    padding: 1em;
-   border-radius: 0.5em;
-   width: 19%;
+   width: 18%;
    height: 10rem;
    display: flex;
    flex-direction: column;
@@ -73,8 +86,50 @@
 .card:hover {
   transform: scale(1.02);
   transition-duration: .5s;
-  border: 3px solid $highlight-color;
+  box-shadow: 6px 6px 0px $accent-color;
   cursor:pointer;
+}
+
+#amount-input-buy
+{
+  margin: auto;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  background-color: $background-color;
+  width:50%;
+  font-size: 2em;
+}
+#swap-button
+{
+  margin: auto;
+  width: 50%;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.buy-input-container
+{
+  position: relative;
+  top: 50px;
+  width:90%;
+  display: flex;
+  justify-content: center;
+}
+
+.trade-component
+{
+  display: flex;
+  justify-content: center;
+}
+
+#result-amount
+{
+  width:150px;
+  font-size: vmax;
+  position: relative;
+  right: 10%;
 }
 
 .profile-container{
@@ -85,14 +140,62 @@
 #time-period
 {
   position: absolute;
-  top:12%;
-  right: 15%;
+  left: 10%;
+  bottom: 77%;
+  border-radius: 10px;
+  // font-weight: bold;
+  padding: 5px;
 }
 
-.fusioncharts-container{
-  // display: inline-block !important;
-  // width: 50em !important;
-  // height: 50em !important;
-  // overflow: visible !important;
+#buy-button
+{
+  position: relative;
+  top: 30%;
+  left: 48%;
+  width: 70%;
+  border-radius: 10px;
+  font-weight: bold;
+  padding: 15px;
 }
 
+.buy-sell-container
+{
+  min-width: 25vw;
+  min-height: 10vw;
+  background-color: $background-color;
+  color: white;
+  margin-left: 1%;
+}
+
+.info-container
+{
+  display:flex;
+  justify-content: center;
+  border: 2px solid white;
+  margin: 4%;
+}
+
+.info-buttons
+{
+  margin: auto;
+  width: 30%;
+  border-radius: 10px;
+  font-size: 80%;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.info-buttons:hover {
+  transition-duration: .5s;
+  background-color: white;
+  border-color: white;
+  color: black;
+  cursor:pointer;
+}
+
+.info-button-container
+{
+  display:flex;
+  justify-content: center;
+  margin: 4%;
+}
