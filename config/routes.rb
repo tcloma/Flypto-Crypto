@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   # User.rb routes
   get '/users', to: 'users#index'
-  get '/me', to: 'users#show'
+  get '/me', to: 'users#show'       # staying logged in 
   post '/signup', to: 'users#create'     # params : name, password, email
   patch '/users/:id', to: 'users#update'    # params : funds
 
+
+  # Login and Logout Routes
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
