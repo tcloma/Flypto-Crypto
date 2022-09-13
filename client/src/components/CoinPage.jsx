@@ -14,6 +14,8 @@ const CoinPage = ({selectedCoin}) => {
 
   const [timePeriod, setTimePeriod] = useState('m1')
   const [transaction, setTransaction] = useState('buy')
+  const [cryptoAmount, setCryptoAmount] = useState(0)
+  const [usdAmount, setUSDAmount] = useState(0)
 
   const { isLoading: coinLoading, data: specCoinData } = useQuery('coinData', () => getCoin(selectedCoin));
   const { isLoading: graphLoading, data: graphData, refetch} = useQuery(timePeriod, () => getCoinGraphData(selectedCoin, timePeriod));
@@ -74,16 +76,27 @@ const CoinPage = ({selectedCoin}) => {
     refetch();
   }
 
+  const handleChange = (e) => {
+    setCryptoAmount(e.target.value)
+    handleConvert()
+  }
+
+  const handleConvert = () => {
+    const convertedAmount = (cryptoAmount*specCoinData?.priceUsd)
+    setUSDAmount(parseFloat(convertedAmount).toFixed(2))
+  }
+
   const renderTrade = () => {
     if(transaction === 'buy')
     {
         return(
             <div className='buy-input-container'>
                 <form>
-                <input type="text" id='amount-input-buy' name="amount" />
+                <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
                 <h2>{specCoinData?.symbol}</h2>
                 <input id='buy-button' type="submit" value="Buy" />
                 </form>
+                <h2>${usdAmount}</h2>
             </div>
         )
         }
@@ -91,6 +104,8 @@ const CoinPage = ({selectedCoin}) => {
 
   return (
     <div>
+        <h2 style={{"color":"white", "background-color": "#322f57"}}>{`$${parseFloat(specCoinData?.priceUsd).toFixed(2)}`}</h2>
+        <h4 style= {{"color":"red", "background-color": "#322f57"}}>(${parseFloat(specCoinData?.changePercent24Hr).toFixed(2)}%)</h4>
     <div className='coin-chart-container'>
       <div className='coin-chart'>
         {graphLoading ? <p>Loading ...</p> : <ReactFC {...chartConfigs} />}

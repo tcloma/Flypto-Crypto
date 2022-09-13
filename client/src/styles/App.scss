@@ -11,6 +11,7 @@
 {
     display: flex;
     justify-content: center;
+    background-color: $background-color;
 }
 
 .overlay
@@ -130,7 +131,7 @@
 {
   position: absolute;
   left: 10%;
-  bottom: 84%;
+  bottom: 80%;
   border-radius: 10px;
   // font-weight: bold;
   padding: 5px;
