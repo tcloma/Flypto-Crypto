@@ -1,6 +1,6 @@
 import '../styles/Crypto.scss'
 import { getAllCoins } from '../coinApi'
-import { decimalCheck } from './sub-components/Card'
+import { decimalRound } from './sub-components/Card'
 import { useQuery } from 'react-query'
 import Card from './sub-components/Card'
 import { useState } from 'react'
@@ -8,12 +8,12 @@ import { useState } from 'react'
 const CryptoPage = ({ setSelectedCoin }) => {
   const { status, error, data: allCoins } = useQuery('all-coins', () => getAllCoins())
 
-  const [winOrLose, setWinOrLose] = useState('win')
+  const [bullOrBear, setBullOrBear] = useState('win')
 
   const sortParams = (coin1, coin2) => {
-    if (winOrLose === 'win') {
+    if (bullOrBear === 'bull') {
       return coin2.changePercent24Hr - coin1.changePercent24Hr
-    } else if (winOrLose === 'lose') {
+    } else if (bullOrBear === 'bear') {
       return coin1.changePercent24Hr - coin2.changePercent24Hr
     }
   }
@@ -24,15 +24,6 @@ const CryptoPage = ({ setSelectedCoin }) => {
     )
   })
 
-  const handleWinClick = () => {
-    setWinOrLose('win')
-  }
-
-  const handleLoseClick = () => {
-    setWinOrLose('lose')
-  }
-
-
   // console.log('Growth Coins: ', highestGrowthCoins?.slice(0, 5))
   // console.log('Lowvalue Coins: ', lowestGrowthCoins?.slice(0, 5))
   // console.log('Fetch status: ', status)
@@ -42,7 +33,8 @@ const CryptoPage = ({ setSelectedCoin }) => {
     <div className="crypto-page-container">
       <div className='fastest-growing'>
         <div className='growth-selector'>
-          <button onClick={() => handleWinClick()}>Winners</button><button onClick={() => handleLoseClick()}>Losers</button>
+          <button onClick={() => setBullOrBear('bull')}>Bull</button>
+          <button onClick={() => setBullOrBear('bear')}>Bear</button>
         </div>
         <div className='fastest-growing-cards'>
           {winnerLoserCoin?.slice(0, 5)?.map(coin => {
@@ -58,18 +50,6 @@ const CryptoPage = ({ setSelectedCoin }) => {
             )
           })}
         </div>
-        {/* <div className='fastest-growing-cards'>
-          {lowestGrowthCoins?.slice(0, 5)?.map(coin => {
-            return (
-              <Card
-                key={coin.id}
-                name={coin.name}
-                price={coin.priceUsd}
-                change24Hr={coin.changePercent24Hr}
-              />
-            )
-          })}
-        </div> */}
       </div>
       <table className='coins-table'>
         <thead>
@@ -85,7 +65,7 @@ const CryptoPage = ({ setSelectedCoin }) => {
               <tr key={coin.id}>
                 <td> {coin.symbol} </td>
                 <td> {coin.name} </td>
-                <td> {decimalCheck(coin.priceUsd)} </td>
+                <td> {decimalRound(coin.priceUsd)} </td>
               </tr>
             )
           })}
