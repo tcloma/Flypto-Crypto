@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   post '/users', to: 'users#create'     # params : name, password, email
   patch '/users/:id', to: 'users#update'    # params : funds
 
+  get '/me', to: 'users#show'   # Staying LogedIn
+
   # PurchasedCoins.rb routes
   get '/purchasedcoins', to: 'purchasedcoins#index'
   patch '/purchasedcoins/:id', to: 'purchasedcoins#update'    #update the quantity when you purchase
@@ -13,8 +15,9 @@ Rails.application.routes.draw do
   # WatchList.rb routes
   get '/watchlists', to: 'watchlists#index'
   get '/watchlists/:id', to: 'watchlists#show'
-  delete '/watchlists/:id', to: 'watchlist#destroy'
+  delete '/watchlists/:id', to: 'watchlist#destroy' 
 
-  
-  #
+  # Sessions Controller
+  post '/login', to: 'sessions#create' # Create new user login
+  delete '/logout', to: 'sessions#destroy'  # Logging Out
 end
