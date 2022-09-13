@@ -14,6 +14,7 @@ const CoinPage = ({selectedCoin}) => {
 
   const [timePeriod, setTimePeriod] = useState('m1')
   const [transaction, setTransaction] = useState('buy')
+  const [fromBTC, setFromBTC] = useState(true)
   const [cryptoAmount, setCryptoAmount] = useState(0)
   const [usdAmount, setUSDAmount] = useState(0)
 
@@ -77,26 +78,49 @@ const CoinPage = ({selectedCoin}) => {
   }
 
   const handleChange = (e) => {
-    setCryptoAmount(e.target.value)
-    handleConvert()
+    if(fromBTC) {
+        setCryptoAmount(e.target.value)
+        handleConvert(e.target.value)
+    }
+    else
+    {
+        setUSDAmount(e.target.value)
+        handleConvert(e.target.value)
+    }
   }
 
-  const handleConvert = () => {
-    const convertedAmount = (cryptoAmount*specCoinData?.priceUsd)
-    setUSDAmount(parseFloat(convertedAmount).toFixed(2))
+  const handleConvert = (value) => {
+    if(fromBTC)
+    {
+        const convertedAmount = (value*specCoinData?.priceUsd)
+        setUSDAmount(() => parseFloat(convertedAmount).toFixed(2))
+    }
+    else
+    {
+        const convertedAmount = (value/specCoinData?.priceUsd)
+        setCryptoAmount(() => parseFloat(convertedAmount).toFixed(2))
+    }
+  }
+
+  const handleSwap = (e) => {
+    e.preventDefault()
+    setFromBTC(!fromBTC)
   }
 
   const renderTrade = () => {
     if(transaction === 'buy')
     {
         return(
+            <div>
             <div className='buy-input-container'>
                 <form>
                 <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
-                <h2>{specCoinData?.symbol}</h2>
-                <input id='buy-button' type="submit" value="Buy" />
+                <h2>{fromBTC ? specCoinData?.symbol : 'USD'}</h2>
+                <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}`: `${specCoinData?.symbol}-USD`}</button>
+                <input id='buy-button' type="submit" value="Buy"/>
                 </form>
-                <h2>${usdAmount}</h2>
+                <h2 id='result-amount'>{fromBTC ? `$${usdAmount}` : `${cryptoAmount} ${specCoinData.symbol}`}</h2>
+            </div>
             </div>
         )
         }

@@ -98,10 +98,10 @@
   width:50%;
   font-size: 2em;
 }
-#buy-button
+#swap-button
 {
   margin: auto;
-  width: 80%;
+  width: 50%;
   border-radius: 5px;
   padding: 10px;
   font-weight: bold;
@@ -111,7 +111,7 @@
 {
   position: relative;
   top: 50px;
-  width:50%;
+  width:90%;
   display: flex;
   justify-content: center;
 }
@@ -120,6 +120,14 @@
 {
   display: flex;
   justify-content: center;
+}
+
+#result-amount
+{
+  width:150px;
+  font-size: vmax;
+  position: relative;
+  right: 10%;
 }
 
 .profile-container{
@@ -131,10 +139,21 @@
 {
   position: absolute;
   left: 10%;
-  bottom: 80%;
+  bottom: 77%;
   border-radius: 10px;
   // font-weight: bold;
   padding: 5px;
+}
+
+#buy-button
+{
+  position: relative;
+  top: 30%;
+  left: 48%;
+  width: 70%;
+  border-radius: 10px;
+  font-weight: bold;
+  padding: 15px;
 }
 
 .buy-sell-container
