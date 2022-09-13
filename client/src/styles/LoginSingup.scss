@@ -2,8 +2,10 @@
 @import '../styles/util-styles/template.module.scss';
 
 .login-container {
-   @extend .container-template;
-   min-height: 80vh;
+  @extend .container-template;
+  min-height: 80vh;
+  padding-top: 4em;
+
 }
 
 .form-header {
@@ -14,7 +16,8 @@
 
 .login-form {
    @extend .container-template;
-   margin: 1em;
+   background-color: $off-background-color;
+   box-shadow: 4px 4px 0px $shadow-color;
    width: 50%;
    height: 25em;
    padding: 2em 1em;
@@ -22,14 +25,31 @@
 }
 
 .login-form input {
-   padding: 1em 2em;
-   width: 80%;
+  border: 0;
+  padding: 1em 2em;
+  width: 80%;
+  border: .2em solid $shadow-color;
+}
+
+.login-form input:focus{
+  box-shadow: inset 0px 0px 5px $shadow-color;
 }
 
 .login-form button {
    min-height: 3.5em;
    width: 80%;
    border-radius: 1em;
+   border: 0;
+   background-color: $accent-color;
+   color: $text-color-light;
+   font-weight: bold;
+   cursor: pointer;
+}
+
+.login-form button:hover {
+  transition-duration: .5s;
+  background-color: $background-color;
+  color: $accent-color;
 }
 
 .signup-name {
@@ -40,7 +60,13 @@
 
 .redirect-text {
    @extend .container-template;
+   background-color: $off-background-color;
+   box-shadow: 4px 4px 0px $shadow-color;
    margin: 1em;
    width: 50%;
    height: 4em;
+}
+
+.redirect-text a {
+  color: $accent-color;
 }

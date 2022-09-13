@@ -1,16 +1,23 @@
 @import '../styles/util-styles/template.module.scss';
 
 .header {
-   @extend .layout-template;
-   justify-content: space-between;
-   padding: 0em 1em;
+	@extend .layout-template;
+	justify-content: space-between;
+	padding: 0em 1em;
+	background-color: transparent;
+	position: absolute;
+	width: 100%;
+	outline: 0;
+	z-index: 1;
+	font-weight: bold;
+	font-size: 1.2em;
 }
 
 .nav-buttons {
-  display: flex;
-  gap: 5em
+	display: flex;
+	gap: 5em
 }
 
 .footer {
-   @extend .layout-template;
+	@extend .layout-template;
 }

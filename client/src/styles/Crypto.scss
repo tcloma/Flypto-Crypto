@@ -1,0 +1,28 @@
+@import '../styles/util-styles/colors.module.scss';
+@import '../styles/util-styles/template.module.scss';
+
+.crypto-page-container {
+  @extend .container-template;
+  min-height: 80vh;
+  padding-top: 4em;
+  // width: 100%
+}
+
+.fastest-growing-cards {
+  @extend .container-template;
+  flex-direction: row;
+  width: 80vw
+}
+
+.coins-table {
+  border: 1px solid $shadow-color;
+  width: 80vw;
+}
+
+.coins-table tbody tr:nth-child(odd){
+  background-color: red;
+}
+
+.coins-table tbody tr:nth-child(even){
+  background-color: green;
+}

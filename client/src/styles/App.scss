@@ -14,6 +14,7 @@
   left: 32%;
   height: 2vw;
   z-index: 0;
+  color: $text-color-light;
 }
 
 .button-home-div
@@ -27,9 +28,10 @@
   font-size: 80%;
   padding: 20px;
   width: 50%;
-  background-color: #459DBA;
-  border-color: #459DBA;
-  color: white;
+  background-color:$accent-color;
+  border-color: $accent-color;
+  border: none;
+  color: $text-color-light;
   font-weight: bold;
 }
 
@@ -37,8 +39,8 @@
   transition-duration: .5s;
   background-color: white;
   border-color: white;
-  color: black;
-  font-weight: normal;
+  color: #459DBA;
+  font-weight: bold;
   cursor:pointer;
 }
 
@@ -53,16 +55,16 @@
    justify-content: center;
    margin: 1em;
    gap: 0.5em;
+   width: 100%;
 }
 
 
 
 .card {
-   border: 3px solid $outline-color;
-   background-color: $accent-bg-color;
+   box-shadow: 4px 4px 0px $shadow-color;
+   background-color: $off-background-color;
    padding: 1em;
-   border-radius: 0.5em;
-   width: 19%;
+   width: 18%;
    height: 10rem;
    display: flex;
    flex-direction: column;
@@ -73,7 +75,7 @@
 .card:hover {
   transform: scale(1.02);
   transition-duration: .5s;
-  border: 3px solid $highlight-color;
+  box-shadow: 6px 6px 0px $accent-color;
   cursor:pointer;
 }
 
@@ -88,11 +90,3 @@
   top:12%;
   right: 15%;
 }
-
-.fusioncharts-container{
-  // display: inline-block !important;
-  // width: 50em !important;
-  // height: 50em !important;
-  // overflow: visible !important;
-}
-
