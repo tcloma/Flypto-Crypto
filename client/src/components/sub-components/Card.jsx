@@ -15,7 +15,7 @@ export const decimalCheck = (value) => {
 const Card = ({ name, price, id, setSelectedCoin, change24Hr }) => {
   let navigate = useNavigate();
 
-  console.log(change24Hr)
+  // console.log(change24Hr)
   const getCoin = () => {
     setSelectedCoin(id)
     console.log(id)

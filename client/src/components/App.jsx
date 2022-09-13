@@ -24,7 +24,7 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Homepage setSelectedCoin={setSelectedCoin} />} />
             <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
-            <Route path='/crypto' element={<CryptoPage />} />
+            <Route path='/crypto' element={<CryptoPage setSelectedCoin={setSelectedCoin}/>} />
             <Route path='/profile' element={<ProfilePage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignupPage />} />

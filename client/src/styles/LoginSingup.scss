@@ -3,7 +3,7 @@
 
 .login-container {
   @extend .container-template;
-  min-height: 80vh;
+  min-height: 90vh;
   padding-top: 4em;
 
 }
@@ -32,7 +32,8 @@
 }
 
 .login-form input:focus{
-  box-shadow: inset 0px 0px 5px $shadow-color;
+  box-shadow: inset 0px 0px 7px $shadow-color;
+  outline: none;
 }
 
 .login-form button {
