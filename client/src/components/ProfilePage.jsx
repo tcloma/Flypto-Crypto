@@ -1,4 +1,5 @@
 import Card from './sub-components/Card'
+import React from 'react'
 import '../styles/Profile.scss'
 import { useQuery } from 'react-query'
 import { getAllCoins } from '../coinApi'

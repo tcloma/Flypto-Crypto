@@ -11,11 +11,34 @@ import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import ProfilePage from './ProfilePage';
 import CryptoPage from './CryptoPage';
+import { useEffect } from 'react';
+import axios from 'axios'
 
 const queryClient = new QueryClient();
 
 
 const App = () => {
+  const [user, setUser] = ([])
+
+  // useEffect(() => {
+  //   axios.get('me')
+  //   .then((res) => {
+  //     if (res.ok) {
+  //       .then((user) => setUser(user))
+  //     }
+  //   })
+  // }, [])
+
+useEffect(() => {
+  fetch('/me')
+  .then((res) => {
+    if (res.ok) {
+      res.json()
+      .then((currentUser) => setUser(currentUser))
+    }
+  })
+}, [])
+
   const [selectedCoin, setSelectedCoin] = useState('')
   return (
     <QueryClientProvider client={queryClient}>
@@ -26,7 +49,7 @@ const App = () => {
             <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
             <Route path='/crypto' element={<CryptoPage setSelectedCoin={setSelectedCoin}/>} />
             <Route path='/profile' element={<ProfilePage />} />
-            <Route path='/login' element={<LoginPage />} />
+            <Route path='/login' element={<LoginPage onLogin={setUser} />} />
             <Route path='/signup' element={<SignupPage />} />
           </Routes>
           <ReactQueryDevtools />

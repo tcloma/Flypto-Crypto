@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_13_191302) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_14_170049) do
   create_table "position_lists", force: :cascade do |t|
     t.integer "time_of_purchase"
     t.integer "price_of_purchase"
@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_191302) do
     t.string "name"
     t.string "password_digest"
     t.string "email"
-    t.integer "funds"
+    t.integer "funds", default: 100000
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username"
