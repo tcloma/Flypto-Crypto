@@ -40,6 +40,7 @@ const Card = ({ name, symbol, price, id, setSelectedCoin, change24Hr }) => {
     <div className="card" onClick={getCoin}>
       <img className='card-coin-images' src={getImage(name, symbol)} onError={(e)=> imageOnErrorHandler(e)}/>
       <h3> {name} </h3>
+      <h6 className='card-symbol'>{symbol}</h6>
       <p> ${decimalRound(price)} </p>
       {change24Hr !== undefined ?
         <p className={priceChangeColor()}>

@@ -15,6 +15,12 @@
     background-color: $background-color;
 }
 
+.card-symbol
+{
+  color: #C0C0C0;
+  font-size: 0.5em;
+}
+
 .card-coin-images
 {
   position: absolute;
@@ -92,13 +98,14 @@
 .coin-extra-info
 {
   background-color: #222222;
-  width: 96.1%;
+  width: 57.55em;
   position: relative;
+  right: .08%;
   bottom:1px;
   margin: auto;
   color: white;
   font-size: 1.5em;
-
+  padding: 3%;
 }
 
 .coin-extra-info-container
@@ -166,6 +173,7 @@
   border-radius: 5px;
   padding: 10px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .buy-input-container
@@ -205,21 +213,30 @@
 {
   position: absolute;
   left: 55%;
-  bottom: 85%;
+  bottom: 82%;
   border-radius: 10px;
   // font-weight: bold;
   padding: 5px;
 }
 
-#buy-button
+#conversion-choice
+{
+  position: absolute;
+  top: 30%;
+  right: 10%;
+}
+
+.buy-button
 {
   position: relative;
   top: 30%;
   left: 48%;
   width: 70%;
   border-radius: 10px;
+  max-width: 70%;
   font-weight: bold;
   padding: 15px;
+  cursor: pointer;
 }
 
 .buy-sell-container
@@ -230,7 +247,9 @@
   min-height: 10vw;
   background-color:#222222;
   color: white;
-  margin-left: 1%;
+  position: relative;
+  bottom: .5px;
+  right: .1%;
 }
 
 .info-container

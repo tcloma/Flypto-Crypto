@@ -19,6 +19,7 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [user, setUser] = ([])
+  const [purchasedCoins, setPurchasedCoins] = ([])
 
   // useEffect(() => {
   //   axios.get('me')
@@ -37,6 +38,14 @@ useEffect(() => {
       .then((currentUser) => setUser(currentUser))
     }
   })
+  fetch('/purchasedcoins')
+  .then((res) => {
+    if(res.ok) {
+      res.json()
+      .then((purchasedCoins) => setPurchasedCoins(purchasedCoins))
+    }
+  })
+
 }, [])
 
   const [selectedCoin, setSelectedCoin] = useState('')
@@ -46,7 +55,7 @@ useEffect(() => {
         <Layout>
           <Routes>
             <Route path='/' element={<Homepage setSelectedCoin={setSelectedCoin} />} />
-            <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
+            <Route path='/trade' element={<CoinPage user={user} selectedCoin={selectedCoin} />} />
             <Route path='/crypto' element={<CryptoPage setSelectedCoin={setSelectedCoin}/>} />
             <Route path='/profile' element={<ProfilePage />} />
             <Route path='/login' element={<LoginPage onLogin={setUser} />} />

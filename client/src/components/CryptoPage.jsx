@@ -6,7 +6,7 @@ import Card from './sub-components/Card'
 import { useState } from 'react'
 
   export const getImage = (name, symbol) => {
-    return (`https://cryptologos.cc/logos/${name.toLowerCase().replace(' ', '-')}-${symbol.toLowerCase()}-logo.png?v=023`)
+    return (`https://cryptologos.cc/logos/${name?.toLowerCase().replace(' ', '-')}-${symbol?.toLowerCase()}-logo.png?v=023`)
   }
 
   export const imageOnErrorHandler = (e) => {
@@ -76,7 +76,7 @@ const CryptoPage = ({ setSelectedCoin }) => {
                 <img className='coin-images' src={getImage(coin.name, coin.symbol)} onError={(e)=> imageOnErrorHandler(e)}/>
                 </td>
                 <td>{`${coin.name} (${coin.symbol})`}</td>
-                <td> {decimalRound(coin.priceUsd)} </td>
+                <td>{`$${decimalRound(coin.priceUsd)}`}</td>
               </tr>
             )
           })}
