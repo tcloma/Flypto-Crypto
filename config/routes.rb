@@ -5,8 +5,10 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'     # params : name, password, email, funds
   patch '/users', to: 'users#update'    # params : funds
 
-  # Login and Logout Routes
+  # Login and Logout Routes - Sessions
+  get '/login', to: 'sessions#login'
   post '/login', to: 'sessions#create'
+  post '/logout', to: 'sessions#destroy'
   delete '/logout', to: 'sessions#destroy'
 
     # WatchList.rb routes
