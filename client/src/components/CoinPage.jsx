@@ -63,9 +63,12 @@ const CoinPage = ({selectedCoin, user}) => {
 
   const dataSource = {
     chart: {
+      bgAlpha: "100",
+      showBorder: 1,
+      borderThickness: 1.5,
       caption: `${specCoinData?.name}`,
       plotFillColor: '#459DBA',
-      outCnvBaseFontColor: '#FFFFFF',
+      outCnvBaseFontColor: '#252525',
       baseFont: 'Gilroy',
       drawFullAreaBorder: true,
       showPlotBorder: true,
@@ -73,7 +76,7 @@ const CoinPage = ({selectedCoin, user}) => {
       setAdaptiveYMin: true,
       labelStep: 100,
       plotBorderColor: '#459DBA',
-      bgColor: '#222222',
+      bgColor: '#FFFFFF',
       subCaption: `(${specCoinData?.symbol})`,
       xAxisName: 'Day',
       yAxisName: 'Price ($USD)',
@@ -87,7 +90,7 @@ const CoinPage = ({selectedCoin, user}) => {
             id: 'price-displays',
             items: [{
                 id: 'price-display',
-                fillcolor: "#FFFFFF",
+                fillcolor: "#252525",
                 fontsize: "26",
                 type: "text",
                 bold: 1,
@@ -258,6 +261,22 @@ const CoinPage = ({selectedCoin, user}) => {
             <option value="h1">This Month</option>
             <option value="d1">This Year</option>
         </select>
+        <div className='coin-extra-info'>
+        <div className='coin-extra-info-container'>
+        <div className='coin-extra-info-element'>
+        <h4>Market Cap</h4>
+        <p>{`$${extraCoinInfoFormatter(specCoinData?.marketCapUsd)}`}</p>
+        </div>
+        <div className='coin-extra-info-element'>
+        <h4>Volume (24hr)</h4>
+        <p>{`$${extraCoinInfoFormatter(specCoinData?.volumeUsd24Hr)}`}</p>
+        </div >
+        <div className='coin-extra-info-element'>
+        <h4>Supply</h4>
+        <p>{`${extraCoinInfoFormatter(specCoinData?.supply)} ${specCoinData?.symbol}`}</p>
+        </div>
+    </div>
+    </div>
     </div>
       </div>
     <div className='buy-sell-container'>
@@ -271,22 +290,6 @@ const CoinPage = ({selectedCoin, user}) => {
         </div>
         <div className='trade-component'>
             {renderTrade()}
-        </div>
-    </div>
-    </div>
-    <div className='coin-extra-info'>
-        <div className='coin-extra-info-container'>
-        <div className='coin-extra-info-element'>
-        <h4>Market Cap</h4>
-        <p>{`$${extraCoinInfoFormatter(specCoinData?.marketCapUsd)}`}</p>
-        </div>
-        <div className='coin-extra-info-element'>
-        <h4>Volume (24hr)</h4>
-        <p>{`$${extraCoinInfoFormatter(specCoinData?.volumeUsd24Hr)}`}</p>
-        </div >
-        <div className='coin-extra-info-element'>
-        <h4>Supply</h4>
-        <p>{`${extraCoinInfoFormatter(specCoinData?.supply)} ${specCoinData?.symbol}`}</p>
         </div>
     </div>
     </div>
