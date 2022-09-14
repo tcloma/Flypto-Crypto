@@ -4,14 +4,15 @@ import '../styles/LoginSingup.scss'
 import axios from "axios"
 
 
-const SignupPage = () => {
+const SignupPage = ({ onLogin }) => {
   // const {name, last_name, email, username, password} = onLogin
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [username, setUsername] = useState('')
-  // const [signUp, setSignUp] = useState([])
+  // const [errors, setErrors] = useState([])
+  // const [isLoading, setIsLoading] = useState(false)
+  
 
   const handleSubmit = ((e) => {
     e.preventDefault()
@@ -20,22 +21,19 @@ const SignupPage = () => {
       'email': email,
       'password': password
     }
-
-    axios.post('signup', formData)
-    .then(res => console.log(res.data))
-    .catch(err => console.log(err))
-
-    // axios.get('users')
-    // fetch('/signup', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(formData)
-    // })
+    fetch('/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((user) => onLogin(user))
+      }
+    })
     // .then((res) => res.json())
-    // .then((data) => console.log(data))
-    // .catch(err => console.log(err))
+    // .then(user => onLogin(user))
     // console.log(formData)
   })
 

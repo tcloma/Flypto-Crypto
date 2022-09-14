@@ -1,30 +1,36 @@
 class UsersController < ApplicationController
-  # before_action :authorize
-  # skip_before_action :authorize, only: :create
-  # skip_before_action :authorize, only: [:show]
-  # before_action :authorize, only: [:index]
-  # skip_before_filter :verify_authenticity_token 
+  skip_before_action :authorize, only: :create
 
   def index
     render json: User.all
   end
 
+  # def create
+  #   user = User.create!(user_params)
+  #   if user.valid?
+  #     render json: user, status: 202
+  #   else
+  #     render json: { error: 'Not Valid' }, status: :unprocessable_entity
+  #   end
+  # end
+
+  # def show
+  #   user = User.find_by(id: session[:user_id])
+  #   if user
+  #     render json: user
+  #   else
+  #     render json: {error: 'Not Authorized'}, status: 404
+  #   end
+  # end
+
   def create
     user = User.create!(user_params)
-    if user.valid?
-      render json: user, status: 202
-    else
-      render json: { error: 'Not Valid' }, status: :unprocessable_entity
-    end
+    session[:user_id] = user.id
+    render json: user, status: :created
   end
 
   def show
-    user = User.find_by(id: params[:user_id])
-    if user
-      render json: user
-    else
-      render json: {error: 'Not Authorized'}, status: 404
-    end
+    render json: @current_user
   end
 
   def update 

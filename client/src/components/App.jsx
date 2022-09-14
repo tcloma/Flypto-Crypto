@@ -18,28 +18,18 @@ const queryClient = new QueryClient();
 
 
 const App = () => {
-  const [user, setUser] = ([])
+  const [selectedCoin, setSelectedCoin] = useState('')
+  const [user, setUser] = useState(null)
 
-  // useEffect(() => {
-  //   axios.get('me')
-  //   .then((res) => {
-  //     if (res.ok) {
-  //       .then((user) => setUser(user))
-  //     }
-  //   })
-  // }, [])
 
 useEffect(() => {
-  fetch('/me')
-  .then((res) => {
+  fetch('/me').then((res) => {
     if (res.ok) {
-      res.json()
-      .then((currentUser) => setUser(currentUser))
+      res.json().then((user) => setUser(user))
     }
   })
-}, [])
+}, []);
 
-  const [selectedCoin, setSelectedCoin] = useState('')
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -47,8 +37,8 @@ useEffect(() => {
           <Routes>
             <Route path='/' element={<Homepage setSelectedCoin={setSelectedCoin} />} />
             <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
-            <Route path='/crypto' element={<CryptoPage setSelectedCoin={setSelectedCoin}/>} />
-            <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/crypto' element={<CryptoPage />} />
+            <Route path='/profile' element={<ProfilePage user={user} setUser={setUser}/>} />
             <Route path='/login' element={<LoginPage onLogin={setUser} />} />
             <Route path='/signup' element={<SignupPage />} />
           </Routes>
