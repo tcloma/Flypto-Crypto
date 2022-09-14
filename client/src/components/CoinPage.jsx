@@ -86,7 +86,7 @@ const CoinPage = ({selectedCoin}) => {
                 fontsize: "26",
                 type: "text",
                 bold: 1,
-                text: `$${parseFloat(specCoinData?.priceUsd).toFixed(2)}`,
+                text: `$${decimalRound(specCoinData?.priceUsd)}`,
                 x: "$canvasEndY-220",
                 y: "$canvasEndY - 336",
             },
@@ -97,7 +97,7 @@ const CoinPage = ({selectedCoin}) => {
                 italic: 1,
                 type: "text",
                 bold: 1,
-                text: `(${parseFloat(specCoinData?.changePercent24Hr).toFixed(2)}%)`,
+                text: specCoinData?.changePercent24Hr > 0 ? `▲(${parseFloat(specCoinData?.changePercent24Hr).toFixed(2)}%)` : `▼(${parseFloat(specCoinData?.changePercent24Hr).toFixed(2)}%)`,
                 x: "$canvasEndY-220",
                 y: "$canvasEndY-316",
             }]
