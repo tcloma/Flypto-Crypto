@@ -38,6 +38,10 @@ class UsersController < ApplicationController
 
   private
 
+  def user_params
+    params.permit(:name, :last_name, :email, :password)
+  end
+
   def patch_params
     params.permit(:funds)
   end
