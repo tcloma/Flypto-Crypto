@@ -9,10 +9,19 @@
 
 .coin-chart-container
 {
-    padding-top: 5.5%;
+    padding-top: 6.5%;
     display: flex;
     justify-content: center;
     background-color: $background-color;
+}
+
+.card-coin-images
+{
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width:1.5vw;
+  height:1.5vw;
 }
 
 .overlay

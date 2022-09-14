@@ -5,6 +5,14 @@ import { useQuery } from 'react-query'
 import Card from './sub-components/Card'
 import { useState } from 'react'
 
+  export const getImage = (name, symbol) => {
+    return (`https://cryptologos.cc/logos/${name.toLowerCase().replace(' ', '-')}-${symbol.toLowerCase()}-logo.png?v=023`)
+  }
+
+  export const imageOnErrorHandler = (e) => {
+    e.currentTarget.src = 'https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=023';
+  }
+
 const CryptoPage = ({ setSelectedCoin }) => {
   const { status, error, data: allCoins } = useQuery('all-coins', () => getAllCoins())
 
@@ -44,6 +52,7 @@ const CryptoPage = ({ setSelectedCoin }) => {
                 id={coin.id}
                 key={coin.id}
                 name={coin.name}
+                symbol={coin.symbol}
                 price={coin.priceUsd}
                 change24Hr={coin.changePercent24Hr}
               />
@@ -63,8 +72,10 @@ const CryptoPage = ({ setSelectedCoin }) => {
           {allCoins?.map(coin => {
             return (
               <tr key={coin.id}>
-                <td> {coin.symbol} </td>
-                <td> {coin.name} </td>
+                <td className='image-row'>
+                <img className='coin-images' src={getImage(coin.name, coin.symbol)} onError={(e)=> imageOnErrorHandler(e)}/>
+                </td>
+                <td>{`${coin.name} (${coin.symbol})`}</td>
                 <td> {decimalRound(coin.priceUsd)} </td>
               </tr>
             )
