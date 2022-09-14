@@ -1,10 +1,8 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 // import LoginPage from './LoginPage';
 import '../styles/LoginSingup.scss'
-// import axios from "axios"
-
 
 const SignupPage = ({setCurrentUser}) => {
   const [firstName, setFirstName] = useState('')
