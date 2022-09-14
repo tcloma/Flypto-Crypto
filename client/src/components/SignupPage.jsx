@@ -1,14 +1,16 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+// import LoginPage from './LoginPage';
 import '../styles/LoginSingup.scss'
 
-
-const SignupPage = () => {
+const SignupPage = ({setCurrentUser}) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  let navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -17,7 +19,23 @@ const SignupPage = () => {
       'email': email,
       'password': password
     }
-    console.log(formData)
+
+    fetch("http://localhost:3000/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((r) => {
+      if (r.ok) {
+        r.json().then((user) => {
+          setCurrentUser(user)
+          console.log("USER: ", user)
+        })
+        navigate('/')
+      }
+    })
   }
 
   return (

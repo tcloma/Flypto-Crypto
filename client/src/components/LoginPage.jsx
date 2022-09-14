@@ -1,23 +1,41 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import '../styles/LoginSingup.scss'
 
-const LoginPage = () => {
-  const [username, setUsername] = useState('')
+const LoginPage = ({setCurrentUser}) => {
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  let navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const formData = {
-      'username': username,
+      'email': email,
       'password': password
     }
-    console.log(formData)
-  }
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value)
+    fetch("http://localhost:3000/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((r) => {
+      if (r.ok) {
+        r.json().then((user) => {
+          setCurrentUser(user)
+          console.log("USER: ", user)
+        })
+        navigate('/')
+      }
+    })
+    };
+
+  const handleemailChange = (e) => {
+    setEmail(e.target.value)
   }
 
   const handlePasswordChange = (e) => {
@@ -31,10 +49,10 @@ const LoginPage = () => {
           <h1>Log in</h1>
         </div>
         <input
-          value={username}
-          onChange={handleUsernameChange}
+          value={email}
+          onChange={handleemailChange}
           type='text'
-          placeholder="Username"
+          placeholder="email"
         />
         <input
           value={password}

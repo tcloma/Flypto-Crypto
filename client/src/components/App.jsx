@@ -14,9 +14,11 @@ import CryptoPage from './CryptoPage';
 
 const queryClient = new QueryClient();
 
-
 const App = () => {
+
+  const [currentUser, setCurrentUser] = useState()
   const [selectedCoin, setSelectedCoin] = useState('')
+  console.log(currentUser)
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
@@ -26,8 +28,8 @@ const App = () => {
             <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
             <Route path='/crypto' element={<CryptoPage />} />
             <Route path='/profile' element={<ProfilePage />} />
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/signup' element={<SignupPage />} />
+            <Route path='/login' element={<LoginPage setCurrentUser={setCurrentUser}/>} />
+            <Route path='/signup' element={<SignupPage setCurrentUser={setCurrentUser}/>} />
           </Routes>
           <ReactQueryDevtools />
         </Layout>
