@@ -1,75 +1,49 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import LoginPage from './LoginPage';
 import '../styles/LoginSingup.scss'
 // import axios from "axios"
 
 
-const SignupPage = ({ onLogin }) => {
-  // const {name, last_name, email, username, password} = onLogin
+const SignupPage = ({setCurrentUser}) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  // const [errors, setErrors] = useState([])
-  // const [isLoading, setIsLoading] = useState(false)
-  
 
-  const handleSubmit = ((e) => {
+  let navigate = useNavigate();
+
+  const handleSubmit = (e) => {
     e.preventDefault()
     const formData = {
       'name': `${firstName} ${lastName}`,
       'email': email,
       'password': password
     }
-    fetch('/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then((user) => onLogin(user))
+
+    fetch("http://localhost:3000/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((r) => {
+      if (r.ok) {
+        r.json().then((user) => {
+          setCurrentUser(user)
+          console.log("USER: ", user)
+          console.log(formData)
+        })
+        navigate('/')
       }
     })
-    // .then((res) => res.json())
-    // .then(user => onLogin(user))
-    // console.log(formData)
-  })
-
-  // const handleSubmit = ((e) => {
-  //   // setFirstName('')
-  //   // setLastName('')
-  //   // setEmail('')
-  //   // setPassword('')
-  //   // setUsername('')
-
-  //   e.preventDefault()
-  //     fetch('http:/', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       name: firstName,
-  //       last_name: lastName,
-  //       email: email,
-  //       username: username,
-  //       password: password
-  //     })
-  //   })
-  //     .then((res) => res.json())
-  //     .then(data => console.log(data))
-  //     // .then(data => setSignUp(data))
-  // }, [])
-
-
+  }
 
   return (
     <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={e => handleSubmit(e)}>
         <div className="form-header">
           <h1>Sign up</h1>
         </div>
@@ -93,13 +67,6 @@ const SignupPage = ({ onLogin }) => {
           type='text'
           placeholder="Email"
         />
-        {/* ******* Adding username input ******* */}
-        {/* <input
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          type='text'
-          placeholder='Username'
-        /> */}
         <input
           value={password}
           onChange={e => setPassword(e.target.value)}
