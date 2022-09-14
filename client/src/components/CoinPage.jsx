@@ -87,8 +87,8 @@ const CoinPage = ({selectedCoin}) => {
                 type: "text",
                 bold: 1,
                 text: `$${decimalRound(specCoinData?.priceUsd)}`,
-                x: "$canvasEndY-220",
-                y: "$canvasEndY - 336",
+                x: "$canvasEndY-260",
+                y: "$canvasEndY - 375",
             },
             {
                 id: 'price-display',
@@ -98,8 +98,8 @@ const CoinPage = ({selectedCoin}) => {
                 type: "text",
                 bold: 1,
                 text: specCoinData?.changePercent24Hr > 0 ? `▲(${parseFloat(specCoinData?.changePercent24Hr).toFixed(2)}%)` : `▼(${parseFloat(specCoinData?.changePercent24Hr).toFixed(2)}%)`,
-                x: "$canvasEndY-220",
-                y: "$canvasEndY-316",
+                x: "$canvasEndY-260",
+                y: "$canvasEndY-355",
             }]
             
         }]
