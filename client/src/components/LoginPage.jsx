@@ -29,6 +29,7 @@ const LoginPage = ({setCurrentUser}) => {
         r.json().then((user) => {
           setCurrentUser(user)
           console.log("USER: ", user)
+          console.log(formData)
         })
         navigate('/')
       }
