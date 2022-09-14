@@ -1,6 +1,6 @@
 import '../styles/Crypto.scss'
-import { getAllCoins } from '../coinApi'
-import { decimalRound } from './sub-components/Card'
+import { getAllCoins } from '../apis/coinApi'
+import { roundPrice, twoDecimalPlaces } from '../utilFunctions'
 import { useQuery } from 'react-query'
 import Card from './sub-components/Card'
 import { useState } from 'react'
@@ -160,6 +160,7 @@ const CryptoPage = ({ setSelectedCoin }) => {
               <td><span onClick={() => handleSortRank()}> Rank {rankSort ? '▲' : '▼'} </span></td>
               <td><span onClick={() => handleSortName()}> Name {nameSort ? '▲' : '▼'} </span></td>
               <td><span onClick={() => handleSortPrice()}> Price {priceSort ? '▲' : '▼'}</span></td>
+              <td><span>24Hr Change</span></td>
             </tr>
           </thead>
           <tbody>
@@ -170,7 +171,8 @@ const CryptoPage = ({ setSelectedCoin }) => {
                     <img className='coin-images' src={getImage(coin.name, coin.symbol)} onError={(e) => imageOnErrorHandler(e)} />
                   </td>
                   <td>{`${coin.name} (${coin.symbol})`}</td>
-                  <td> ${decimalRound(coin.priceUsd)} </td>
+                  <td> ${roundPrice(coin.priceUsd)} </td>
+                  <td> {twoDecimalPlaces(coin.changePercent24Hr)}% </td>
                 </tr>
               )
             })}

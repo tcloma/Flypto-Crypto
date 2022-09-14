@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import Card from "./sub-components/Card";
 import backgroundImage from '../assets/background.mp4'
-import { getAllCoins } from "../coinApi";
+import { getAllCoins } from "../apis/coinApi";
 import { renderSuccessFetch } from '../utilFunctions'
 
 const Homepage = ({ setSelectedCoin }) => {

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { getImage, imageOnErrorHandler} from "../../utilFunctions";
 
-export const decimalRound = (value) => {
+export const decimalRoundPrice = (value) => {
   if (value <= 2) {
     return Number.parseFloat(value).toFixed(5)
   }
@@ -40,7 +40,7 @@ const Card = ({ name, symbol, price, id, setSelectedCoin, change24Hr }) => {
     <div className="card" onClick={getCoin}>
       <img className='card-coin-images' src={getImage(name, symbol)} onError={(e)=> imageOnErrorHandler(e)}/>
       <h3> {name} </h3>
-      <p> ${decimalRound(price)} </p>
+      <p> ${decimalRoundPrice(price)} </p>
       {change24Hr !== undefined ?
         <p className={priceChangeColor()}>
           {change24Hr > 0 ? '▲' : '▼'}

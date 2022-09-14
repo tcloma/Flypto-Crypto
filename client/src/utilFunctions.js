@@ -20,3 +20,19 @@ export const renderSuccessFetch = (status, error, renderFunction) => {
       return null
   }
 }
+
+export const roundPrice = (value) => {
+  if (value <= 2) {
+    return Number.parseFloat(value).toFixed(5)
+  }
+  else if (value <= 100) {
+    return Number.parseFloat(value).toFixed(2)
+  }
+  else {
+    return Number.parseFloat(value).toFixed()
+  }
+}
+
+export const twoDecimalPlaces = (number) => {
+  return parseFloat(number).toFixed(2)
+}

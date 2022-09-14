@@ -2,8 +2,8 @@ import Card from './sub-components/Card'
 import React from 'react'
 import '../styles/Profile.scss'
 import { useQuery } from 'react-query'
-import { getAllCoins } from '../coinApi'
-import { decimalRound } from './sub-components/Card'
+import { getAllCoins } from '../apis/coinApi'
+import { roundPrice } from '../utilFunctions'
 
 const ProfilePage = ({ username = 'Olivia' }) => {
 
@@ -46,7 +46,7 @@ const ProfilePage = ({ username = 'Olivia' }) => {
               return (
                 <tr>
                   <td>{coin.name}</td>
-                  <td>{decimalRound(coin.priceUsd)}</td>
+                  <td>{roundPrice(coin.priceUsd)}</td>
                   <td>{parseFloat(coin.changePercent24Hr).toFixed(2)}%</td>
                 </tr>
               )
