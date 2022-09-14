@@ -3,12 +3,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import '../styles/LoginSingup.scss'
 
-const LoginPage = ({setCurrentUser}) => {
+const LoginPage = ({ onLogin }) => {
   // const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
-
-
+  // const [errors, setErrors] = useState([])
+  // const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -22,11 +22,16 @@ const LoginPage = ({setCurrentUser}) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData)
-    }) 
-    .then(res => res.json())
-    .then(logUser => setCurrentUser(logUser))
-
-    setCurrentUser(email)
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((user) => onLogin(user))
+        console.log(formData)
+      } else {
+        console.log('fail')
+      }
+    })
+    // .then(res => res.json())
+    // .then(user => onLogin(user))
   }
 
   const handleEmailChange = (e) => {

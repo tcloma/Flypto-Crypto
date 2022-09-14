@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :authorized, only: :create
+  skip_before_action :authorize, only: :create
   # get '/login', to: 'sessions#login'
   # post '/login', to: 'sessions#create'
   # post '/logout', to: 'sessions#destroy'
@@ -18,8 +18,6 @@ class SessionsController < ApplicationController
     session.delete :user_id
     head :no_content
   end
-
-
 
   private
 
