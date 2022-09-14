@@ -1,8 +1,12 @@
 class SessionsController < ApplicationController
+  # get '/login', to: 'sessions#login'
+  # post '/login', to: 'sessions#create'
+  # post '/logout', to: 'sessions#destroy'
+  # delete '/logout', to: 'sessions#destroy'
 
   #  create method in ruby means finding 
   def create
-    user = User.find_by(username: params[:username])
+    user = User.find_by(email: params[:email])
 
     if (user && authenticate(user, params[:password])
       session[:user_id] = user.id
