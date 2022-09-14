@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   # before_action :authorize
   # skip_before_action :authorize, only: :create
-  before_action :authorize, only: [:show]
+  # skip_before_action :authorize, only: [:show]
+  # before_action :authorize, only: [:index]
   # skip_before_filter :verify_authenticity_token 
 
   def index
@@ -11,19 +12,18 @@ class UsersController < ApplicationController
   def create
     user = User.create!(user_params)
     if user.valid?
-      session[:user_id] = user.id
-      render json: user, status: :created
+      render json: user, status: 202
     else
-      render json: { error: user.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: 'Not Valid' }, status: :unprocessable_entity
     end
   end
 
   def show
-    user = User.find_by(id: session[:user_id])
+    user = User.find_by(id: params[:id])
     if user
       render json: user
     else
-      render json: {error: 'Not Authorize'}
+      render json: {error: 'Not Authorized'}, status: 404
     end
   end
 
@@ -37,8 +37,9 @@ class UsersController < ApplicationController
   end
 
   private
-  def user_params 
-    params.permit(:name, :email, :password, :funds)
+
+  def user_params
+    params.permit(:name, :last_name, :email, :password)
   end
 
   def patch_params
