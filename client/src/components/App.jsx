@@ -19,6 +19,7 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [user, setUser] = ([])
+  const [currentUser, setCurrentUser] = useState('')
 
   // useEffect(() => {
   //   axios.get('me')
@@ -49,7 +50,7 @@ useEffect(() => {
             <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
             <Route path='/crypto' element={<CryptoPage />} />
             <Route path='/profile' element={<ProfilePage />} />
-            <Route path='/login' element={<LoginPage onLogin={setUser} />} />
+            <Route path='/login' element={<LoginPage setUser={setUser} />} />
             <Route path='/signup' element={<SignupPage />} />
           </Routes>
           <ReactQueryDevtools />

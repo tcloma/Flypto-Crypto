@@ -1,9 +1,5 @@
 class UsersController < ApplicationController
-  # before_action :authorize
-  # skip_before_action :authorize, only: :create
-  # skip_before_action :authorize, only: [:show]
-  # before_action :authorize, only: [:index]
-  # skip_before_filter :verify_authenticity_token 
+  wrap_parameters format: []
 
   def index
     render json: User.all
@@ -19,7 +15,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find_by(id: params[:user_id])
+    user = User.find_by(id: session[:user_id])
     if user
       render json: user
     else

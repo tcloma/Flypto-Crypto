@@ -3,10 +3,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import '../styles/LoginSingup.scss'
 
-const LoginPage = ({onLogin}) => {
+const LoginPage = ({setCurrentUser}) => {
   // const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
+
 
 
   const handleSubmit = (e) => {
@@ -15,8 +16,17 @@ const LoginPage = ({onLogin}) => {
       'email': email,
       'password': password
     }
-    axios.post('login', formData)
-    .then(res => onLogin(res))
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    }) 
+    .then(res => res.json())
+    .then(logUser => setCurrentUser(logUser))
+
+    setCurrentUser(email)
   }
 
   const handleEmailChange = (e) => {

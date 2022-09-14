@@ -8,12 +8,9 @@ class SessionsController < ApplicationController
   #  create method in ruby means finding 
   def create
     user = User.find_by(email: params[:email])
-
-    if (user&.authenticate(params[:password])
+    if (user&.authenticate(params[:password]))
       session[:user_id] = user.id
-      render json: user, status: 202
-    else
-      render json: { error: {login: 'Invalid USername or Password'}}, status: :unauthorized
+      render json: user
     end
   end
 
@@ -21,6 +18,8 @@ class SessionsController < ApplicationController
     session.delete :user_id
     head :no_content
   end
+
+
 
   private
 

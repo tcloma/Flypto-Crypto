@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
   # skip_before_action :verify_authenticity_token
-  before_action :authorize
+  before_action :authorized
 
   def authorized
     return render json: {error: 'Not Authrorized'},
