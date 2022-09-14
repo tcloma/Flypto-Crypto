@@ -16,20 +16,15 @@ import axios from 'axios'
 
 const queryClient = new QueryClient();
 
-
 const App = () => {
+
+  const [currentUser, setCurrentUser] = useState()
   const [selectedCoin, setSelectedCoin] = useState('')
-  const [user, setUser] = useState(null)
 
+  cont []
 
-useEffect(() => {
-  fetch('/me').then((res) => {
-    if (res.ok) {
-      res.json().then((user) => setUser(user))
-    }
-  })
-}, []);
-
+  
+  console.log(currentUser)
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>

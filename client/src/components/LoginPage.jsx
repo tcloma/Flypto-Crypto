@@ -1,14 +1,14 @@
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import '../styles/LoginSingup.scss'
 
-const LoginPage = ({ onLogin }) => {
-  // const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+const LoginPage = ({setCurrentUser}) => {
   const [email, setEmail] = useState('')
-  // const [errors, setErrors] = useState([])
-  // const [isLoading, setIsLoading] = useState(false)
+  const [password, setPassword] = useState('')
+
+  let navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -16,25 +16,26 @@ const LoginPage = ({ onLogin }) => {
       'email': email,
       'password': password
     }
-    fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then((user) => onLogin(user))
-        console.log(formData)
-      } else {
-        console.log('fail')
+
+    fetch("http://localhost:3000/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((r) => {
+      if (r.ok) {
+        r.json().then((user) => {
+          setCurrentUser(user)
+          console.log("USER: ", user)
+        })
+        navigate('/')
       }
     })
-    // .then(res => res.json())
-    // .then(user => onLogin(user))
-  }
+    };
 
-  const handleEmailChange = (e) => {
+  const handleemailChange = (e) => {
     setEmail(e.target.value)
   }
 
@@ -50,9 +51,9 @@ const LoginPage = ({ onLogin }) => {
         </div>
         <input
           value={email}
-          onChange={handleEmailChange}
+          onChange={handleemailChange}
           type='text'
-          placeholder="Email"
+          placeholder="email"
         />
         <input
           value={password}
