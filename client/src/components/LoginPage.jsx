@@ -3,11 +3,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import '../styles/LoginSingup.scss'
 
-const LoginPage = ({onLogin}) => {
+const LoginPage = ({ onLogin }) => {
   // const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
-
+  // const [errors, setErrors] = useState([])
+  // const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -15,8 +16,22 @@ const LoginPage = ({onLogin}) => {
       'email': email,
       'password': password
     }
-    axios.post('login', formData)
-    .then(res => onLogin(res))
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((user) => onLogin(user))
+        console.log(formData)
+      } else {
+        console.log('fail')
+      }
+    })
+    // .then(res => res.json())
+    // .then(user => onLogin(user))
   }
 
   const handleEmailChange = (e) => {

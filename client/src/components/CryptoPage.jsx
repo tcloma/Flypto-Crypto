@@ -1,24 +1,37 @@
 import '../styles/Crypto.scss'
-import { getAllCoins } from '../coinApi'
-import { decimalRound } from './sub-components/Card'
+import { getAllCoins } from '../apis/coinApi'
+import { roundPrice, twoDecimalPlaces } from '../utilFunctions'
 import { useQuery } from 'react-query'
 import Card from './sub-components/Card'
 import { useState } from 'react'
-
-  export const getImage = (name, symbol) => {
-    return (`https://cryptologos.cc/logos/${name?.toLowerCase().replace(' ', '-')}-${symbol?.toLowerCase()}-logo.png?v=023`)
-  }
-
-  export const imageOnErrorHandler = (e) => {
-    e.currentTarget.src = 'https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=023';
-  }
+import { getImage, imageOnErrorHandler } from '../utilFunctions'
 
 const CryptoPage = ({ setSelectedCoin }) => {
+  // Data queries
   const { status, error, data: allCoins } = useQuery('all-coins', () => getAllCoins())
 
-  const [bullOrBear, setBullOrBear] = useState('win')
+  // States
+  const [bullOrBear, setBullOrBear] = useState('bull')
+  const [coinFilter, setCoinFilter] = useState('')
 
-  const sortParams = (coin1, coin2) => {
+  // Sorting states
+  const [sortParam, setSortParam] = useState('')
+  const [nameSort, setNameSort] = useState(false)
+  const [rankSort, setRankSort] = useState(false)
+  const [priceSort, setPriceSort] = useState(false)
+
+  // Constant variables
+  const sortMethods = {
+    none: { method: null },
+    rankAscending: { method: (coin1, coin2) => coin1.rank - coin2.rank },
+    rankDescending: { method: (coin1, coin2) => coin2.rank - coin1.rank },
+    nameAscending: { method: (coin1, coin2) => coin1.name.localeCompare(coin2.name) },
+    nameDescending: { method: (coin1, coin2) => coin2.name.localeCompare(coin1.name) },
+    priceAscending: { method: (coin1, coin2) => coin1.priceUsd - coin2.priceUsd },
+    priceDescending: { method: (coin1, coin2) => coin2.priceUsd - coin1.priceUsd }
+  }
+
+  const bullOrBearSortParams = (coin1, coin2) => {
     if (bullOrBear === 'bull') {
       return coin2.changePercent24Hr - coin1.changePercent24Hr
     } else if (bullOrBear === 'bear') {
@@ -26,26 +39,95 @@ const CryptoPage = ({ setSelectedCoin }) => {
     }
   }
 
-  const winnerLoserCoin = allCoins?.slice()?.sort((coin1, coin2) => {
+  const bullOrBearCoin = allCoins?.slice()?.sort((coin1, coin2) => {
     return (
-      sortParams(coin1, coin2)
+      bullOrBearSortParams(coin1, coin2)
     )
   })
 
-  // console.log('Growth Coins: ', highestGrowthCoins?.slice(0, 5))
-  // console.log('Lowvalue Coins: ', lowestGrowthCoins?.slice(0, 5))
-  // console.log('Fetch status: ', status)
-  // console.log('Data: ', allCoins)
+  const classNameLogic = (blbr) => {
+    const classes = ['growth-selector-button', 'growth-selector-button-clicked']
+    if (blbr === 'bl') {
+      switch (bullOrBear) {
+        case 'bull':
+          return classes[0]
+        case 'bear':
+          return classes[1]
+      }
+    } else {
+      switch (bullOrBear) {
+        case 'bull':
+          return classes[1]
+        case 'bear':
+          return classes[0]
+      }
+    }
+  }
+
+  const handleCoinSort = (param) => {
+    switch (param) {
+      case 'rank':
+        if (rankSort === true) {
+          return setSortParam('rankAscending')
+        } else if (rankSort === false) {
+          return setSortParam('rankDescending')
+        }
+      case 'name':
+        if (nameSort === true) {
+          return setSortParam('nameAscending')
+        } else if (nameSort === false) {
+          return setSortParam('nameDescending')
+        }
+      case 'price':
+        if (priceSort === true) {
+          return setSortParam('priceAscending')
+        } else if (priceSort === false) {
+          return setSortParam('priceDescending')
+        }
+    }
+  }
+
+  let filteredCoins
+  if (coinFilter !== '') {
+    filteredCoins = allCoins?.filter((coin => {
+      return (
+        coin.name.toLowerCase().includes(coinFilter.toLowerCase())
+      )
+    }))
+  } else {
+    filteredCoins = allCoins
+  }
+
+  const handleSortRank = () => {
+    setRankSort(!rankSort)
+    setNameSort(false)
+    setPriceSort(false)
+    handleCoinSort('rank')
+  }
+
+  const handleSortName = () => {
+    setNameSort(!nameSort)
+    setRankSort(false)
+    setPriceSort(false)
+    handleCoinSort('name')
+  }
+
+  const handleSortPrice = () => {
+    setPriceSort(!priceSort)
+    setNameSort(false)
+    setRankSort(false)
+    handleCoinSort('price')
+  }
 
   return (
     <div className="crypto-page-container">
       <div className='fastest-growing'>
         <div className='growth-selector'>
-          <button onClick={() => setBullOrBear('bull')}>Bull</button>
-          <button onClick={() => setBullOrBear('bear')}>Bear</button>
+          <button className={classNameLogic('bl')} onClick={() => setBullOrBear('bull')}>Bull</button>
+          <button className={classNameLogic('br')} onClick={() => setBullOrBear('bear')}>Bear</button>
         </div>
         <div className='fastest-growing-cards'>
-          {winnerLoserCoin?.slice(0, 5)?.map(coin => {
+          {bullOrBearCoin?.slice(0, 5)?.map(coin => {
             return (
               <Card
                 setSelectedCoin={setSelectedCoin}
@@ -60,28 +142,42 @@ const CryptoPage = ({ setSelectedCoin }) => {
           })}
         </div>
       </div>
-      <table className='coins-table'>
-        <thead>
-          <tr>
-            <td> Logo </td>
-            <td> Name </td>
-            <td> Price </td>
-          </tr>
-        </thead>
-        <tbody>
-          {allCoins?.map(coin => {
-            return (
-              <tr key={coin.id}>
-                <td className='image-row'>
-                <img className='coin-images' src={getImage(coin.name, coin.symbol)} onError={(e)=> imageOnErrorHandler(e)}/>
-                </td>
-                <td>{`${coin.name} (${coin.symbol})`}</td>
-                <td>{`$${decimalRound(coin.priceUsd)}`}</td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+      <div className='coin-database'>
+        <h1> Coin Database </h1>
+        <div className='coin-filters'>
+          <input
+            value={coinFilter}
+            onChange={e => setCoinFilter(e.target.value)}
+            type='text'
+            className='coin-search'
+            placeholder='Search for a coin..'
+          />
+        </div>
+        <table className='coins-table'>
+          <thead>
+            <tr>
+              <td><span onClick={() => handleSortRank()}> Rank {rankSort ? '▲' : '▼'} </span></td>
+              <td><span onClick={() => handleSortName()}> Name {nameSort ? '▲' : '▼'} </span></td>
+              <td><span onClick={() => handleSortPrice()}> Price {priceSort ? '▲' : '▼'}</span></td>
+              <td><span>24Hr Change</span></td>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredCoins?.sort(sortMethods[sortParam]?.method)?.map(coin => {
+              return (
+                <tr key={coin.id}>
+                  <td className='image-row'>
+                    <img className='coin-images' src={getImage(coin.name, coin.symbol)} onError={(e) => imageOnErrorHandler(e)} />
+                  </td>
+                  <td>{`${coin.name} (${coin.symbol})`}</td>
+                  <td> ${roundPrice(coin.priceUsd)} </td>
+                  <td> {twoDecimalPlaces(coin.changePercent24Hr)}% </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </ div>
     </div>
   )
 }

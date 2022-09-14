@@ -1,17 +1,18 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom" 
+import { Link } from "react-router-dom"
 import '../styles/LoginSingup.scss'
+import axios from "axios"
 
 
-const SignupPage = () => {
+const SignupPage = ({ onLogin }) => {
   // const {name, last_name, email, username, password} = onLogin
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [username, setUsername] = useState('')
-  // const [signUp, setSignUp] = useState([])
-
+  // const [errors, setErrors] = useState([])
+  // const [isLoading, setIsLoading] = useState(false)
+  
 
   const handleSubmit = ((e) => {
     e.preventDefault()
@@ -26,9 +27,13 @@ const SignupPage = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData)
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((user) => onLogin(user))
+      }
     })
-    .then((res) => res.json())
-    .then((data) => {console.log(data)})
+    // .then((res) => res.json())
+    // .then(user => onLogin(user))
     // console.log(formData)
   })
 

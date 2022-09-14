@@ -1,21 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { getImage, imageOnErrorHandler} from "../CryptoPage";
-
-export const decimalRound = (value) => {
-  if (value <= 2) {
-    return Number.parseFloat(value).toFixed(5)
-  }
-  else if (value <= 100) {
-    return Number.parseFloat(value).toFixed(2)
-  }
-  else {
-    return Number.parseFloat(value).toFixed()
-  }
-}
-
-const twoDecimalPlaces = (number) => {
-  return parseFloat(number).toFixed(2)
-}
+import { getImage, roundPrice, twoDecimalPlaces, imageOnErrorHandler} from "../../utilFunctions";
 
 const Card = ({ name, symbol, price, id, setSelectedCoin, change24Hr }) => {
   let navigate = useNavigate();
@@ -41,7 +25,7 @@ const Card = ({ name, symbol, price, id, setSelectedCoin, change24Hr }) => {
       <img className='card-coin-images' src={getImage(name, symbol)} onError={(e)=> imageOnErrorHandler(e)}/>
       <h3> {name} </h3>
       <h6 className='card-symbol'>{symbol}</h6>
-      <p> ${decimalRound(price)} </p>
+      <p> ${roundPrice(price)} </p>
       {change24Hr !== undefined ?
         <p className={priceChangeColor()}>
           {change24Hr > 0 ? '▲' : '▼'}

@@ -1,7 +1,8 @@
-  import { useQuery } from "react-query";
+import { useQuery } from "react-query";
 import Card from "./sub-components/Card";
 import backgroundImage from '../assets/background.mp4'
-import { getAllCoins } from "../coinApi";
+import { getAllCoins } from "../apis/coinApi";
+import { renderSuccessFetch } from '../utilFunctions'
 
 const Homepage = ({ setSelectedCoin }) => {
   const { status, error, data: allCoins } = useQuery('coins', () => getAllCoins())
@@ -11,7 +12,7 @@ const Homepage = ({ setSelectedCoin }) => {
   const renderCards = () => {
     return (
       <>
-        {allCoins.slice(0, 5).map((coin) => {
+        {allCoins?.slice(0, 5).map((coin) => {
           return (
             <Card
               setSelectedCoin={setSelectedCoin}
@@ -25,19 +26,6 @@ const Homepage = ({ setSelectedCoin }) => {
         })}
       </>
     )
-  }
-
-  const renderSuccessFetch = () => {
-    switch (status) {
-      case 'success':
-        return renderCards()
-      case 'loading':
-        return <p> Loading... </p>
-      case 'error':
-        return <p> {error.message} </p>
-      default:
-        return null
-    }
   }
 
   return (
@@ -54,7 +42,7 @@ const Homepage = ({ setSelectedCoin }) => {
           </div>
         </div>
         <div className="card-container">
-          {renderSuccessFetch()}
+          {renderSuccessFetch(status, error, renderCards())}
         </div>
       </div>
     </div>
