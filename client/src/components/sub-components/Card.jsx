@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { getImage, imageOnErrorHandler} from "../CryptoPage";
+import { getImage, imageOnErrorHandler} from "../../utilFunctions";
 
 export const decimalRound = (value) => {
   if (value <= 2) {

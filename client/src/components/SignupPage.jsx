@@ -1,6 +1,7 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom" 
+import { Link } from "react-router-dom"
 import '../styles/LoginSingup.scss'
+import axios from "axios"
 
 
 const SignupPage = () => {
@@ -12,7 +13,6 @@ const SignupPage = () => {
   const [username, setUsername] = useState('')
   // const [signUp, setSignUp] = useState([])
 
-
   const handleSubmit = ((e) => {
     e.preventDefault()
     const formData = {
@@ -20,15 +20,22 @@ const SignupPage = () => {
       'email': email,
       'password': password
     }
-    fetch('/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
-    })
-    .then((res) => res.json())
-    .then((data) => {console.log(data)})
+
+    axios.post('signup', formData)
+    .then(res => console.log(res.data))
+    .catch(err => console.log(err))
+
+    // axios.get('users')
+    // fetch('/signup', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(formData)
+    // })
+    // .then((res) => res.json())
+    // .then((data) => console.log(data))
+    // .catch(err => console.log(err))
     // console.log(formData)
   })
 

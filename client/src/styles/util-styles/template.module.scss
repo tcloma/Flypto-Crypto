@@ -1,9 +1,8 @@
 @import './colors.module.scss';
 
 .layout-template {
-   background-color: $background-color;
-   color: $text-color-dark;
-   outline: 0.2rem $shadow-color solid;
+   background-color: $accent-color;
+   color: $text-color-light;
    display: flex;
    justify-content: space-around;
    align-items: center;
