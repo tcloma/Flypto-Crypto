@@ -18,6 +18,7 @@ const Homepage = ({ setSelectedCoin }) => {
               key={coin.id}
               id={coin.id}
               name={coin.name}
+              symbol={coin.symbol}
               price={coin.priceUsd}
             />
           )
