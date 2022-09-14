@@ -18,6 +18,8 @@ const App = () => {
 
   const [currentUser, setCurrentUser] = useState()
   const [selectedCoin, setSelectedCoin] = useState('')
+
+  
   console.log(currentUser)
   return (
     <QueryClientProvider client={queryClient}>
