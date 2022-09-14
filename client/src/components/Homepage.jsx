@@ -3,6 +3,7 @@ import Card from "./sub-components/Card";
 import backgroundImage from '../assets/background.mp4'
 import { getAllCoins } from "../apis/coinApi";
 import { renderSuccessFetch } from '../utilFunctions'
+import { Link } from "react-router-dom";
 
 const Homepage = ({ setSelectedCoin }) => {
   const { status, error, data: allCoins } = useQuery('coins', () => getAllCoins())
@@ -38,7 +39,9 @@ const Homepage = ({ setSelectedCoin }) => {
           <h1>Flypto</h1>
           <h5>Buy, sell, and exchange your cryptocurrency with no extra fees.</h5>
           <div className='button-home-div'>
-            <button id='get-started' className='home-buttons'>Get Started</button>
+            <Link to='/signup'>
+              <button id='get-started' className='home-buttons'>Get Started</button>
+            </Link>
           </div>
         </div>
         <div className="card-container">
