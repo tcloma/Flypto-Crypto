@@ -11,8 +11,6 @@ import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import ProfilePage from './ProfilePage';
 import CryptoPage from './CryptoPage';
-import { useEffect } from 'react';
-import axios from 'axios'
 
 const queryClient = new QueryClient();
 
@@ -20,14 +18,6 @@ const App = () => {
 
   const [currentUser, setCurrentUser] = useState()
   const [selectedCoin, setSelectedCoin] = useState('')
-
-  useEffect(() => {
-    fetch('/me').then((res) => {
-      if (res.ok) {
-        res.json().then((currentUser) => setCurrentUser(currentUser))
-      }
-    })
-  }, [])
 
   
   console.log(currentUser)
@@ -39,8 +29,8 @@ const App = () => {
             <Route path='/' element={<Homepage setSelectedCoin={setSelectedCoin} />} />
             <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
             <Route path='/crypto' element={<CryptoPage />} />
-            <Route path='/profile' element={<ProfilePage currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
-            <Route path='/login' element={<LoginPage setCurrentUser={setCurrentUser} />} />
+            <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/login' element={<LoginPage setCurrentUser={setCurrentUser}/>} />
             <Route path='/signup' element={<SignupPage setCurrentUser={setCurrentUser}/>} />
           </Routes>
           <ReactQueryDevtools />
