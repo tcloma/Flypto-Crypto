@@ -134,9 +134,7 @@ const CoinPage = ({selectedCoin, user}) => {
 
   const calculateConversionValue = (value) => {
     const selectedInUSD = specCoinData?.priceUsd * value
-    console.log(selectedInUSD)
     const conversionCoinValue = selectedInUSD/conversionCoin.priceUsd
-    console.log(conversionCoinValue)
     setConversionValue(() => roundPrice(conversionCoinValue))
   }
 
