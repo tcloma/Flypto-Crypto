@@ -31,46 +31,47 @@ const Homepage = ({ setSelectedCoin }) => {
 
   return (
     <div className="App">
-      <div>
-        <video className="home-video" muted autoPlay loop>
-          <source src={backgroundImage} type="video/mp4" />
-        </video>
-        <div className="overlay">
+      <div className="hero">
+        <div className="hero-text">
           <h1>Flypto</h1>
           <h5>The future of money is here </h5>
+          <h5> Start your crypto journey with flypto </h5>
         </div>
-        <div className="card-container">
-          {renderSuccessFetch(status, error, renderCards())}
+        <div className="hero-img">
+          <img src="2880.webp" />
         </div>
-        <div className="get-started-main-container">
-          <div className="home-get-started-container">
-            <div className="get-started-1">
-              {/* <h1 className="get-started-head"> Buy  Sell  Exchange </h1> */}
-              <div className="buy-sell-exchange">
-                <div className="buy"> <h1> Buy </h1> </div>
-                <div className="sell"> <h1> Sell </h1> </div>
-                <div className="exchange"> <h1> Exchange </h1></div>
-              </div>
-              <h4 className="get-started-text"> your cryptocurrency with no extra fees</h4>
-              <Link to='/signup'>
-                <button className='get-started-button'>Get Started</button>
-              </Link>
+      </div>
+      <div className="card-container">
+        {renderSuccessFetch(status, error, renderCards())}
+      </div>
+      <div className="get-started-main-container">
+        <div className="home-get-started-container">
+          <div className="get-started-1">
+            {/* <h1 className="get-started-head"> Buy  Sell  Exchange </h1> */}
+            <div className="buy-sell-exchange">
+              <div className="buy"> <h1> Buy </h1> </div>
+              <div className="sell"> <h1 style={{ color: '#0fff4f'}}> Sell </h1> </div>
+              <div className="exchange"> <h1> Exchange </h1></div>
             </div>
-          </div>
-        </div>
-        <div className="home-reward-container">
-          <div className="home-reward-1">
-            <h1 className="reward-head"> Explore crypto like Bitcoin, Ethereum, and Dogecoin </h1>
-            <h5> Simply and securely buy, sell, and manage hundreds of cryptocurrency </h5>
-            <Link to='/crypto'>
-              <button className="reward-button"> See more assets </button>
+            <h4 className="get-started-text"> your cryptocurrency with <span style={{ color:'#58f582'}}>no extra fees</span></h4>
+            <Link to='/signup'>
+              <button className='get-started-button'>Get Started</button>
             </Link>
           </div>
-          <div className="home-reward-2" >
-            <video className="home-video-reward" muted autoPlay loop>
-              <source src='gemini-phone.mp4' type='video/mp4' />
-            </video>
-          </div>
+        </div>
+      </div>
+      <div className="home-reward-container">
+        <div className="home-reward-1">
+          <h1 className="reward-head"> Explore crypto like Bitcoin, Ethereum, and Dogecoin </h1>
+          <h5> Simply and securely buy, sell, and manage hundreds of cryptocurrency </h5>
+          <Link to='/crypto'>
+            <button className="reward-button"> See more assets </button>
+          </Link>
+        </div>
+        <div className="home-reward-2" >
+          <video className="home-video-reward" muted autoPlay loop>
+            <source src='gemini-phone.mp4' type='video/mp4' />
+          </video>
         </div>
       </div>
     </div>

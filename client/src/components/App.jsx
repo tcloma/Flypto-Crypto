@@ -49,11 +49,11 @@ const App = () => {
             <Route path='/trade' element={<CoinPage setUser={setUser} user={user} selectedCoin={selectedCoin} />} />
             <Route path='/logout' />
             <Route path='/crypto' element={<CryptoPage setSelectedCoin={setSelectedCoin} />} />
-            <Route path='/profile' element={<ProfilePage username={user?.name} setSelectedCoin={setSelectedCoin} />} />
+            <Route path='/profile' element={<ProfilePage user={user} setSelectedCoin={setSelectedCoin} />} />
             <Route path='/login' element={<LoginPage onLogin={setUser} />} />
             <Route path='/signup' element={<SignupPage />} />
           </Routes>
-          <ReactQueryDevtools />
+          {/* <ReactQueryDevtools /> */}
         </Layout>
       </BrowserRouter>
     </QueryClientProvider>

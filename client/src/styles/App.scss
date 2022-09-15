@@ -5,57 +5,39 @@
    @extend .container-template;
    font-size: calc(10px + 2vmin);
    min-height: 90vh;
+   padding-top: 15vh;
+   min-width: 100vw;
+  gap: 1.5em;
 }
 
-.overlay
+.hero
 {
-  position: absolute;
-  top: 50%;
-  left: 32%;
-  height: 2vw;
-  z-index: 0;
+  display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  align-items: center;
   color: $text-color-light;
 }
 
-.button-home-div
-{
-  margin-top:20px;
+.hero-text{
+  min-width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#get-started
-{
-  border-radius: 20px;
-  font-size: 80%;
-  padding: 20px;
-  width: 50%;
-  background-color:$accent-color;
-  border-color: $accent-color;
-  border: none;
-  color: $text-color-light;
-  font-weight: bold;
-}
+.hero-img{
 
-#get-started:hover {
-  transition-duration: .5s;
-  background-color: white;
-  border-color: white;
-  color: #459DBA;
-  font-weight: bold;
-  cursor:pointer;
-}
-
-.home-video
-{
-  z-index: 1;
 }
 
 .card-container {
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
-   margin: 1em;
+  //  margin: 1em;
    gap: 0.5em;
-   width: 100%;
+   width: 100vw;
   //  border-radius: 1em;
 }
 
@@ -73,10 +55,11 @@
   align-content: center;
   height: 20em;
   // border: 2px solid black;
-  margin-left: 3.5em;
-  margin-right: 3.5em;
-  margin-bottom: 2em;
-  margin-top: 3em;
+  // margin-left: 3.5em;
+  // margin-right: 3.5em;
+  // margin-bottom: 2em;
+  // margin-top: 3em;
+  width: 100vw;
   background-color: white;
 }
 
@@ -103,7 +86,7 @@
 }
 
 .reward-button:hover{
-  filter:drop-shadow(-2px 1px 3px rgb(15, 255, 80) )
+  filter:drop-shadow(-2px 1px 3px #0fff4f )
 }
 
 .home-reward-2 {
@@ -118,3 +101,42 @@
   width: 25em;
 }
 
+.home-get-started-container {
+display: flex;
+padding-left: 3em;
+padding-right: 3em;
+height: 15em;
+justify-content: center;
+width: 100vw;
+color: white;
+background-color: black;
+}
+
+.get-started-1 {
+margin-top: 3em;
+text-align: center;
+}
+
+.get-started-head {
+font-size: 50px;
+}
+
+.buy-sell-exchange {
+display: flex;
+justify-content: space-between;
+}
+
+.get-started-button {
+background-color: black;
+color: white;
+border-radius: 1em;
+margin-top: 1em;
+// padding-top: 2em;
+width: 8em;
+justify-content: center;
+}
+
+.get-started-button:hover {
+// background-color: rgb(15, 255, 80);
+filter: drop-shadow(-2px 1px 3px rgb(15, 255, 80));
+}

@@ -173,14 +173,14 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
   }
 
   const fundsData = {
-    'funds': user.funds - usdAmount
+    'funds': user?.funds - usdAmount
   }
 
   const postPurchaseData = {
     'name': specCoinData?.name,
     'symbol': specCoinData?.symbol,
     'quantity': cryptoAmount,
-    'user_id': user.id
+    'user_id': user?.id
   }
 
 
