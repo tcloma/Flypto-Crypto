@@ -1,10 +1,13 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../styles/LoginSingup.scss'
 
 
 const LoginPage = ({ onLogin }) => {
+
+
   // const [username, setUsername] = useState('')
   // let navigate = useNavigate
   const [password, setPassword] = useState('')
@@ -12,6 +15,9 @@ const LoginPage = ({ onLogin }) => {
   // const [isLogin, setIsLogin] = useState(false)
   const [errors, setErrors] = useState([])
   // const [isLoading, setIsLoading] = useState(false)
+
+  let navigate = useNavigate();
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -28,7 +34,7 @@ const LoginPage = ({ onLogin }) => {
     }).then((res) => {
       if (res.ok) {
         res.json().then((user) => onLogin(user))
-        // setIsLogin(true)
+        navigate('/profile')
         console.log(formData)
       }
     })
