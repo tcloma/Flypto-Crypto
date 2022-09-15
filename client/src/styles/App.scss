@@ -303,7 +303,8 @@
   margin-right: 3.5em;
   height: 15em;
   justify-content: center;
-  color: rgb(15, 255, 80);
+  // color: rgb(15, 255, 80);
+  color: white;
 }
 
 .get-started-1 {
@@ -320,9 +321,6 @@
   justify-content: space-between;
 }
 
-
-
-
 .get-started-button {
   background-color: black;
   color: white;
@@ -333,6 +331,10 @@
   justify-content: center;
 }
 
+.get-started-button:hover {
+  // background-color: rgb(15, 255, 80);
+  filter: drop-shadow(-2px 1px 3px rgb(15, 255, 80));
+}
 
 .home-reward-container {
   // color: rgb(15, 255, 80);
@@ -373,7 +375,10 @@
   // background-color: rgba(14, 54, 118, 0.5);
   background-color: black;
   color: white;
+}
 
+.reward-button:hover{
+  filter:drop-shadow(-2px 1px 3px rgb(15, 255, 80) )
 }
 
 .home-reward-2 {
