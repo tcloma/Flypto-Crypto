@@ -25,7 +25,7 @@ class PositionListsController < ApplicationController
   private 
 
   def post_params
-    params.permit(:time_of_purchase, :price_of_purchase, :purchased_coin_id)
+    params.permit(:time_of_purchase, :price_of_purchase, :quantity_purchased, :purchased_coin_id)
   end
 
 end

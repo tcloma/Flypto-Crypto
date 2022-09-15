@@ -183,21 +183,22 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
     'user_id': user.id
   }
 
+  const findCoin = () => user.purchased_coins.find((coin) => {
+    console.log(coin.name)
+    console.log(specCoinData?.name)
+    if (coin.name === specCoinData?.name) {
+      return coin
+    }
+  })
+
 
   const handleBuySubmit = async (e) => {
     e.preventDefault()
     console.log('clicked')
-    user.funds = 100000
     if (usdAmount < user.funds) {
       axios.patch('users', fundsData)
       user.funds -= usdAmount
-      let coin = user.purchased_coins.find((coin) => {
-        console.log(coin.name)
-        console.log(specCoinData?.name)
-        if (coin.name === specCoinData?.name) {
-          return coin
-        }
-      })
+      const coin = findCoin()
       if (coin) {
         // console.log('running')
         // console.log(`/purchasedcoins/${coin.id}`)
@@ -212,10 +213,25 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
         }
         console.log(patchPurchaseData)
         axios.patch(`purchasedcoins/${coin?.id}`, patchPurchaseData)
+        const postPositionData = {
+            "time_of_purchase": moment().toDate(),
+            "price_of_purchase": specCoinData?.priceUsd,
+            "quantity_purchased": parseFloat(cryptoAmount),
+            "purchased_coin_id": coin.id
+        }
+        axios.post(`/positionlists/`, postPositionData)
       }
       else {
         console.log('posted')
-        axios.post(`/purchasedcoins/`, postPurchaseData)
+        const res = await axios.post(`/purchasedcoins/`, postPurchaseData)
+        const data = res.data
+        const postPositionData = {
+            "time_of_purchase": moment().toDate(),
+            "price_of_purchase": usdAmount,
+            "quantity_purchased": parseFloat(cryptoAmount),
+            "purchased_coin_id": data.id
+        }
+        axios.post(`/positionlists/`, postPositionData)
       }
       let res = await axios.get('/me');
       let data = res.data;
@@ -254,7 +270,7 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
       return (
         <>
           <form onSubmit={(e) => handleBuySubmit(e)} id='buy-input-form'>
-            <h2 className=''>{`0 ${specCoinData?.symbol}`}</h2>
+            <h2 className=''>{`${findCoin() ? findCoin().quantity : 0} ${specCoinData?.symbol}`}</h2>
             <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
             <h2>{fromBTC ? specCoinData?.symbol : 'USD'}</h2>
             <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}` : `${specCoinData?.symbol}-USD`}</button>
@@ -268,7 +284,7 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
       return (
         <>
           <form onSubmit={(e) => handleBuySubmit(e)} id='buy-input-form'>
-            <h2 className=''>{`0 ${specCoinData?.symbol}`}</h2>
+            <h2 className=''>{`${findCoin() ? findCoin().quantity : 0} ${specCoinData?.symbol}`}</h2>
             <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
             <h2>{specCoinData?.symbol}</h2>
             {/* <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}`: `${specCoinData?.symbol}-USD`}</button> */}
