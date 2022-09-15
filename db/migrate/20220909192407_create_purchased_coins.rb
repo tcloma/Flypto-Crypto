@@ -3,7 +3,7 @@ class CreatePurchasedCoins < ActiveRecord::Migration[7.0]
     create_table :purchased_coins do |t|
       t.string :name
       t.string :symbol
-      t.string :quantity
+      t.float :quantity
       t.float :price
       t.integer :user_id
 
