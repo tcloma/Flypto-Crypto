@@ -60,9 +60,12 @@ const CoinPage = ({ selectedCoin, user }) => {
 
   const dataSource = {
     chart: {
+      bgAlpha: "100",
+      showBorder: 1,
+      borderThickness: 1.5,
       caption: `${specCoinData?.name}`,
       plotFillColor: '#459DBA',
-      outCnvBaseFontColor: '#FFFFFF',
+      outCnvBaseFontColor: '#252525',
       baseFont: 'Gilroy',
       drawFullAreaBorder: true,
       showPlotBorder: true,
@@ -70,7 +73,7 @@ const CoinPage = ({ selectedCoin, user }) => {
       setAdaptiveYMin: true,
       labelStep: 100,
       plotBorderColor: '#459DBA',
-      bgColor: '#222222',
+      bgColor: '#FFFFFF',
       subCaption: `(${specCoinData?.symbol})`,
       xAxisName: 'Day',
       yAxisName: 'Price ($USD)',
@@ -84,7 +87,7 @@ const CoinPage = ({ selectedCoin, user }) => {
         id: 'price-displays',
         items: [{
           id: 'price-display',
-          fillcolor: "#FFFFFF",
+          fillcolor: "#252525",
           fontsize: "26",
           type: "text",
           bold: 1,
@@ -105,190 +108,190 @@ const CoinPage = ({ selectedCoin, user }) => {
         }]
 
       }]
-    },
+
+  },
     data: newData
-  };
+};
 
-  const chartConfigs = {
-    type: 'area2d',
-    width: "900",
-    height: "500",
-    dataFormat: 'json',
-    dataSource: dataSource
-  };
+const chartConfigs = {
+  type: 'area2d',
+  width: "900",
+  height: "500",
+  dataFormat: 'json',
+  dataSource: dataSource
+};
 
-  const selectTimePeriod = (e) => {
-    setTimePeriod(e.target.value);
-    refetch();
-  }
+const selectTimePeriod = (e) => {
+  setTimePeriod(e.target.value);
+  refetch();
+}
 
-  const selectConversionCoin = (e) => {
-    setConversionCoin(JSON.parse(e.target.value))
-  }
+const selectConversionCoin = (e) => {
+  setConversionCoin(JSON.parse(e.target.value))
+}
 
-  const calculateConversionValue = (value) => {
-    const selectedInUSD = specCoinData?.priceUsd * value
-    console.log(selectedInUSD)
-    const conversionCoinValue = selectedInUSD / conversionCoin.priceUsd
-    console.log(conversionCoinValue)
-    setConversionValue(() => roundPrice(conversionCoinValue))
-  }
+const calculateConversionValue = (value) => {
+  const selectedInUSD = specCoinData?.priceUsd * value
+  const conversionCoinValue = selectedInUSD / conversionCoin.priceUsd
+  setConversionValue(() => roundPrice(conversionCoinValue))
+}
 
 
-  const handleChange = (e) => {
-    if (transaction === 'buy' || transaction === 'sell') {
-      if (fromBTC) {
-        setCryptoAmount(e.target.value)
-        handleConvertUSD(e.target.value)
-      }
-      else {
-        setUSDAmount(e.target.value)
-        handleConvertUSD(e.target.value)
-      }
-    }
-    else {
-      setCryptoAmount(e.target.value)
-      calculateConversionValue(e.target.value)
-    }
-
-  }
-
-  const handleConvertUSD = (value) => {
+const handleChange = (e) => {
+  if (transaction === 'buy' || transaction === 'sell') {
     if (fromBTC) {
-      const convertedAmount = (value * specCoinData?.priceUsd)
-      setUSDAmount(() => roundPrice(convertedAmount))
+      setCryptoAmount(e.target.value)
+      handleConvertUSD(e.target.value)
     }
     else {
-      const convertedAmount = (value / specCoinData?.priceUsd)
-      setCryptoAmount(() => roundPrice(convertedAmount))
+      setUSDAmount(e.target.value)
+      handleConvertUSD(e.target.value)
     }
   }
-
-  const handleSwap = (e) => {
-    e.preventDefault()
-    setFromBTC(!fromBTC)
+  else {
+    setCryptoAmount(e.target.value)
+    calculateConversionValue(e.target.value)
   }
 
-  //   const fundsData = {
-  //     'funds': user.funds - usdAmount
-  //   }
+}
 
-  const handleBuySubmit = (e) => {
-    e.preventDefault()
-    // if(usdAmount > user.funds)
-    // {
-    //     axios.patch('users', fundsData)
-    // }
-    // else
-    // {
-    //     console.log('Not enough money')
-    // }
-
+const handleConvertUSD = (value) => {
+  if (fromBTC) {
+    const convertedAmount = (value * specCoinData?.priceUsd)
+    setUSDAmount(() => roundPrice(convertedAmount))
   }
+  else {
+    const convertedAmount = (value / specCoinData?.priceUsd)
+    setCryptoAmount(() => roundPrice(convertedAmount))
+  }
+}
 
-  const renderTrade = () => {
-    if (transaction === 'buy') {
-      return (
-        <>
-          <form onSubmit={(e) => handleBuySubmit(e)} id='buy-input-form'>
-            <div style={{ display: 'flex' }}>
-              <div>
-                <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
-                <h2>{fromBTC ? specCoinData?.symbol : 'USD'}</h2>
-              </div>
-              <div style={{ display: 'flex', minWidth: '50%', justifyContent: 'center', alignItems: 'center' }}>
-                <h2 id='result-amount'>{fromBTC ? `$${usdAmount}` : `${cryptoAmount} ${specCoinData.symbol}`}</h2>
-              </div>
+const handleSwap = (e) => {
+  e.preventDefault()
+  setFromBTC(!fromBTC)
+}
+
+//   const fundsData = {
+//     'funds': user.funds - usdAmount
+//   }
+
+const handleBuySubmit = (e) => {
+  e.preventDefault()
+  // if(usdAmount > user.funds)
+  // {
+  //     axios.patch('users', fundsData)
+  // }
+  // else
+  // {
+  //     console.log('Not enough money')
+  // }
+
+}
+
+const renderTrade = () => {
+  if (transaction === 'buy') {
+    return (
+      <>
+        <form onSubmit={(e) => handleBuySubmit(e)} id='buy-input-form'>
+          <div style={{ display: 'flex' }}>
+            <div>
+              <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
+              <h2>{fromBTC ? specCoinData?.symbol : 'USD'}</h2>
             </div>
-            <div style={{display: 'flex'}}>
-              <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}` : `${specCoinData?.symbol}-USD`}</button>
-              <input className='buy-button' type="submit" value="Buy" />
+            <div style={{ display: 'flex', minWidth: '50%', justifyContent: 'center', alignItems: 'center' }}>
+              <h2 id='result-amount'>{fromBTC ? `$${usdAmount}` : `${cryptoAmount} ${specCoinData.symbol}`}</h2>
             </div>
-          </form>
-        </>
-      )
-    }
-    if (transaction === 'sell') {
-      return (
-        <>
-          <form onSubmit={(e) => handleBuySubmit(e)} id='buy-input-form'>
-            <h2 className=''>{`0 ${specCoinData?.symbol}`}</h2>
-            <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
-            <h2>{fromBTC ? specCoinData?.symbol : 'USD'}</h2>
+          </div>
+          <div style={{ display: 'flex' }}>
             <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}` : `${specCoinData?.symbol}-USD`}</button>
-            <input className='buy-button' type="submit" value="Sell" />
-            <h2 id='result-amount'>{fromBTC ? `$${usdAmount}` : `${cryptoAmount} ${specCoinData.symbol}`}</h2>
-          </form>
-        </>
-      )
-    }
-    if (transaction === 'convert')
-      return (
-        <>
-          <form onSubmit={(e) => handleBuySubmit(e)} id='buy-input-form'>
-            <h2 className=''>{`0 ${specCoinData?.symbol}`}</h2>
-            <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
-            <h2>{specCoinData?.symbol}</h2>
-            {/* <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}`: `${specCoinData?.symbol}-USD`}</button> */}
-            <input className='buy-button' type="submit" value="Convert" />
-            <select onChange={(e) => selectConversionCoin(e)} name="conversion-choice" id="conversion-choice">
-              {allCoins.map((coin) => {
-                return (
-                  <option value={JSON.stringify(coin)}>{coin.symbol}</option>
-                )
-              })}
-            </select>
-            <h2 id='result-amount'>{`${conversionValue} ${conversionCoin ? conversionCoin.symbol : ''}`}</h2>
-          </form>
-        </>
-      )
+            <input className='buy-button' type="submit" value="Buy" />
+          </div>
+        </form>
+      </>
+    )
   }
+  if (transaction === 'sell') {
+    return (
+      <>
+        <form onSubmit={(e) => handleBuySubmit(e)} id='buy-input-form'>
+          <h2 className=''>{`0 ${specCoinData?.symbol}`}</h2>
+          <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
+          <h2>{fromBTC ? specCoinData?.symbol : 'USD'}</h2>
+          <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}` : `${specCoinData?.symbol}-USD`}</button>
+          <input className='buy-button' type="submit" value="Sell" />
+          <h2 id='result-amount'>{fromBTC ? `$${usdAmount}` : `${cryptoAmount} ${specCoinData.symbol}`}</h2>
+        </form>
+      </>
+    )
+  }
+  if (transaction === 'convert')
+    return (
+      <>
+        <form onSubmit={(e) => handleBuySubmit(e)} id='buy-input-form'>
+          <h2 className=''>{`0 ${specCoinData?.symbol}`}</h2>
+          <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
+          <h2>{specCoinData?.symbol}</h2>
+          {/* <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}`: `${specCoinData?.symbol}-USD`}</button> */}
+          <input className='buy-button' type="submit" value="Convert" />
+          <select onChange={(e) => selectConversionCoin(e)} name="conversion-choice" id="conversion-choice">
+            {allCoins.map((coin) => {
+              return (
+                <option value={JSON.stringify(coin)}>{coin.symbol}</option>
+              )
+            })}
+          </select>
+          <h2 id='result-amount'>{`${conversionValue} ${conversionCoin ? conversionCoin.symbol : ''}`}</h2>
+        </form>
+      </>
+    )
+}
 
-  return (
-    <div className='full-page-container'>
-      <div className='coin-chart-container'>
-        <div className='coin-chart'>
-          {graphLoading ? <p>Loading ...</p> : <ReactFC {...chartConfigs} />}
-          <div className='time-choices'>
+return (
+  <div className='full-page-container'>
+    <div className='coin-chart-container'>
+      <div className='coin-chart'>
+        {graphLoading ? <p>Loading ...</p> : <ReactFC {...chartConfigs} />}
+        <div className='time-choices'>
 
-            <select onChange={selectTimePeriod} name="time-period" id="time-period">
-              <option value="m1">Today</option>
-              <option value="h1">This Month</option>
-              <option value="d1">This Year</option>
-            </select>
+          <select onChange={selectTimePeriod} name="time-period" id="time-period">
+            <option value="m1">Today</option>
+            <option value="h1">This Month</option>
+            <option value="d1">This Year</option>
+          </select>
+          <div className='coin-extra-info'>
+            <div className='coin-extra-info-container'>
+              <div className='coin-extra-info-element'>
+                <h4>Market Cap</h4>
+                <p>{`$${extraCoinInfoFormatter(specCoinData?.marketCapUsd)}`}</p>
+              </div>
+              <div className='coin-extra-info-element'>
+                <h4>Volume (24hr)</h4>
+                <p>{`$${extraCoinInfoFormatter(specCoinData?.volumeUsd24Hr)}`}</p>
+              </div >
+              <div className='coin-extra-info-element'>
+                <h4>Supply</h4>
+                <p>{`${extraCoinInfoFormatter(specCoinData?.supply)} ${specCoinData?.symbol}`}</p>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className='buy-sell-container'>
-          <div className='info-container'>
-            <h2>Trade</h2>
-          </div>
-          <div className='info-button-container'>
-            <button onClick={() => { setConversionCoin(false); setTransaction('buy') }} className='info-buttons'>Buy</button>
-            <button onClick={() => { setConversionCoin(false); setTransaction('sell') }} className='info-buttons'>Sell</button>
-            <button onClick={() => { setConversionCoin(false); setTransaction('convert') }} className='info-buttons'>Convert</button>
-          </div>
-          {renderTrade()}
-
         </div>
       </div>
-      <div className='coin-extra-info'>
-        <div className='coin-extra-info-container'>
-          <div className='coin-extra-info-element'>
-            <h4>Market Cap</h4>
-            <p>{`$${extraCoinInfoFormatter(specCoinData?.marketCapUsd)}`}</p>
-          </div>
-          <div className='coin-extra-info-element'>
-            <h4>Volume (24hr)</h4>
-            <p>{`$${extraCoinInfoFormatter(specCoinData?.volumeUsd24Hr)}`}</p>
-          </div >
-          <div className='coin-extra-info-element'>
-            <h4>Supply</h4>
-            <p>{`${extraCoinInfoFormatter(specCoinData?.supply)} ${specCoinData?.symbol}`}</p>
-          </div>
+      <div className='buy-sell-container'>
+        <div className='info-container'>
+          <h2>Trade</h2>
+        </div>
+        <div className='info-button-container'>
+          <button onClick={() => { setConversionCoin(false); setTransaction('buy') }} className='info-buttons'>Buy</button>
+          <button onClick={() => { setConversionCoin(false); setTransaction('sell') }} className='info-buttons'>Sell</button>
+          <button onClick={() => { setConversionCoin(false); setTransaction('convert') }} className='info-buttons'>Convert</button>
+        </div>
+        <div className='trade-component'>
+          {renderTrade()}
         </div>
       </div>
     </div>
-  )
+  </div>
+)
 }
 
 export default CoinPage

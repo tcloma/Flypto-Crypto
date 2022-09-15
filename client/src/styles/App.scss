@@ -12,7 +12,11 @@
     padding-top: 6.5%;
     display: flex;
     justify-content: center;
-    background-color: $background-color;
+}
+
+.coin-chart
+{
+  background-color: $background-color;
 }
 
 .card-symbol
@@ -83,15 +87,21 @@
 
 .coin-extra-info
 {
-  background-color: #222222;
-  width: 57.55em;
+  background-color: $off-background-color;
+  border: 2px solid #4f4f4f7b;
+  border-radius: 1%;
+  width: 37.5em;
   position: relative;
-  right: .08%;
   bottom:1px;
   margin: auto;
-  color: white;
+  color: $text-color-dark;
   font-size: 1.5em;
   padding: 3%;
+}
+
+.full-page-container
+{
+  background-color: $background-color;
 }
 
 .coin-extra-info-container
@@ -152,9 +162,9 @@
   margin: auto;
   border: none;
   resize: none;
-  border-bottom: 1px solid white;
-  color: white;
-  background-color: #222222;
+  border-bottom: 2px solid $text-color-dark;
+  color: $text-color-dark;
+  background-color: $background-color;
   width:100%;
   // max-width: 50%;
   font-size: 2em;
@@ -223,17 +233,24 @@
   cursor: pointer;
 }
 
+.coin-chart-container
+{
+  gap: 6px;
+}
+
 .buy-sell-container
 {
   min-width: 30vw;
   max-width: 30vw;
   resize: none;
-  min-height: 10vw;
-  background-color:#222222;
-  color: white;
+  min-height: 15vw;
+  height: 40vw;
+  background-color:$off-background-color;
+  color: $text-color-dark;
+  border: 1.5px solid #4f4f4f7b;
+  border-radius: 1%;
   position: relative;
   bottom: .5px;
-  right: .1%;
 }
 
 .info-container
@@ -256,7 +273,6 @@
 .info-buttons:hover {
   transition-duration: .5s;
   background-color: white;
-  border-color: white;
   color: black;
   cursor:pointer;
 }
