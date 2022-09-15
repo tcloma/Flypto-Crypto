@@ -13,6 +13,7 @@ import ProfilePage from './ProfilePage';
 import CryptoPage from './CryptoPage';
 import { useEffect } from 'react';
 import axios from 'axios'
+import Header from './sub-components/Header';
 
 const queryClient = new QueryClient();
 
@@ -37,8 +38,9 @@ useEffect(() => {
           <Routes>
             <Route path='/' element={<Homepage setSelectedCoin={setSelectedCoin} />} />
             <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
+            <Route path='/logout' element={<Header user={user} setUser={setUser} />} />
             <Route path='/crypto' element={<CryptoPage />} />
-            <Route path='/profile' element={<ProfilePage user={user} setUser={setUser}/>} />
+            <Route path='/profile' element={<ProfilePage />} />
             <Route path='/login' element={<LoginPage onLogin={setUser} />} />
             <Route path='/signup' element={<SignupPage />} />
           </Routes>
