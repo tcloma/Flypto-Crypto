@@ -12,7 +12,7 @@ import '../styles/CoinPage.scss'
 
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
-const CoinPage = ({ selectedCoin, user }) => {
+const CoinPage = ({ selectedCoin, user, setUser}) => {
 
   const [timePeriod, setTimePeriod] = useState('m1')
   const [transaction, setTransaction] = useState('buy')
@@ -166,27 +166,66 @@ const CoinPage = ({ selectedCoin, user }) => {
     }
   }
 
-  const handleSwap = (e) => {
-    e.preventDefault()
-    setFromBTC(!fromBTC)
+const handleSwap = (e) => {
+  e.preventDefault()
+  setFromBTC(!fromBTC)
+}
+
+  const fundsData = {
+    'funds': user.funds - usdAmount
   }
 
-  //   const fundsData = {
-  //     'funds': user.funds - usdAmount
-  //   }
-
-  const handleBuySubmit = (e) => {
-    e.preventDefault()
-    // if(usdAmount > user.funds)
-    // {
-    //     axios.patch('users', fundsData)
-    // }
-    // else
-    // {
-    //     console.log('Not enough money')
-    // }
-
+  const postPurchaseData = {
+    'name': specCoinData?.name,
+    'symbol': specCoinData?.symbol,
+    'quantity': cryptoAmount,
+    'user_id': user.id
   }
+
+
+  const handleBuySubmit = async (e) => {
+    e.preventDefault()
+    console.log('clicked')
+    user.funds = 100000
+    if(usdAmount < user.funds)
+    {
+        axios.patch('users', fundsData)
+        user.funds -= usdAmount
+        let coin = user.purchased_coins.find((coin) => {
+            console.log(coin.name)
+            console.log(specCoinData?.name)
+            if(coin.name === specCoinData?.name) {
+                return coin
+            }
+         })
+         if(coin)
+         {
+            console.log('running')
+            console.log(`/purchasedcoins/${coin.id}`)
+            let res1 = await axios.get(`/purchasedcoins/${coin.id}`)
+            let data = res1.data
+            console.log(data.quantity)
+            const patchPurchaseData = {
+                'quantity': data.quantity += cryptoAmount
+              }
+            axios.patch(`purchasedcoins/${coin.id}`, patchPurchaseData)
+         }
+         else
+         {
+            console.log('posted')
+            axios.post(`/purchasedcoins/${coin.id}/`, postPurchaseData)
+         }
+        let res = await axios.get('/me');
+        let data = res.data;
+        console.log(data)
+        setUser(data);
+    }
+    else
+    {
+        console.log('Not enough money')
+    }
+  }
+
 
   const renderTrade = () => {
     if (transaction === 'buy') {
