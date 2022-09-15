@@ -57,3 +57,55 @@
    gap: 0.5em;
    width: 100%;
 }
+
+.home-reward-container {
+  display: flex;
+  flex-direction: row;
+  padding-left: 3em;
+  padding-right: 3em;
+  border: 3em;
+  justify-content: center;
+  align-content: center;
+  height: 17em;
+  // border: 2px solid black;
+  margin-left: 3em;
+  margin-right: 3em;
+  margin-bottom: 2em;
+  margin-top: 2em;
+  background-color: white;
+}
+
+.home-reward-1 {
+  // border: 1px solid red;
+  align-items: center;
+  width: 30em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.reward-head {
+  font-size: 2em;
+}
+
+.reward-button {
+  width: 9em;
+  height: 2.5em;
+  margin-top: 2em;
+  border-radius: 1.5em;
+  // background-color: rgba(14, 54, 118, 0.5);
+  background-color: black;
+  color: white;
+
+}
+
+.home-reward-2 {
+  margin-top: 15px;
+  margin-left: 5em;
+  width: 9em; 
+  height: 10em;
+  opacity: 80%;
+}
+
+.home-video-reward {
+  width: 25em;
+}
