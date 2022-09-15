@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ user, setUser , handleLogoutClick}) => {
+
+
+  // const handleLogoutClick = () => {
+  //   fetch('/logout', {
+  //     method: 'DELETE',
+  //   }).then(() => onLogout())
+  //   console.log(onLogout())
+  // }
   return (
     <div className='header'>
       <Link to='/'>
@@ -20,9 +28,10 @@ const Header = () => {
         </Link>
       </div>
 
-      <Link to='/login'>
-        <p> Login </p>
-      </Link>
+       <Link to='/login'>
+         <p> Login  </p>
+       </Link>
+       <button onClick={handleLogoutClick}> Logout</button>
     </div>
   )
 }

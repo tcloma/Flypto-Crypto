@@ -12,7 +12,8 @@ import SignupPage from './SignupPage';
 import ProfilePage from './ProfilePage';
 import CryptoPage from './CryptoPage';
 import { useEffect } from 'react';
-import axios from 'axios'
+// import axios from 'axios'
+import Header from './sub-components/Header';
 
 const queryClient = new QueryClient();
 
@@ -38,15 +39,29 @@ useEffect(() => {
   })
 }, []);
 
+    const handleLogoutClick = () =>  {
+    fetch("/logout", { method: "DELETE" }).then((r) => {
+      if (r.ok) {
+        setUser(null)
+        // console.log(user)
+      }
+    });
+  }
+
+
+// if (!user) return <LoginPage setUser={setUser} />
+// if (user) return <ProfilePage setUser={setUser} />
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Layout>
           <Routes>
             <Route path='/' element={<Homepage setSelectedCoin={setSelectedCoin} />} />
-            <Route path='/trade' element={<CoinPage user={user} selectedCoin={selectedCoin} />} />
-            <Route path='/crypto' element={<CryptoPage setSelectedCoin={setSelectedCoin}/>} />
-            <Route path='/profile' element={<ProfilePage user={user} setUser={setUser}/>} />
+            <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
+            <Route path='/logout' element={<Header handleLogoutClick={handleLogoutClick} />} />
+            <Route path='/crypto' element={<CryptoPage />} />
+            <Route path='/profile' element={<ProfilePage />} />
             <Route path='/login' element={<LoginPage onLogin={setUser} />} />
             <Route path='/signup' element={<SignupPage />} />
           </Routes>
