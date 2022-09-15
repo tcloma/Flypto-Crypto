@@ -1,15 +1,7 @@
 import { Link } from "react-router-dom";
 
-const Header = ({ user, setUser}) => {
+const Header = ({ user, setUser , handleLogoutClick}) => {
 
-    const handleLogoutClick = () =>  {
-    fetch("/logout", { method: "DELETE" }).then((r) => {
-      if (r.ok) {
-        setUser(null)
-        // console.log(user)
-      }
-    });
-  }
 
   // const handleLogoutClick = () => {
   //   fetch('/logout', {

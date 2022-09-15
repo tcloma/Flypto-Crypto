@@ -59,7 +59,7 @@ useEffect(() => {
           <Routes>
             <Route path='/' element={<Homepage setSelectedCoin={setSelectedCoin} />} />
             <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
-            <Route path='/logout' element={<Header user={user} setUser={setUser} handleLogoutClick={handleLogoutClick} />} />
+            <Route path='/logout' element={<Header handleLogoutClick={handleLogoutClick} />} />
             <Route path='/crypto' element={<CryptoPage />} />
             <Route path='/profile' element={<ProfilePage />} />
             <Route path='/login' element={<LoginPage onLogin={setUser} />} />

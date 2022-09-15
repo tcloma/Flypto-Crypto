@@ -10,7 +10,7 @@ const LoginPage = ({ onLogin }) => {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   // const [isLogin, setIsLogin] = useState(false)
-  // const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([])
   // const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = (e) => {
