@@ -13,7 +13,7 @@ const LoginPage = ({ onLogin }) => {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   // const [isLogin, setIsLogin] = useState(false)
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState("")
   // const [isLoading, setIsLoading] = useState(false)
 
   let navigate = useNavigate();
@@ -31,17 +31,18 @@ const LoginPage = ({ onLogin }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData)
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then((user) => onLogin(user))
-        navigate('/profile')
-        console.log(formData)
-      } else {
-        res.json().then((err) => setErrors(err.errors))
-      }
     })
-    // .then(res => res.json())
-    // .then(user => onLogin(user))
+      .then((r) => {
+        if (r.ok) {
+          r.json().then((user) => {
+            onLogin(user)
+          })
+          navigate('/profile')
+        }
+        else {
+          r.json().then((err) => setErrors(err.error));
+        }
+    })
   }
 
   const handleEmailChange = (e) => {
@@ -54,6 +55,7 @@ const LoginPage = ({ onLogin }) => {
 
   return (
     <div className="login-container">
+      <div className="errors">{errors}</div>
       <form className="login-form" onSubmit={e => handleSubmit(e)}>
         <div className="form-header">
           <h1>Log in</h1>
@@ -71,9 +73,6 @@ const LoginPage = ({ onLogin }) => {
           placeholder="Password"
         />
         <button> Submit </button>
-        {
-          errors.map((err) => {})
-        }
       </form>
       <div className="redirect-text">
         <p> Don't have an account? <Link to='/signup'>Signup</Link> </p>

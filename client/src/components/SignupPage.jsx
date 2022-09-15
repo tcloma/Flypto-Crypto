@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import '../styles/LoginSingup.scss'
+import { useNavigate } from "react-router-dom";
 import axios from "axios"
 
 
@@ -10,9 +11,10 @@ const SignupPage = ({ onLogin }) => {
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  // const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([])
   // const [isLoading, setIsLoading] = useState(false)
   
+  let navigate = useNavigate();
 
   const handleSubmit = ((e) => {
     e.preventDefault()
@@ -27,16 +29,23 @@ const SignupPage = ({ onLogin }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData)
-    }).then((res) => {
-      if (res.ok) {
-        res.json().then((user) => onLogin(user))
-        console.log(formData)
-      }
     })
+      .then((r) => {
+        if (r.ok) {
+          r.json().then((user) => {
+            onLogin(user)
+          })
+          navigate('/profile')
+        }
+        else {
+          r.json().then((err) => setErrors(err.errors));
+        }
+      })
   })
 
   return (
     <div className="login-container">
+      <div className="errors">{errors.map(err => <p key={err}>{err}</p>)}</div>
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="form-header">
           <h1>Sign up</h1>

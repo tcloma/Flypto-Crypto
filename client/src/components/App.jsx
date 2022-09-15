@@ -51,7 +51,7 @@ const App = () => {
             <Route path='/crypto' element={<CryptoPage setSelectedCoin={setSelectedCoin} />} />
             <Route path='/profile' element={<ProfilePage username={user?.name} setSelectedCoin={setSelectedCoin} />} />
             <Route path='/login' element={<LoginPage onLogin={setUser} />} />
-            <Route path='/signup' element={<SignupPage />} />
+            <Route path='/signup' element={<SignupPage onLogin={setUser} />} />
           </Routes>
           <ReactQueryDevtools />
         </Layout>
