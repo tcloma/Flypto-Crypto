@@ -4,13 +4,16 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import '../styles/LoginSingup.scss'
 
+
 const LoginPage = ({ onLogin }) => {
 
 
   // const [username, setUsername] = useState('')
+  // let navigate = useNavigate
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
-  // const [errors, setErrors] = useState([])
+  // const [isLogin, setIsLogin] = useState(false)
+  const [errors, setErrors] = useState([])
   // const [isLoading, setIsLoading] = useState(false)
 
   let navigate = useNavigate();
@@ -34,7 +37,7 @@ const LoginPage = ({ onLogin }) => {
         navigate('/profile')
         console.log(formData)
       } else {
-        console.log('fail')
+        res.json().then((err) => setErrors(err.errors))
       }
     })
     // .then(res => res.json())
@@ -68,6 +71,9 @@ const LoginPage = ({ onLogin }) => {
           placeholder="Password"
         />
         <button> Submit </button>
+        {
+          errors.map((err) => {})
+        }
       </form>
       <div className="redirect-text">
         <p> Don't have an account? <Link to='/signup'>Signup</Link> </p>

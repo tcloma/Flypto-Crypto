@@ -30,40 +30,10 @@ const SignupPage = ({ onLogin }) => {
     }).then((res) => {
       if (res.ok) {
         res.json().then((user) => onLogin(user))
+        console.log(formData)
       }
     })
-    // .then((res) => res.json())
-    // .then(user => onLogin(user))
-    // console.log(formData)
   })
-
-  // const handleSubmit = ((e) => {
-  //   // setFirstName('')
-  //   // setLastName('')
-  //   // setEmail('')
-  //   // setPassword('')
-  //   // setUsername('')
-
-  //   e.preventDefault()
-  //     fetch('http:/', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       name: firstName,
-  //       last_name: lastName,
-  //       email: email,
-  //       username: username,
-  //       password: password
-  //     })
-  //   })
-  //     .then((res) => res.json())
-  //     .then(data => console.log(data))
-  //     // .then(data => setSignUp(data))
-  // }, [])
-
-
 
   return (
     <div className="login-container">

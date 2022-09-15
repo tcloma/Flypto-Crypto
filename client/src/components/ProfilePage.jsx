@@ -5,15 +5,7 @@ import { useQuery } from 'react-query'
 import { getAllCoins } from '../apis/coinApi'
 import { roundPrice } from '../utilFunctions'
 
-const ProfilePage = ({ username = 'Olivia' }) => {
-
-  const exampleData = [
-    { name: 'bitcoin', price: 20000 },
-    { name: 'ethereum', price: 5000 },
-    { name: 'cardano', price: 300 },
-    { name: 'doge-coin', price: 1 }
-  ]
-
+const ProfilePage = ({ username }) => {
   const { status, error, data: allCoins } = useQuery('coins', () => getAllCoins())
 
   return (
@@ -28,7 +20,11 @@ const ProfilePage = ({ username = 'Olivia' }) => {
           <h2> Tracked Coins: </h2>
           {allCoins?.slice(0, 5).map(coin => {
             return (
-              <Card name={coin.name} price={coin.priceUsd} />
+              <Card
+                name={coin.name}
+                symbol={coin.symbol}
+                price={coin.priceUsd}
+              />
             )
           })}
         </div>

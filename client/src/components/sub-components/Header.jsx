@@ -1,11 +1,32 @@
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ user, setUser }) => {
+
+
+  // const handleLogoutClick = () => {
+  //   fetch('/logout', {
+  //     method: 'DELETE',
+  //   }).then(() => onLogout())
+  //   console.log(onLogout())
+  // }
+
+  const handleLogoutClick = () => {
+    fetch("/logout", { method: "DELETE" }).then((r) => {
+      if (r.ok) {
+        setUser(null)
+
+        // console.log(user)
+      }
+    });
+  }
+
+  console.log(user)
+
   return (
     <div className='header'>
       <Link to='/'>
         <div className="logo-container">
-          <p style={{fontSize: '2em'}}> 🪙 </p>
+          <p style={{ fontSize: '2em' }}> 🪙 </p>
         </div>
       </Link>
       <div className="nav-buttons">
@@ -20,9 +41,14 @@ const Header = () => {
         </Link>
       </div>
 
-      <Link to='/login'>
-        <p> Login </p>
+      {user ?
+      <Link to='/'>
+          <p onClick={handleLogoutClick}>Logout</p>
       </Link>
+        :
+        <Link to='/login'>
+          <p> Login </p>
+        </Link>}
     </div>
   )
 }
