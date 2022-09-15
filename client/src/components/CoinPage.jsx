@@ -178,21 +178,22 @@ const CoinPage = ({selectedCoin, user}) => {
     setFromBTC(!fromBTC)
   }
 
-//   const fundsData = {
-//     'funds': user.funds - usdAmount
-//   }
+  const fundsData = {
+    'funds': user.funds - usdAmount
+  }
 
   const handleBuySubmit = (e) => {
     e.preventDefault()
-    // if(usdAmount > user.funds)
-    // {
-    //     axios.patch('users', fundsData)
-    // }
-    // else
-    // {
-    //     console.log('Not enough money')
-    // }
-
+    console.log('clicked')
+    if(usdAmount < user.funds)
+    {
+        axios.patch('users', fundsData)
+        user.funds -= usdAmount
+    }
+    else
+    {
+        console.log('Not enough money')
+    }
   }
 
   const renderTrade = () => {
