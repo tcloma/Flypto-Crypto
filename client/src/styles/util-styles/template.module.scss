@@ -9,6 +9,10 @@
    min-height: 10vh;
 }
 
+.header-template {
+   background-color: rgba(0, 0, 0, 0.5);
+}
+
 .container-template {
    background-color: $background-color;
    color: $text-color-dark;

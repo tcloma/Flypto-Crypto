@@ -2,6 +2,13 @@
 
 .header {
 	@extend .layout-template;
+	
+	// @extend .header-template;
+	// background-color: rgba(0,0,0, 0.5);
+		display: flex;
+			justify-content: space-around;
+			align-items: center;
+			min-height: 10vh;
 	justify-content: space-between;
 	padding: 0em 1em;
 	position: fixed;

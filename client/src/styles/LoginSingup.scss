@@ -1,11 +1,18 @@
 @import '../styles/util-styles/colors.module.scss';
 @import '../styles/util-styles/template.module.scss';
 
+// * {
+//   background-color: white
+// }
+
 .login-container {
-  @extend .container-template;
+  // @extend .container-template; 
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
   min-height: 90vh;
   padding-top: 4em;
-
 }
 
 .form-header {
