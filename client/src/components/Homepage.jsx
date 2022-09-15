@@ -49,7 +49,19 @@ const Homepage = ({ setSelectedCoin }) => {
         </div>
         <div className="home-reward-container">
           <div className="home-reward-1">
-            <h1> Get up to $100,00 in rewards for getting started</h1>
+            <h1 className="reward-head"> Explore crypto like Bitcoin, Ethereum ,and Dogecoin </h1>
+            <h5> Simply and securely buy, sell, and manage hundreds of cryptocurrency </h5>
+            <Link to='/crypto'>
+              <button className="reward-button"> See more assets </button>
+            </Link>
+          </div>
+          <div className="home-reward-2" >
+            <video className="home-video-reward" muted autoPlay loop>
+              <source src='gemini-phone.mp4'  type='video/mp4' />
+            </video>
+          </div>
+          <div>
+
           </div>
         </div>
       </div>
