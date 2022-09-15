@@ -37,19 +37,30 @@ const Homepage = ({ setSelectedCoin }) => {
         </video>
         <div className="overlay">
           <h1>Flypto</h1>
-          <h5>Buy, sell, and exchange your cryptocurrency with no extra fees.</h5>
-          <div className='button-home-div'>
-            <Link to='/signup'>
-              <button id='get-started' className='home-buttons'>Get Started</button>
-            </Link>
-          </div>
+          <h5>The future of money is here </h5>
         </div>
         <div className="card-container">
           {renderSuccessFetch(status, error, renderCards())}
         </div>
+        <div className="get-started-main-container">
+          <div className="home-get-started-container">
+            <div className="get-started-1">
+              {/* <h1 className="get-started-head"> Buy  Sell  Exchange </h1> */}
+              <div className="buy-sell-exchange">
+                <div className="buy"> <h1> Buy </h1> </div>
+                <div className="sell"> <h1> Sell </h1> </div>
+                <div className="exchange"> <h1> Exchange </h1></div>
+              </div>
+              <h4 className="get-started-text"> your cryptocurrency with no extra fees</h4>
+              <Link to='/signup'>
+                <button className='get-started-button'>Get Started</button>
+              </Link>
+            </div>
+          </div>
+        </div>
         <div className="home-reward-container">
           <div className="home-reward-1">
-            <h1 className="reward-head"> Explore crypto like Bitcoin, Ethereum ,and Dogecoin </h1>
+            <h1 className="reward-head"> Explore crypto like Bitcoin, Ethereum, and Dogecoin </h1>
             <h5> Simply and securely buy, sell, and manage hundreds of cryptocurrency </h5>
             <Link to='/crypto'>
               <button className="reward-button"> See more assets </button>
@@ -57,11 +68,8 @@ const Homepage = ({ setSelectedCoin }) => {
           </div>
           <div className="home-reward-2" >
             <video className="home-video-reward" muted autoPlay loop>
-              <source src='gemini-phone.mp4'  type='video/mp4' />
+              <source src='gemini-phone.mp4' type='video/mp4' />
             </video>
-          </div>
-          <div>
-
           </div>
         </div>
       </div>
