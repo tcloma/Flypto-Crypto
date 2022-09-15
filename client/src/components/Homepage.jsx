@@ -47,6 +47,11 @@ const Homepage = ({ setSelectedCoin }) => {
         <div className="card-container">
           {renderSuccessFetch(status, error, renderCards())}
         </div>
+        <div className="home-reward-container">
+          <div className="home-reward-1">
+            <h1> Get up to $100,00 in rewards for getting started</h1>
+          </div>
+        </div>
       </div>
     </div>
   )

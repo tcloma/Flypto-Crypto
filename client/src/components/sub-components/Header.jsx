@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Header = ({ user, setUser , handleLogoutClick}) => {
+const Header = ({ handleLogoutClick}) => {
 
 
   // const handleLogoutClick = () => {

@@ -5,6 +5,10 @@
    @extend .container-template;
    font-size: calc(10px + 2vmin);
    min-height: 90vh;
+  // font-family: 'ABeeZee', sans-serif;
+    // font-family: 'Didact Gothic', sans-serif;
+    // font-family: 'Palanquin', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 .coin-chart-container
@@ -283,3 +287,18 @@
   justify-content: center;
   margin: 4%;
 }
+
+.home-reward-container {
+  border: 1px solid black;
+  display: flex;
+  padding-left: 3em;
+  padding-right: 3em;
+  justify-content: center;
+}
+
+.home-reward-1 {
+  border: 1px solid red;
+  align-items: center;
+
+}
+
