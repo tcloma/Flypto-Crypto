@@ -2,7 +2,7 @@ class PositionListsController < ApplicationController
   def index
     user = User.find_by(id: session[:user_id])
     if user
-      render json: user.position_lists.all, status: :found
+      render json: user.position_lists.all
     else  
       render json: {error: "Position_List not found"}, status: :not_found
     end
@@ -11,7 +11,7 @@ class PositionListsController < ApplicationController
   def show 
     position_list = PositionList.find_by(id: params[:id])
     if position_list
-      render json: position_list, status: :found
+      render json: position_list
     else 
       render json: {error: "Position_List not found"}, status: :not_found
     end

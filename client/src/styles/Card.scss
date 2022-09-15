@@ -1,0 +1,47 @@
+@import '../styles/util-styles/colors.module.scss';
+@import '../styles/util-styles/template.module.scss';
+
+
+.card {
+  box-shadow: 4px 4px 0px $shadow-color;
+  background-color: $off-background-color;
+   padding: 1em;
+   width: 18%;
+   height: 10rem;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+   text-align: center;
+  }
+
+.card-symbol{
+    color: #C0C0C0;
+    font-size: 0.5em;
+  }
+  
+.card-coin-images
+  {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width:1.5vw;
+    height:1.5vw;
+  }
+
+.corner-price-change{
+  position: absolute;
+  top: .5em;
+  right: .5em;
+}
+
+.price-up {
+  @extend .corner-price-change;
+  color: green
+}
+
+.price-down {
+  @extend .corner-price-change;
+  color: red;
+}
