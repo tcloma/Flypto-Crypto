@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import '../styles/LoginSingup.scss'
 
 
@@ -36,6 +36,8 @@ const LoginPage = ({ onLogin }) => {
         res.json().then((user) => onLogin(user))
         navigate('/profile')
         console.log(formData)
+      } else {
+        res.json().then((err) => setErrors(err.errors))
       }
     })
     // .then(res => res.json())
@@ -69,6 +71,9 @@ const LoginPage = ({ onLogin }) => {
           placeholder="Password"
         />
         <button> Submit </button>
+        {
+          errors.map((err) => {})
+        }
       </form>
       <div className="redirect-text">
         <p> Don't have an account? <Link to='/signup'>Signup</Link> </p>
