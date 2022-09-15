@@ -1,12 +1,21 @@
 import { Link } from "react-router-dom";
 
 const Header = ({ user, setUser}) => {
-  //   function handleLogoutClick() {
-  //   fetch("/logout", { method: "DELETE" }).then((r) => {
-  //     if (r.ok) {
-  //       setUser(null);
-  //     }
-  //   });
+
+    const handleLogoutClick = () =>  {
+    fetch("/logout", { method: "DELETE" }).then((r) => {
+      if (r.ok) {
+        setUser(null)
+        // console.log(user)
+      }
+    });
+  }
+
+  // const handleLogoutClick = () => {
+  //   fetch('/logout', {
+  //     method: 'DELETE',
+  //   }).then(() => onLogout())
+  //   console.log(onLogout())
   // }
   return (
     <div className='header'>
@@ -27,16 +36,10 @@ const Header = ({ user, setUser}) => {
         </Link>
       </div>
 
-      {/* <p> 
-        {
-          !user :
-           <Link to='/logout' onClick={handleLogoutClick}> Logout </Link> 
-           ? <Link to='/login'> Login </Link>
-        }
-      </p> */}
-      {/* // <Link to='/login'>
-      //   <p> Login  </p>
-      // </Link> */}
+       <Link to='/login'>
+         <p> Login  </p>
+       </Link>
+       <button onClick={handleLogoutClick}> Logout</button>
     </div>
   )
 }

@@ -12,7 +12,7 @@ import SignupPage from './SignupPage';
 import ProfilePage from './ProfilePage';
 import CryptoPage from './CryptoPage';
 import { useEffect } from 'react';
-import axios from 'axios'
+// import axios from 'axios'
 import Header from './sub-components/Header';
 
 const queryClient = new QueryClient();
@@ -30,6 +30,10 @@ useEffect(() => {
     }
   })
 }, []);
+
+
+// if (!user) return <LoginPage setUser={setUser} />
+// if (user) return <ProfilePage setUser={setUser} />
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../styles/LoginSingup.scss'
+
 
 const LoginPage = ({ onLogin }) => {
   // const [username, setUsername] = useState('')
+  // let navigate = useNavigate
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
+  // const [isLogin, setIsLogin] = useState(false)
   // const [errors, setErrors] = useState([])
   // const [isLoading, setIsLoading] = useState(false)
 
@@ -25,9 +28,8 @@ const LoginPage = ({ onLogin }) => {
     }).then((res) => {
       if (res.ok) {
         res.json().then((user) => onLogin(user))
+        // setIsLogin(true)
         console.log(formData)
-      } else {
-        console.log('fail')
       }
     })
     // .then(res => res.json())
