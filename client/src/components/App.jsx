@@ -44,10 +44,10 @@ const App = () => {
       <BrowserRouter>
         <Layout user={user} setUser={setUser}>
           <Routes>
-            <Route path='/' element={<Homepage />} />
+            <Route path='/' element={<Homepage setSelectedCoin={setSelectedCoin} />} />
             <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
             <Route path='/logout' />
-            <Route path='/crypto' element={<CryptoPage setSelectedCoin={setSelectedCoin} />} />
+            <Route path='/crypto' element={<CryptoPage />} />
             <Route path='/profile' element={<ProfilePage username={user?.name} setSelectedCoin={setSelectedCoin} />} />
             <Route path='/login' element={<LoginPage onLogin={setUser} />} />
             <Route path='/signup' element={<SignupPage />} />

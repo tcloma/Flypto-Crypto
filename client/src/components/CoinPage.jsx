@@ -8,6 +8,7 @@ import moment from 'moment';
 import { useQuery } from "react-query";
 import { roundPrice } from '../utilFunctions'
 import { getCoin, getAllCoins, getCoinGraphData } from '../apis/coinApi';
+import '../styles/CoinPage.scss'
 
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 

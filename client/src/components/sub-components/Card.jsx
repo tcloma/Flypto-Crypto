@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { getImage, roundPrice, twoDecimalPlaces, imageOnErrorHandler} from "../../utilFunctions";
+import '../../styles/Card.scss'
 
 const Card = ({ name, symbol, price, id, setSelectedCoin, change24Hr }) => {
   let navigate = useNavigate();
 
-  const getCoin = () => {
+  const getCoin = (id) => {
     setSelectedCoin(id)
     console.log(id)
     navigate('/trade')
@@ -21,7 +22,7 @@ const Card = ({ name, symbol, price, id, setSelectedCoin, change24Hr }) => {
   }
 
   return (
-    <div className="card" onClick={getCoin}>
+    <div className="card" onClick={() => getCoin(id)}>
       <img className='card-coin-images' src={getImage(name, symbol)} onError={(e)=> imageOnErrorHandler(e)}/>
       <h3> {name} </h3>
       <h6 className='card-symbol'>{symbol}</h6>

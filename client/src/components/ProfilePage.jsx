@@ -45,6 +45,8 @@ const ProfilePage = ({ username, setSelectedCoin }) => {
           {allCoins?.slice(0, 5).map(coin => {
             return (
               <Card
+                setSelectedCoin={setSelectedCoin}
+                id={coin.id}
                 key={coin.id}
                 name={coin.name}
                 symbol={coin.symbol}
