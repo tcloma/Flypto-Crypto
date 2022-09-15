@@ -3,7 +3,7 @@ class PurchasedCoinsController < ApplicationController
   def index
     user = find_user
     if user
-    render json: user.purchased_coins, status: :found
+    render json: user.purchased_coins
     else
       render json: {error: "User Purchased Coin not found"}
     end
@@ -12,9 +12,9 @@ class PurchasedCoinsController < ApplicationController
   def show 
     purchase_coin = PurchasedCoin.find_by(id: params[:id])
     if purchase_coin
-      render json: purchase_coin, status: :found
+      render json: purchase_coin
     else
-      render json: {error: "Purchased_Coin not found"}, status: :not_found
+      render json: {error: "Purchased Coin not found"}, status: :not_found
     end
   end
 
@@ -24,9 +24,9 @@ class PurchasedCoinsController < ApplicationController
   end
 
   def update 
-    watch_list = PurchasedCoin.find_by(id: params[:id])
-    if watch_list.update(coin_params)
-      render json: watch_list, status: :found
+    coin = PurchasedCoin.find_by(id: params[:id])
+    if coin.update(coin_params)
+      render json: coin
     else 
       render json: {error: "Purchased_Coin not found"}, status: :not_found
     end

@@ -12,6 +12,7 @@ import SignupPage from './SignupPage';
 import ProfilePage from './ProfilePage';
 import CryptoPage from './CryptoPage';
 import { useEffect } from 'react';
+import axios from 'axios';
 // import axios from 'axios'
 
 
@@ -28,13 +29,13 @@ const App = () => {
         res.json().then((user) => setUser(user))
       }
     })
-    fetch('/purchasedcoins')
-      .then((res) => {
-        if (res.ok) {
-          res.json()
-            .then((purchasedCoins) => setPurchasedCoins(purchasedCoins))
-        }
-      })
+    // fetch('/purchasedcoins')
+    //   .then((res) => {
+    //     if (res.ok) {
+    //       res.json()
+    //         .then((purchasedCoins) => setPurchasedCoins(purchasedCoins))
+    //     }
+    //   })
   }, []);
 
   
@@ -45,7 +46,7 @@ const App = () => {
         <Layout user={user} setUser={setUser}>
           <Routes>
             <Route path='/' element={<Homepage setSelectedCoin={setSelectedCoin} />} />
-            <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
+            <Route path='/trade' element={<CoinPage setUser={setUser} user={user} selectedCoin={selectedCoin} />} />
             <Route path='/logout' />
             <Route path='/crypto' element={<CryptoPage />} />
             <Route path='/profile' element={<ProfilePage username={user?.name} />} />

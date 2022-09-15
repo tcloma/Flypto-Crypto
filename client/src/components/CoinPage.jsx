@@ -12,7 +12,7 @@ import { getCoin, getAllCoins, getCoinGraphData } from '../apis/coinApi';
 
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
-const CoinPage = ({ selectedCoin, user }) => {
+const CoinPage = ({ selectedCoin, user, setUser}) => {
 
   const [timePeriod, setTimePeriod] = useState('m1')
   const [transaction, setTransaction] = useState('buy')
@@ -182,31 +182,43 @@ const handleSwap = (e) => {
     'user_id': user.id
   }
 
+
   const handleBuySubmit = async (e) => {
     e.preventDefault()
     console.log('clicked')
     user.funds = 100000
     if(usdAmount < user.funds)
     {
-        // axios.patch('users', fundsData)
-        // user.funds -= usdAmount
-        let found = false;
-        let res = await axios.get('http://localhost:3000/me');
-        let data = res.data;
-        console.log(data);
-        user.purchased_coins.forEach((coin) => {
+        axios.patch('users', fundsData)
+        user.funds -= usdAmount
+        let coin = user.purchased_coins.find((coin) => {
+            console.log(coin.name)
+            console.log(specCoinData?.name)
             if(coin.name === specCoinData?.name) {
-                found = true
+                return coin
             }
          })
-         if(found)
+         if(coin)
          {
-            console.log('You already own this coin.')
+            console.log('running')
+            console.log(`/purchasedcoins/${coin.id}`)
+            let res1 = await axios.get(`/purchasedcoins/${coin.id}`)
+            let data = res1.data
+            console.log(data.quantity)
+            const patchPurchaseData = {
+                'quantity': data.quantity += cryptoAmount
+              }
+            axios.patch(`purchasedcoins/${coin.id}`, patchPurchaseData)
          }
          else
          {
-            axios.post('purchasedcoins', postPurchaseData)
+            console.log('posted')
+            axios.post(`/purchasedcoins/${coin.id}/`, postPurchaseData)
          }
+        let res = await axios.get('/me');
+        let data = res.data;
+        console.log(data)
+        setUser(data);
     }
     else
     {
