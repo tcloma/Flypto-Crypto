@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 
 const Homepage = ({ setSelectedCoin }) => {
   const { status, error, data: allCoins } = useQuery('coins', () => getAllCoins())
-  console.log('Fetch Status: ', status)
-  console.log('Data: ', allCoins)
+  // console.log('Fetch Status: ', status)
+  // console.log('Data: ', allCoins)
 
   const renderCards = () => {
     return (

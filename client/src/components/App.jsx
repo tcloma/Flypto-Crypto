@@ -23,6 +23,7 @@ const App = () => {
   const [selectedCoin, setSelectedCoin] = useState('')
   const [user, setUser] = useState(null)
 
+  // console.log('User: ',user)
 
 useEffect(() => {
   fetch('/me').then((res) => {
@@ -55,13 +56,13 @@ useEffect(() => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Layout>
+        <Layout user={user}>
           <Routes>
             <Route path='/' element={<Homepage setSelectedCoin={setSelectedCoin} />} />
             <Route path='/trade' element={<CoinPage selectedCoin={selectedCoin} />} />
-            <Route path='/logout' element={<Header handleLogoutClick={handleLogoutClick} />} />
+            <Route path='/logout'/>
             <Route path='/crypto' element={<CryptoPage />} />
-            <Route path='/profile' element={<ProfilePage />} />
+            <Route path='/profile' element={<ProfilePage username={user?.name}/>} />
             <Route path='/login' element={<LoginPage onLogin={setUser} />} />
             <Route path='/signup' element={<SignupPage />} />
           </Routes>
