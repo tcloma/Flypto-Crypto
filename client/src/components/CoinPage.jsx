@@ -182,21 +182,38 @@ const CoinPage = ({selectedCoin, user}) => {
     'funds': user.funds - usdAmount
   }
 
-  const purchaseData = {
+  const postPurchaseData = {
     'name': specCoinData?.name,
     'symbol': specCoinData?.symbol,
     'quantity': cryptoAmount,
     'user_id': user.id
   }
 
-  const handleBuySubmit = (e) => {
+  const handleBuySubmit = async (e) => {
     e.preventDefault()
     console.log('clicked')
+    user.funds = 100000
     if(usdAmount < user.funds)
     {
-        axios.patch('users', fundsData)
-        axios.post('purchasedcoins', purchaseData)
-        user.funds -= usdAmount
+        // axios.patch('users', fundsData)
+        // user.funds -= usdAmount
+        let found = false;
+        let res = await axios.get('http://localhost:3000/me');
+        let data = res.data;
+        console.log(data);
+        user.purchased_coins.forEach((coin) => {
+            if(coin.name === specCoinData?.name) {
+                found = true
+            }
+         })
+         if(found)
+         {
+            console.log('You already own this coin.')
+         }
+         else
+         {
+            axios.post('purchasedcoins', postPurchaseData)
+         }
     }
     else
     {
