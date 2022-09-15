@@ -14,13 +14,11 @@ const Header = ({ user, setUser }) => {
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
         setUser(null)
-
-        // console.log(user)
       }
     });
   }
 
-  console.log(user)
+  console.log('Current User: ', { name: user?.name, email: user?.email, funds: user?.funds })
 
   return (
     <div className='header'>
@@ -36,15 +34,16 @@ const Header = ({ user, setUser }) => {
         <Link to='/crypto'>
           <p> Crypto </p>
         </Link>
-        <Link to='/profile'>
+        {user && <Link to='/profile'>
           <p> Profile </p>
-        </Link>
+        </Link>}
+        
       </div>
 
       {user ?
-      <Link to='/'>
+        <Link to='/'>
           <p onClick={handleLogoutClick}>Logout</p>
-      </Link>
+        </Link>
         :
         <Link to='/login'>
           <p> Login </p>

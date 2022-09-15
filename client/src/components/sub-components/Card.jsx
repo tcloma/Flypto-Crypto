@@ -4,12 +4,12 @@ import { getImage, roundPrice, twoDecimalPlaces, imageOnErrorHandler} from "../.
 const Card = ({ name, symbol, price, id, setSelectedCoin, change24Hr }) => {
   let navigate = useNavigate();
 
-  // console.log(change24Hr)
   const getCoin = () => {
     setSelectedCoin(id)
     console.log(id)
     navigate('/trade')
   }
+  // console.log(change24Hr)
 
   const priceChangeColor = () => {
     if (change24Hr > 0) {

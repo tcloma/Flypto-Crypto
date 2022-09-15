@@ -94,10 +94,12 @@
 
 .coins-table tbody tr:nth-child(odd){
   background-color: $background-color;
+  cursor:pointer;
 }
 
 .coins-table tbody tr:nth-child(even){
   background-color: $off-background-color;
+  cursor:pointer;
 }
 
 .coin-images
