@@ -182,12 +182,20 @@ const CoinPage = ({selectedCoin, user}) => {
     'funds': user.funds - usdAmount
   }
 
+  const purchaseData = {
+    'name': specCoinData?.name,
+    'symbol': specCoinData?.symbol,
+    'quantity': cryptoAmount,
+    'user_id': user.id
+  }
+
   const handleBuySubmit = (e) => {
     e.preventDefault()
     console.log('clicked')
     if(usdAmount < user.funds)
     {
         axios.patch('users', fundsData)
+        axios.post('purchasedcoins', purchaseData)
         user.funds -= usdAmount
     }
     else
