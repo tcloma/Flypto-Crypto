@@ -1,14 +1,20 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import '../styles/LoginSingup.scss'
 
 const LoginPage = ({ onLogin }) => {
+
+
   // const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   // const [errors, setErrors] = useState([])
   // const [isLoading, setIsLoading] = useState(false)
+
+  let navigate = useNavigate();
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -25,6 +31,7 @@ const LoginPage = ({ onLogin }) => {
     }).then((res) => {
       if (res.ok) {
         res.json().then((user) => onLogin(user))
+        navigate('/profile')
         console.log(formData)
       } else {
         console.log('fail')
