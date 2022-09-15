@@ -19,6 +19,7 @@ const queryClient = new QueryClient();
 
 
 const App = () => {
+  const [purchasedCoins, setPurchasedCoins] = ([])
   const [selectedCoin, setSelectedCoin] = useState('')
   const [user, setUser] = useState(null)
 
@@ -27,6 +28,13 @@ useEffect(() => {
   fetch('/me').then((res) => {
     if (res.ok) {
       res.json().then((user) => setUser(user))
+    }
+  })
+  fetch('/purchasedcoins')
+  .then((res) => {
+    if(res.ok) {
+      res.json()
+      .then((purchasedCoins) => setPurchasedCoins(purchasedCoins))
     }
   })
 }, []);

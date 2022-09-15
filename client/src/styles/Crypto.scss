@@ -30,6 +30,7 @@
   color: $text-color-light;
   border-top-left-radius: .3em;
   border-top-right-radius: .3em;
+  min-width: 10vw;
 }
 
 .growth-selector-button-clicked{
@@ -38,6 +39,7 @@
   color: $text-color-dark;
   border-top-left-radius: .3em;
   border-top-right-radius: .3em;
+  min-width: 10vw;
 }
 
 
@@ -107,4 +109,12 @@
 .image-row
 {
   width: 10%
+}
+
+.change-positive {
+  color: green;
+}
+
+.change-negative {
+  color: red;
 }

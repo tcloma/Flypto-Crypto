@@ -1,6 +1,6 @@
 import '../styles/Crypto.scss'
-import { getAllCoins } from '../coinApi'
-import { decimalRound } from './sub-components/Card'
+import { getAllCoins } from '../apis/coinApi'
+import { roundPrice, twoDecimalPlaces } from '../utilFunctions'
 import { useQuery } from 'react-query'
 import Card from './sub-components/Card'
 import { useState } from 'react'
@@ -19,6 +19,7 @@ const CryptoPage = ({ setSelectedCoin }) => {
   const [nameSort, setNameSort] = useState(false)
   const [rankSort, setRankSort] = useState(false)
   const [priceSort, setPriceSort] = useState(false)
+  const [changeSort, setChangeSort] = useState(false)
 
   // Constant variables
   const sortMethods = {
@@ -28,7 +29,9 @@ const CryptoPage = ({ setSelectedCoin }) => {
     nameAscending: { method: (coin1, coin2) => coin1.name.localeCompare(coin2.name) },
     nameDescending: { method: (coin1, coin2) => coin2.name.localeCompare(coin1.name) },
     priceAscending: { method: (coin1, coin2) => coin1.priceUsd - coin2.priceUsd },
-    priceDescending: { method: (coin1, coin2) => coin2.priceUsd - coin1.priceUsd }
+    priceDescending: { method: (coin1, coin2) => coin2.priceUsd - coin1.priceUsd },
+    changeAscending: { method: (coin1, coin2) => coin1.changePercent24Hr - coin2.changePercent24Hr },
+    changeDescending: { method: (coin1, coin2) => coin2.changePercent24Hr - coin1.changePercent24Hr }
   }
 
   const bullOrBearSortParams = (coin1, coin2) => {
@@ -84,6 +87,12 @@ const CryptoPage = ({ setSelectedCoin }) => {
         } else if (priceSort === false) {
           return setSortParam('priceDescending')
         }
+      case 'change':
+        if (changeSort === true) {
+          return setSortParam('changeAscending')
+        } else if (changeSort === false) {
+          return setSortParam('changeDescending')
+        }
     }
   }
 
@@ -91,7 +100,7 @@ const CryptoPage = ({ setSelectedCoin }) => {
   if (coinFilter !== '') {
     filteredCoins = allCoins?.filter((coin => {
       return (
-        coin.name.toLowerCase().includes(coinFilter.toLowerCase())
+        coin.name.toLowerCase().includes(coinFilter.toLowerCase()) || coin.symbol.toLowerCase().includes(coinFilter.toLowerCase())
       )
     }))
   } else {
@@ -102,6 +111,7 @@ const CryptoPage = ({ setSelectedCoin }) => {
     setRankSort(!rankSort)
     setNameSort(false)
     setPriceSort(false)
+    setChangeSort(false)
     handleCoinSort('rank')
   }
 
@@ -109,6 +119,7 @@ const CryptoPage = ({ setSelectedCoin }) => {
     setNameSort(!nameSort)
     setRankSort(false)
     setPriceSort(false)
+    setChangeSort(false)
     handleCoinSort('name')
   }
 
@@ -116,7 +127,25 @@ const CryptoPage = ({ setSelectedCoin }) => {
     setPriceSort(!priceSort)
     setNameSort(false)
     setRankSort(false)
+    setChangeSort(false)
     handleCoinSort('price')
+  }
+
+  const handleSortChange = () => {
+    setChangeSort(!changeSort)
+    setNameSort(false)
+    setRankSort(false)
+    setPriceSort(false)
+    handleCoinSort('change')
+  }
+
+  const percentChangeClassNameLogic = (value) => {
+    if (value > 0) {
+      return 'change-positive'
+    }
+    else {
+      return 'change-negative'
+    }
   }
 
   return (
@@ -142,24 +171,22 @@ const CryptoPage = ({ setSelectedCoin }) => {
           })}
         </div>
       </div>
-
       <div className='coin-database'>
         <h1> Coin Database </h1>
-        <div className='coin-filters'>
-          <input
-            value={coinFilter}
-            onChange={e => setCoinFilter(e.target.value)}
-            type='text'
-            className='coin-search'
-            placeholder='Search for a coin..'
-          />
-        </div>
+        <input
+          value={coinFilter}
+          onChange={e => setCoinFilter(e.target.value)}
+          type='text'
+          className='coin-search'
+          placeholder='Search for a coin..'
+        />
         <table className='coins-table'>
           <thead>
             <tr>
               <td><span onClick={() => handleSortRank()}> Rank {rankSort ? '▲' : '▼'} </span></td>
               <td><span onClick={() => handleSortName()}> Name {nameSort ? '▲' : '▼'} </span></td>
               <td><span onClick={() => handleSortPrice()}> Price {priceSort ? '▲' : '▼'}</span></td>
+              <td><span onClick={() => handleSortChange()}>24Hr Change {changeSort ? '▲' : '▼'} </span></td>
             </tr>
           </thead>
           <tbody>
@@ -170,7 +197,12 @@ const CryptoPage = ({ setSelectedCoin }) => {
                     <img className='coin-images' src={getImage(coin.name, coin.symbol)} onError={(e) => imageOnErrorHandler(e)} />
                   </td>
                   <td>{`${coin.name} (${coin.symbol})`}</td>
-                  <td> ${decimalRound(coin.priceUsd)} </td>
+                  <td> ${roundPrice(coin.priceUsd)} </td>
+                  <td>
+                    <span className={percentChangeClassNameLogic(coin.changePercent24Hr)}>
+                      {coin.changePercent24Hr > 0 ? '+' : null}{twoDecimalPlaces(coin.changePercent24Hr)}%
+                    </span>
+                  </td>
                 </tr>
               )
             })}
