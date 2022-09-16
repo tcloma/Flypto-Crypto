@@ -22,6 +22,7 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
   const [usdAmount, setUSDAmount] = useState(0)
   const [conversionCoin, setConversionCoin] = useState(false)
   const [conversionValue, setConversionValue] = useState(0)
+  const [myFunds, setMyFunds] = useState(user.funds)
 
   const { isLoading: coinLoading, data: specCoinData } = useQuery('coinData', () => getCoin(selectedCoin));
   const { isLoading: graphLoading, data: graphData, refetch } = useQuery(timePeriod, () => getCoinGraphData(selectedCoin, timePeriod));
@@ -172,8 +173,12 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
     setFromBTC(!fromBTC)
   }
 
-  const fundsData = {
-    'funds': user?.funds - usdAmount
+  const buyFundsData = {
+    'funds': myFunds - parseFloat(usdAmount)
+  }
+
+  const sellFundsData = {
+    'funds': parseFloat(myFunds) + parseFloat(usdAmount)
   }
 
   const postPurchaseData = {
@@ -183,21 +188,22 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
     'user_id': user?.id
   }
 
+  const findCoin = () => {user.purchased_coins.find((coin) => {
+    console.log(coin.name)
+    console.log(specCoinData?.name)
+    if (coin.name === specCoinData?.name) {
+      return coin
+    }
+  })}
+
 
   const handleBuySubmit = async (e) => {
     e.preventDefault()
     console.log('clicked')
-    user.funds = 100000
-    if (usdAmount < user.funds) {
-      axios.patch('users', fundsData)
-      user.funds -= usdAmount
-      let coin = user.purchased_coins.find((coin) => {
-        console.log(coin.name)
-        console.log(specCoinData?.name)
-        if (coin.name === specCoinData?.name) {
-          return coin
-        }
-      })
+    if (usdAmount < myFunds) {
+      axios.patch('users', buyFundsData)
+      setMyFunds(myFunds - parseFloat(usdAmount))
+      const coin = findCoin()
       if (coin) {
         // console.log('running')
         // console.log(`/purchasedcoins/${coin.id}`)
@@ -212,10 +218,30 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
         }
         console.log(patchPurchaseData)
         axios.patch(`purchasedcoins/${coin?.id}`, patchPurchaseData)
+        const postPositionData = {
+            "time_of_purchase": moment().toDate(),
+            "price_of_purchase": usdAmount,
+            "quantity_purchased": parseFloat(cryptoAmount),
+            "purchased_coin_id": coin.id
+        }
+        const res2 = await axios.post(`/positionlists/`, postPositionData)
+        data = res2.data
+        console.log(data)
       }
       else {
         console.log('posted')
-        axios.post(`/purchasedcoins/`, postPurchaseData)
+        const res = await axios.post(`/purchasedcoins/`, postPurchaseData)
+        const data = res.data
+        console.log(cryptoAmount*specCoinData?.priceUsd)
+        const postPositionData = {
+            "time_of_purchase": moment().toDate(),
+            "price_of_purchase": usdAmount,
+            "quantity_purchased": parseFloat(cryptoAmount),
+            "purchased_coin_id": data.id
+        }
+        const res2 = await axios.post(`/positionlists/`, postPositionData)
+        data = res2.data
+        console.log(data)
       }
       let res = await axios.get('/me');
       let data = res.data;
@@ -224,7 +250,46 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
     }
     else {
       console.log('Not enough money')
+      
     }
+  }
+
+  const handleSellSubmit = async (e) => {
+    e.preventDefault()
+    console.log('clicked')
+    const coin = findCoin()
+    if(coin && coin.quantity > 0)
+    {
+      axios.patch('users', sellFundsData)
+      console.log(myFunds)
+      setMyFunds(myFunds + parseFloat(usdAmount))
+      let res1 = await axios.get(`/purchasedcoins/${coin.id}`)
+        let data = res1.data
+        let intQuantity = parseFloat(data.quantity)
+        let intCrypto = parseFloat(cryptoAmount)
+        const purchaseData = intQuantity -= intCrypto
+        console.log('purchaseData: ', purchaseData)
+        const patchPurchaseData = {
+          'quantity': purchaseData
+        }
+        axios.patch(`purchasedcoins/${coin?.id}`, patchPurchaseData)
+        const postPositionData = {
+            "time_of_purchase": moment().toDate(),
+            "price_of_purchase": -(usdAmount),
+            "quantity_purchased": -(intCrypto),
+            "purchased_coin_id": coin.id
+        }
+        axios.post(`/positionlists/`, postPositionData)
+    }
+    else
+    {
+        console.log('not enough')
+    }
+    let res = await axios.get('/me');
+    let data = res.data;
+    console.log(data)
+    setUser(data);
+    
   }
 
 
@@ -253,8 +318,8 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
     if (transaction === 'sell') {
       return (
         <>
-          <form onSubmit={(e) => handleBuySubmit(e)} id='buy-input-form'>
-            <h2 className=''>{`0 ${specCoinData?.symbol}`}</h2>
+          <form onSubmit={(e) => handleSellSubmit(e)} id='buy-input-form'>
+            <h2 className=''>{`${findCoin() ? findCoin().quantity : 0} ${specCoinData?.symbol}`}</h2>
             <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
             <h2>{fromBTC ? specCoinData?.symbol : 'USD'}</h2>
             <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}` : `${specCoinData?.symbol}-USD`}</button>
@@ -268,7 +333,7 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
       return (
         <>
           <form onSubmit={(e) => handleBuySubmit(e)} id='buy-input-form'>
-            <h2 className=''>{`0 ${specCoinData?.symbol}`}</h2>
+            <h2 className=''>{`${findCoin() ? findCoin().quantity : 0} ${specCoinData?.symbol}`}</h2>
             <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
             <h2>{specCoinData?.symbol}</h2>
             {/* <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}`: `${specCoinData?.symbol}-USD`}</button> */}
