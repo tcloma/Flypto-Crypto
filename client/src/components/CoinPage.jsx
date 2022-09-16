@@ -13,7 +13,7 @@ import axios from 'axios'
 
 ReactFC.fcRoot(FusionCharts, Charts, FusionTheme);
 
-const CoinPage = ({ selectedCoin, user, setUser }) => {
+const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoins }) => {
 
   const [timePeriod, setTimePeriod] = useState('m1')
   const [transaction, setTransaction] = useState('buy')
@@ -226,18 +226,8 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
       }
       else {
         console.log('posted')
-        let res1 = await axios.post(`/purchasedcoins/`, postPurchaseData)
-        let data1 = res1.data
-        console.log(cryptoAmount*specCoinData?.priceUsd)
-        const postPositionData = {
-            "time_of_purchase": moment().toDate(),
-            "price_of_purchase": usdAmount,
-            "quantity_purchased": parseFloat(cryptoAmount),
-            "purchased_coin_id": data1.id
-        }
-        let res2 = await axios.post(`/positionlists/`, postPositionData)
-        let data2 = res2.data
-        console.log(data2)
+        axios.post(`/purchasedcoins/`, postPurchaseData)
+        // setPurchasedCoins([...purchasedCoins, specCoinData?.name])
       }
       let res = await axios.get('/me');
       let data = res.data;

@@ -1,9 +1,7 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import '../styles/LoginSingup.scss'
 import axios from "axios"
-import {useNavigate} from 'react-router-dom'
-
 
 const SignupPage = ({ setUser }) => {
   // const {name, last_name, email, username, password} = setUser
@@ -13,6 +11,7 @@ const SignupPage = ({ setUser }) => {
   const [password, setPassword] = useState('')
   // const [errors, setErrors] = useState([])
   // const [isLoading, setIsLoading] = useState(false)
+
   const navigate = useNavigate()
 
   const handleSubmit = ((e) => {
@@ -33,8 +32,8 @@ const SignupPage = ({ setUser }) => {
         res.json().then((user) => setUser(user))
         navigate('/profile')
         console.log(formData)
-      }else{
-        res.json().then((data)=> alert(data.error))
+      } else {
+        res.json().then((data) => alert(data.error))
       }
     })
   })
