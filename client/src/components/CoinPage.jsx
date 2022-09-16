@@ -66,7 +66,7 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
       showBorder: 1,
       borderThickness: 1.5,
       caption: `${specCoinData?.name}`,
-      plotFillColor: '#0fff4f',
+      plotFillColor: '#00dc00',
       outCnvBaseFontColor: '#252525',
       baseFont: 'Gilroy',
       drawFullAreaBorder: true,
@@ -74,7 +74,7 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
       plotBorderThickness: 3,
       setAdaptiveYMin: true,
       labelStep: 100,
-      plotBorderColor: '#58f582',
+      plotBorderColor: '#00d400',
       bgColor: '#FFFFFF',
       subCaption: `(${specCoinData?.symbol})`,
       xAxisName: 'Day',
@@ -375,7 +375,7 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
           <div className='info-container'>
             <h2>Trade</h2>
           </div>
-          <h2 className=''>{`${findCoin() ? findCoin().quantity : 0} ${specCoinData?.symbol}`}</h2>
+          <h4 className='amount-owned'>{`${findCoin() ? findCoin().quantity : 0} ${specCoinData?.symbol} ($${parseFloat(findCoin() ? findCoin().quantity*specCoinData?.priceUsd : 0).toFixed(2)})`}</h4>
           <div className='info-button-container'>
             <button onClick={() => { setConversionCoin(false); setTransaction('buy') }} className='info-buttons'>Buy</button>
             <button onClick={() => { setConversionCoin(false); setTransaction('sell') }} className='info-buttons'>Sell</button>
