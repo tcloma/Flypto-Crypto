@@ -233,6 +233,8 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
       let data = res.data;
       console.log(data)
       setUser(data);
+      findCoin()
+      alert('Success!')
     }
     else {
       console.log('Not enough money')
@@ -247,11 +249,12 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
     if(coin && coin.quantity > 0)
     {
       axios.patch('users', sellFundsData)
-      console.log(myFunds)
+      console.log('my funds:', myFunds)
       setMyFunds(myFunds + parseFloat(usdAmount))
-      let res1 = await axios.get(`/purchasedcoins/${coin.id}`)
-        let data = res1.data
-        let intQuantity = parseFloat(data.quantity)
+
+    //   let res1 = await axios.get(`/purchasedcoins/${coin.id}`)
+    //     let data = res1.data
+        let intQuantity = parseFloat(coin.quantity)
         let intCrypto = parseFloat(cryptoAmount)
         const purchaseData = intQuantity -= intCrypto
         console.log('purchaseData: ', purchaseData)
@@ -271,11 +274,14 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
     {
         console.log('not enough')
     }
+    console.log('new funds:', myFunds)
     let res = await axios.get('/me');
     let data = res.data;
-    console.log(data)
+    console.log('important data:', data)
+    console.log(user)
     setUser(data);
-    
+    findCoin()
+    alert('Success!')
   }
 
 
@@ -305,7 +311,6 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
       return (
         <>
           <form onSubmit={(e) => handleSellSubmit(e)} id='buy-input-form'>
-            <h2 className=''>{`${findCoin() ? findCoin().quantity : 0} ${specCoinData?.symbol}`}</h2>
             <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
             <h2>{fromBTC ? specCoinData?.symbol : 'USD'}</h2>
             <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}` : `${specCoinData?.symbol}-USD`}</button>
@@ -319,7 +324,6 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
       return (
         <>
           <form onSubmit={(e) => handleBuySubmit(e)} id='buy-input-form'>
-            <h2 className=''>{`${findCoin() ? findCoin().quantity : 0} ${specCoinData?.symbol}`}</h2>
             <input onChange={(e) => handleChange(e)} type="text" id='amount-input-buy' name="amount" />
             <h2>{specCoinData?.symbol}</h2>
             {/* <button onClick={(e) => handleSwap(e)} id='swap-button'>{fromBTC ? `USD-${specCoinData?.symbol}`: `${specCoinData?.symbol}-USD`}</button> */}
@@ -371,6 +375,7 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
           <div className='info-container'>
             <h2>Trade</h2>
           </div>
+          <h2 className=''>{`${findCoin() ? findCoin().quantity : 0} ${specCoinData?.symbol}`}</h2>
           <div className='info-button-container'>
             <button onClick={() => { setConversionCoin(false); setTransaction('buy') }} className='info-buttons'>Buy</button>
             <button onClick={() => { setConversionCoin(false); setTransaction('sell') }} className='info-buttons'>Sell</button>
