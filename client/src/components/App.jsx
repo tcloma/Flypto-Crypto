@@ -23,16 +23,17 @@ const App = () => {
   const [selectedCoin, setSelectedCoin] = useState('')
   const [user, setUser] = useState({})
 
+   console.log("HERE", user)
   useEffect(() => {
     fetch('/me').then((res) => {
       if (res.ok) {
         res.json().then((user) => {
-          if (!!user.email) {
-            setUser(user)
-          }
-        })
-      }
-    })
+        if(!!user.email){
+          setUser(user)
+        }
+      })
+    }
+  })
     // fetch('/purchasedcoins')
     //   .then((res) => {
     //     if (res.ok) {

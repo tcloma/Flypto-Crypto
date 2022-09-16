@@ -70,10 +70,16 @@ const LoginPage = ({ setUser }) => {
           type='password'
           placeholder="Password"
         />
-        <button> Submit </button>
         {/* {
-          errors.map((err) => {})
+          errors.length > 0 && (
+            <ul style={{ color: 'red' }}>
+              {errors.map((error) => (
+                <li key={error}> {error}</li>
+              ))}
+            </ul>
+          )
         } */}
+        <button> Submit </button>
       </form>
       <div className="redirect-text">
         <p> Don't have an account? <Link to='/signup'>Signup</Link> </p>
