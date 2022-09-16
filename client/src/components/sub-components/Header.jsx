@@ -13,7 +13,7 @@ const Header = ({ user, setUser }) => {
   const handleLogoutClick = () => {
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
-        setUser(null)
+        setUser({})
       }
     });
   }
@@ -39,7 +39,7 @@ const Header = ({ user, setUser }) => {
         </Link>}
 
 
-        {user ?
+        {user.email ?
           <Link to='/'>
             <p onClick={handleLogoutClick}>Logout</p>
           </Link>
