@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { Navigate } from "react-router-dom"
 import '../styles/LoginSingup.scss'
 
-const SignupPage = ({ onLogin }) => {
-  // const {name, last_name, email, username, password} = onLogin
+const SignupPage = ({ setUser }) => {
+  // const {name, last_name, email, username, password} = setUser
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -29,7 +29,7 @@ const SignupPage = ({ onLogin }) => {
       body: JSON.stringify(formData)
     }).then((res) => {
       if (res.ok) {
-        res.json().then((user) => onLogin(user))
+        res.json().then((user) => setUser(user))
         navigate('/profile')
         console.log(formData)
       }

@@ -21,16 +21,20 @@ const queryClient = new QueryClient();
 const App = () => {
   const [purchasedCoins, setPurchasedCoins] = ([])
   const [selectedCoin, setSelectedCoin] = useState('')
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({})
 
   const userCoins = user?.purchased_coins?.map(coin => coin?.name?.toLowerCase())
-  
+
   // console.log(purchasedCoins)
 
   useEffect(() => {
     fetch('/me').then((res) => {
       if (res.ok) {
-        res.json().then((user) => setUser(user))
+        res.json().then((user) => {
+          if (!!user.email) {
+            setUser(user)
+          }
+        })
       }
     })
     // fetch('/purchasedcoins')
@@ -54,8 +58,8 @@ const App = () => {
             <Route path='/logout' />
             <Route path='/crypto' element={<CryptoPage setSelectedCoin={setSelectedCoin} />} />
             <Route path='/profile' element={<ProfilePage user={user} userCoins={userCoins} setSelectedCoin={setSelectedCoin} />} />
-            <Route path='/login' element={<LoginPage onLogin={setUser} />} />
-            <Route path='/signup' element={<SignupPage onLogin={setUser} />} />
+            <Route path='/login' element={<LoginPage setUser={setUser} />} />
+            <Route path='/signup' element={<SignupPage setUser={setUser} />} />
           </Routes>
           {/* <ReactQueryDevtools /> */}
         </Layout>

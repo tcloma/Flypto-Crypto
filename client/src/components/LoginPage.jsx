@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import '../styles/LoginSingup.scss'
 
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = ({ setUser }) => {
 
 
   // const [username, setUsername] = useState('')
@@ -33,7 +33,7 @@ const LoginPage = ({ onLogin }) => {
       body: JSON.stringify(formData)
     }).then((res) => {
       if (res.ok) {
-        res.json().then((user) => onLogin(user))
+        res.json().then((user) => setUser(user))
         navigate('/profile')
         console.log(formData)
       } else {
@@ -41,7 +41,7 @@ const LoginPage = ({ onLogin }) => {
       }
     })
     // .then(res => res.json())
-    // .then(user => onLogin(user))
+    // .then(user => setUser(user))
   }
 
   const handleEmailChange = (e) => {
