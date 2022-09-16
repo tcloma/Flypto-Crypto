@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import '../styles/LoginSingup.scss'
 
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = ({ setUser }) => {
 
 
   // const [username, setUsername] = useState('')
@@ -13,7 +13,7 @@ const LoginPage = ({ onLogin }) => {
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   // const [isLogin, setIsLogin] = useState(false)
-  const [errors, setErrors] = useState([])
+  // const [errors, setErrors] = useState([])
   // const [isLoading, setIsLoading] = useState(false)
 
   let navigate = useNavigate();
@@ -33,15 +33,15 @@ const LoginPage = ({ onLogin }) => {
       body: JSON.stringify(formData)
     }).then((res) => {
       if (res.ok) {
-        res.json().then((user) => onLogin(user))
+        res.json().then((user) => setUser(user))
         navigate('/profile')
         console.log(formData)
-      } else {
-        res.json().then((err) => setErrors(err.errors))
-      }
-    })
+      // } else {
+      //   res.json().then((err) => setErrors(err.errors))
+      // }
+    }})
     // .then(res => res.json())
-    // .then(user => onLogin(user))
+    // .then(user => setUser(user))
   }
 
   const handleEmailChange = (e) => {
@@ -71,9 +71,9 @@ const LoginPage = ({ onLogin }) => {
           placeholder="Password"
         />
         <button> Submit </button>
-        {
+        {/* {
           errors.map((err) => {})
-        }
+        } */}
       </form>
       <div className="redirect-text">
         <p> Don't have an account? <Link to='/signup'>Signup</Link> </p>

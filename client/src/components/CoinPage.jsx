@@ -66,7 +66,7 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
       showBorder: 1,
       borderThickness: 1.5,
       caption: `${specCoinData?.name}`,
-      plotFillColor: '#459DBA',
+      plotFillColor: '#0fff4f',
       outCnvBaseFontColor: '#252525',
       baseFont: 'Gilroy',
       drawFullAreaBorder: true,
@@ -74,7 +74,7 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
       plotBorderThickness: 3,
       setAdaptiveYMin: true,
       labelStep: 100,
-      plotBorderColor: '#459DBA',
+      plotBorderColor: '#58f582',
       bgColor: '#FFFFFF',
       subCaption: `(${specCoinData?.symbol})`,
       xAxisName: 'Day',
@@ -185,16 +185,14 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
     'name': specCoinData?.name,
     'symbol': specCoinData?.symbol,
     'quantity': cryptoAmount,
+    'price': specCoinData?.priceUsd,
+    'price_change': specCoinData?.changePercent24Hr,
     'user_id': user?.id
   }
 
-  const findCoin = () => {user.purchased_coins.find((coin) => {
-    console.log(coin.name)
-    console.log(specCoinData?.name)
-    if (coin.name === specCoinData?.name) {
-      return coin
-    }
-  })}
+  const findCoin = () => {
+   return user.purchased_coins.find(coin => (coin.name === specCoinData?.name))
+}
 
 
   const handleBuySubmit = async (e) => {
@@ -203,13 +201,11 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
     if (usdAmount < myFunds) {
       axios.patch('users', buyFundsData)
       setMyFunds(myFunds - parseFloat(usdAmount))
-      const coin = findCoin()
+      let coin = findCoin()
       if (coin) {
-        // console.log('running')
-        // console.log(`/purchasedcoins/${coin.id}`)
-        let res1 = await axios.get(`/purchasedcoins/${coin.id}`)
-        let data = res1.data
-        let intQuantity = parseFloat(data.quantity)
+        // let res1 = await axios.get(`/purchasedcoins/${coin.id}`)
+        // let data1 = res1.data
+        let intQuantity = parseFloat(coin.quantity)
         let intCrypto = parseFloat(cryptoAmount)
         const purchaseData = intQuantity += intCrypto
         console.log('purchaseData: ', purchaseData)
@@ -224,24 +220,24 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
             "quantity_purchased": parseFloat(cryptoAmount),
             "purchased_coin_id": coin.id
         }
-        const res2 = await axios.post(`/positionlists/`, postPositionData)
-        data = res2.data
-        console.log(data)
+        let res2 = await axios.post(`/positionlists/`, postPositionData)
+        let data2 = res2.data
+        console.log(data2)
       }
       else {
         console.log('posted')
-        const res = await axios.post(`/purchasedcoins/`, postPurchaseData)
-        const data = res.data
+        let res1 = await axios.post(`/purchasedcoins/`, postPurchaseData)
+        let data1 = res1.data
         console.log(cryptoAmount*specCoinData?.priceUsd)
         const postPositionData = {
             "time_of_purchase": moment().toDate(),
             "price_of_purchase": usdAmount,
             "quantity_purchased": parseFloat(cryptoAmount),
-            "purchased_coin_id": data.id
+            "purchased_coin_id": data1.id
         }
-        const res2 = await axios.post(`/positionlists/`, postPositionData)
-        data = res2.data
-        console.log(data)
+        let res2 = await axios.post(`/positionlists/`, postPositionData)
+        let data2 = res2.data
+        console.log(data2)
       }
       let res = await axios.get('/me');
       let data = res.data;

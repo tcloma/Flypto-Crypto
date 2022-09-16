@@ -25,6 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_14_170049) do
     t.string "symbol"
     t.float "quantity"
     t.float "price"
+    t.float "price_change"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
