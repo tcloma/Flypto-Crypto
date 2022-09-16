@@ -10,23 +10,22 @@
   justify-content: center;
   min-height: 90vh;
   padding-top: 6em;
-  gap: 1em
+  gap: 2em;
+  // background-color: #ececec;
 }
 
 .fastest-growing-cards {
-  // @extend .container-template;
-  background-color: whitesmoke;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
-  // background-color: $accent-color;
+  @extend .container-template;
+  background-color: $background-color;
   justify-content: space-between;
   flex-direction: row;
   padding: 1em;
   width: 80vw;
   gap: 1em;
   min-height: 34vh;
+  box-shadow: 7px 7px 0px rgb(89, 89, 89);
+  border-top: 2px solid $accent-color-lighter;
+  border-left: 2px solid $accent-color-lighter;
   // border-radius: 1em;
 }
 
@@ -37,7 +36,7 @@
 
 .growth-selector-button{
   border: 0;
-  background-color: $accent-color;
+  background-color: $accent-color-lighter;
   color: $text-color-light;
   border-top-left-radius: .3em;
   border-top-right-radius: .3em;
@@ -61,7 +60,7 @@
   justify-content: center;
   align-items: center;
   background-color: $off-background-color;
-  box-shadow: 6px 6px 0px $shadow-color;
+  box-shadow: 1em 1em 0px $shadow-color;
   width: 80vw;
   padding: 2em;
   gap: 1em;
@@ -93,8 +92,7 @@
 .coins-table thead {
   // background-color: $shadow-color;
   font-weight: bold;
-
-  border-bottom: 3px solid $accent-color;
+  border-bottom: 3px solid $accent-color-lighter;
 }
 
 .coins-table td {
@@ -104,14 +102,22 @@
 }
 
 .coins-table tbody tr:nth-child(odd){
-  // background-color: $background-color;
-  background-color: rgb(168, 165, 165, 0.3);
+  background-color: #222630;
+  color: white;
   cursor:pointer;
 }
 
 .coins-table tbody tr:nth-child(even){
   background-color: $off-background-color;
   cursor:pointer;
+}
+
+.up-arrow {
+  color: green;
+}
+
+.down-arrow{
+  color: red;
 }
 
 .coin-images

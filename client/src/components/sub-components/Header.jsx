@@ -24,7 +24,7 @@ const Header = ({ user, setUser }) => {
     <div className='header'>
       <Link to='/'>
         <div className="logo-container">
-          <p style={{ fontSize: '2em' }}> 🪙 </p>
+          <p style={{ fontSize: '1.5em' }}> 🪙Flypto </p>
         </div>
       </Link>
       <div className="nav-buttons">
@@ -37,17 +37,17 @@ const Header = ({ user, setUser }) => {
         {user && <Link to='/profile'>
           <p> Profile </p>
         </Link>}
-        
-      </div>
 
-      {user ?
-        <Link to='/'>
-          <p onClick={handleLogoutClick}>Logout</p>
-        </Link>
-        :
-        <Link to='/login'>
-          <p> Login </p>
-        </Link>}
+
+        {user ?
+          <Link to='/'>
+            <p onClick={handleLogoutClick}>Logout</p>
+          </Link>
+          :
+          <Link to='/login'>
+            <p> Login </p>
+          </Link>}
+      </div>
     </div>
   )
 }

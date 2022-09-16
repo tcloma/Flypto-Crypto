@@ -116,10 +116,10 @@ const Table = ({ allCoins, coinFilter = false, setSelectedCoin }) => {
     <table className='coins-table'>
       <thead>
         <tr>
-          <td><span onClick={() => handleSortRank()}> Rank {rankSort ? '▲' : '▼'} </span></td>
-          <td><span onClick={() => handleSortName()}> Name {nameSort ? '▲' : '▼'} </span></td>
-          <td><span onClick={() => handleSortPrice()}> Price {priceSort ? '▲' : '▼'}</span></td>
-          <td><span onClick={() => handleSortChange()}>24Hr Change {changeSort ? '▲' : '▼'} </span></td>
+          <td><span onClick={() => handleSortRank()}> Rank <span className={rankSort ? 'up-arrow' : 'down-arrow'}>{rankSort ? '▲' : '▼'}</span> </span></td>
+          <td><span onClick={() => handleSortName()}> Name <span className={nameSort ? 'up-arrow' : 'down-arrow'}>{nameSort ? '▲' : '▼'}</span> </span></td>
+          <td><span onClick={() => handleSortPrice()}> Price <span className={priceSort ? 'up-arrow' : 'down-arrow'}>{priceSort ? '▲' : '▼'}</span></span></td>
+          <td><span onClick={() => handleSortChange()}>24Hr Change <span className={changeSort ? 'up-arrow' : 'down-arrow'}>{changeSort ? '▲' : '▼'}</span> </span></td>
         </tr>
       </thead>
       <tbody>

@@ -10,6 +10,7 @@
       justify-content: center;
   // padding: 4em 0em;
   padding-top: 6em;
+  // margin-bottom: 1em;
 }
 
 .portfolio-page {
@@ -25,17 +26,33 @@
   background-color: white;
 }
 
+.portfolio-header {
+  display: flex;
+  flex-flow: row;
+  width: 85%;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 30vh;
+}
+
+.user-info {
+ color: white;
+}
+
 .portfolio-graph {
-  // outline: 3px solid $accent-color;
   box-shadow: 7px 7px 0px $accent-color;
   background-color: $off-background-color;
   min-height: 20vh;
-  // text-align: center;
-  width: 30%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 30vw;
+  padding: 1em;
+}
+
+.money{
+  color: $accent-color-lighter;
 }
 
 .total-gaining {
@@ -80,5 +97,7 @@
 
 .owned-coins-table h2 {
   font-size: 2em;
-  text-decoration:underline ;
+  margin-top: .2em;
+  margin-bottom: .2em;
+  // text-decoration:underline ;
 }

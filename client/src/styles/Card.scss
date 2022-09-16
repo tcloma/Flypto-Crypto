@@ -14,6 +14,8 @@
    justify-content: center;
    position: relative;
    text-align: center;
+   border-left: 2px solid $shadow-color;
+   border-top: 2px solid $shadow-color;
   }
 
 .card-symbol{
