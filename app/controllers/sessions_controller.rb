@@ -10,8 +10,13 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if (user&.authenticate(params[:password]))
       session[:user_id] = user.id
-      render json: user
+      render json: user, status: 202
+    else
+      render json: {error: {login: "Invalid Username or Password"}}, status: 404
     end
+    # rescue ActiveRecord::RecordInvalid => e
+    #   render json: {errors: 'Error Message'}, status: 404
+    # end
   end
 
   def destroy

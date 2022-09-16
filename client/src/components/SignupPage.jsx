@@ -2,9 +2,10 @@ import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import '../styles/LoginSingup.scss'
 import axios from "axios"
+import {useNavigate} from 'react-router-dom'
 
 
-const SignupPage = ({ onLogin }) => {
+const SignupPage = ({ setUser }) => {
   // const {name, last_name, email, username, password} = onLogin
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -12,7 +13,7 @@ const SignupPage = ({ onLogin }) => {
   const [password, setPassword] = useState('')
   // const [errors, setErrors] = useState([])
   // const [isLoading, setIsLoading] = useState(false)
-  
+  const navigate = useNavigate()
 
   const handleSubmit = ((e) => {
     e.preventDefault()
@@ -29,8 +30,11 @@ const SignupPage = ({ onLogin }) => {
       body: JSON.stringify(formData)
     }).then((res) => {
       if (res.ok) {
-        res.json().then((user) => onLogin(user))
+        res.json().then((user) => setUser(user))
+        navigate('/profile')
         console.log(formData)
+      }else{
+        res.json().then((data)=> alert(data.error))
       }
     })
   })
