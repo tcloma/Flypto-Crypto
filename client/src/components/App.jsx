@@ -23,7 +23,7 @@ const App = () => {
   const [selectedCoin, setSelectedCoin] = useState('')
   const [user, setUser] = useState({})
 
-  const userCoins = user?.purchased_coins?.map(coin => coin?.name?.toLowerCase())
+  const userCoins = user?.purchased_coins?.map(coin => {coin?.name?.toLowerCase()})
 
   // console.log(purchasedCoins)
 
