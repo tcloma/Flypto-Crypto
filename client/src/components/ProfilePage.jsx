@@ -3,16 +3,16 @@ import React, { useState } from 'react'
 import '../styles/Profile.scss'
 import { useQuery } from 'react-query'
 import { getAllCoins } from '../apis/coinApi'
-import { roundPrice } from '../utilFunctions'
 import Table from './sub-components/Table'
 import { useEffect } from 'react'
 
-const ProfilePage = ({ username, setSelectedCoin }) => {
+const ProfilePage = ({ user, setSelectedCoin }) => {
   const { status, error, data: allCoins } = useQuery('coins', () => getAllCoins())
   const [gaining, setGaining] = useState(false)
+  const { name, email, funds } = user
 
-  let totalChange = 200
-  allCoins?.slice()?.forEach(coin => {
+  let totalChange = 0
+  allCoins?.slice(0, 1)?.forEach(coin => {
     totalChange = totalChange + parseFloat(coin.changePercent24Hr)
     // console.log(totalChange)
   })
@@ -32,12 +32,18 @@ const ProfilePage = ({ username, setSelectedCoin }) => {
   return (
     <div className="profile-container">
       <div className="portfolio-page">
-        <h1> {username}'s Portfolio </h1>
-        <div className='portfolio-graph'>
-          <h3> Your portfolio is {gaining ? 'up' : 'down'}: </h3>
-          <h1 className={gaining ? 'total-gaining' : 'total-losing'}>
-            {totalChange < 0 ? totalChange?.toFixed(2) * -1 : totalChange?.toFixed(2)}%
-          </h1>
+        <div className='portfolio-header'>
+          <div className='user-info'>
+            <h1> {name}'s Portfolio </h1>
+            <p> {email} </p>
+            <p> <span className='money'>$</span>{funds}</p>
+          </div>
+          <div className='portfolio-graph'>
+            <h3> Your portfolio is {gaining ? 'up' : 'down'}: </h3>
+            <h2 className={gaining ? 'total-gaining' : 'total-losing'}>
+              {gaining ? '▲' : '▼'}{totalChange < 0 ? totalChange?.toFixed(2) * -1 : totalChange?.toFixed(2)}%
+            </h2>
+          </div>
         </div>
 
         <div className='watchlist-container'>

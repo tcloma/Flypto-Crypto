@@ -5,13 +5,15 @@
   @extend .container-template;
   min-height: 90vh;
   padding-top: 4em;
-
+  padding-bottom: 1em;
 }
 
 .form-header {
    display: flex;
    align-items: flex-start;
-   width: 80%;
+   width: 70%;
+   margin-top: .5em;
+   margin-bottom: .2em;
 }
 
 .login-form {
@@ -22,12 +24,14 @@
    height: 25em;
    padding: 2em 1em;
    gap: 1em;
+   margin-top: 1em;
+  //  margin-top: 1em;
 }
 
 .login-form input {
   border: 0;
   padding: 1em 2em;
-  width: 80%;
+  width: 70%;
   border: .2em solid $shadow-color;
 }
 
@@ -38,7 +42,7 @@
 
 .login-form button {
    min-height: 3.5em;
-   width: 80%;
+   width: 70%;
    border-radius: 1em;
    border: 0;
    background-color: $accent-color;
@@ -55,7 +59,7 @@
 
 .signup-name {
    display: flex;
-   width: 80%;
+   width: 70%;
    gap: 1em;
 }
 

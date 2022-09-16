@@ -185,7 +185,7 @@ const CoinPage = ({ selectedCoin, user, setUser }) => {
     'name': specCoinData?.name,
     'symbol': specCoinData?.symbol,
     'quantity': cryptoAmount,
-    'user_id': user.id
+    'user_id': user?.id
   }
 
   const findCoin = () => {user.purchased_coins.find((coin) => {
