@@ -8,10 +8,17 @@ import { useEffect } from 'react'
 
 const ProfilePage = ({ user, userCoins, setSelectedCoin }) => {
   const { status, error, data: allCoins } = useQuery('coins', () => getAllCoins())
-  const filteredCoins = allCoins?.filter(coin => userCoins?.includes(coin.name.toLowerCase()))
+  const filteredCoins = allCoins?.filter(coin => userCoins.map(coin => coin.name).includes(coin.name.toLowerCase()))
+  
+  const findQuantity = (searchCoin) => {
+    const matchedCoin = userCoins.find(coin => coin.name === searchCoin)
+    return matchedCoin.quantity
+  }
+  
+  const filteredWithQuantity = filteredCoins?.map(coin => ({...coin, quantity: findQuantity(coin.name.toLowerCase())}))
 
-  console.log(userCoins)
-  console.log(filteredCoins)
+  console.log('user',userCoins)
+  console.log(filteredWithQuantity)
 
   const [gaining, setGaining] = useState(false)
 
@@ -67,8 +74,9 @@ const ProfilePage = ({ user, userCoins, setSelectedCoin }) => {
         <div className='owned-coins-table'>
           <h2> Owned Coins: </h2>
           <Table
-            allCoins={filteredCoins}
+            allCoins={filteredWithQuantity}
             setSelectedCoin={setSelectedCoin}
+            withQuantity ={true}
           />
         </div>
       </div>

@@ -2,13 +2,14 @@ import { useState } from "react"
 import { getImage, imageOnErrorHandler, roundPrice, twoDecimalPlaces } from '../../utilFunctions'
 import { useNavigate } from "react-router-dom"
 
-const Table = ({ allCoins, coinFilter = false, setSelectedCoin }) => {
+const Table = ({ allCoins, coinFilter = false, setSelectedCoin, withQuantity = false }) => {
   // Sorting states
   const [sortParam, setSortParam] = useState('')
   const [nameSort, setNameSort] = useState(false)
   const [rankSort, setRankSort] = useState(false)
   const [priceSort, setPriceSort] = useState(false)
   const [changeSort, setChangeSort] = useState(false)
+  const [quantitySort, setQuantitySort] = useState(false)
 
   // Constant variables
   const sortMethods = {
@@ -20,7 +21,9 @@ const Table = ({ allCoins, coinFilter = false, setSelectedCoin }) => {
     priceAscending: { method: (coin1, coin2) => coin1.priceUsd - coin2.priceUsd },
     priceDescending: { method: (coin1, coin2) => coin2.priceUsd - coin1.priceUsd },
     changeAscending: { method: (coin1, coin2) => coin1.changePercent24Hr - coin2.changePercent24Hr },
-    changeDescending: { method: (coin1, coin2) => coin2.changePercent24Hr - coin1.changePercent24Hr }
+    changeDescending: { method: (coin1, coin2) => coin2.changePercent24Hr - coin1.changePercent24Hr },
+    quantityAscending: { method: (coin1, coin2) => coin1.quantity - coin2.quantity },
+    quantityDescending: { method: (coin1, coin2) => coin2.quantity - coin1.quantity }
   }
 
   const handleCoinSort = (param) => {
@@ -49,6 +52,13 @@ const Table = ({ allCoins, coinFilter = false, setSelectedCoin }) => {
         } else if (changeSort === false) {
           return setSortParam('changeDescending')
         }
+      case 'quantity':
+        if (quantitySort === true) {
+          return setSortParam('quantityAscending')
+        }
+        else if (quantitySort === false) {
+          return setSortParam('quantityDescending')
+        }
     }
   }
 
@@ -68,6 +78,7 @@ const Table = ({ allCoins, coinFilter = false, setSelectedCoin }) => {
     setNameSort(false)
     setPriceSort(false)
     setChangeSort(false)
+    setQuantitySort(false)
     handleCoinSort('rank')
   }
 
@@ -76,6 +87,7 @@ const Table = ({ allCoins, coinFilter = false, setSelectedCoin }) => {
     setRankSort(false)
     setPriceSort(false)
     setChangeSort(false)
+    setQuantitySort(false)
     handleCoinSort('name')
   }
 
@@ -84,6 +96,7 @@ const Table = ({ allCoins, coinFilter = false, setSelectedCoin }) => {
     setNameSort(false)
     setRankSort(false)
     setChangeSort(false)
+    setQuantitySort(false)
     handleCoinSort('price')
   }
 
@@ -92,7 +105,17 @@ const Table = ({ allCoins, coinFilter = false, setSelectedCoin }) => {
     setNameSort(false)
     setRankSort(false)
     setPriceSort(false)
+    setQuantitySort(false)
     handleCoinSort('change')
+  }
+
+  const handleSortQuantity = () => {
+    setQuantitySort(!quantitySort)
+    setNameSort(false)
+    setRankSort(false)
+    setPriceSort(false)
+    setChangeSort(false)
+    handleCoinSort('quantity')
   }
 
   const percentChangeClassNameLogic = (value) => {
@@ -116,10 +139,11 @@ const Table = ({ allCoins, coinFilter = false, setSelectedCoin }) => {
     <table className='coins-table'>
       <thead>
         <tr>
-          <td><span onClick={() => handleSortRank()}> Rank <span className={rankSort ? 'up-arrow' : 'down-arrow'}>{rankSort ? '▲' : '▼'}</span> </span></td>
+          <td><span onClick={() => {withQuantity ? handleSortQuantity() : handleSortRank()}}>{withQuantity ? <span>Qty</span> : <span>Rank</span>}<span className={rankSort ? 'up-arrow' : 'down-arrow'}>{rankSort ? '▲' : '▼'}</span> </span></td>
           <td><span onClick={() => handleSortName()}> Name <span className={nameSort ? 'up-arrow' : 'down-arrow'}>{nameSort ? '▲' : '▼'}</span> </span></td>
           <td><span onClick={() => handleSortPrice()}> Price <span className={priceSort ? 'up-arrow' : 'down-arrow'}>{priceSort ? '▲' : '▼'}</span></span></td>
           <td><span onClick={() => handleSortChange()}>24Hr Change <span className={changeSort ? 'up-arrow' : 'down-arrow'}>{changeSort ? '▲' : '▼'}</span> </span></td>
+
         </tr>
       </thead>
       <tbody>
@@ -127,10 +151,13 @@ const Table = ({ allCoins, coinFilter = false, setSelectedCoin }) => {
           return (
             <tr key={coin.id} onClick={() => getCoin(coin.id)}>
               <td className='image-row'>
-                <img className='coin-images' src={getImage(coin.name, coin.symbol)} onError={(e) => imageOnErrorHandler(e)} />
+                {withQuantity ? <span> {coin.quantity}</span>
+                  :
+                  <img className='coin-images' src={getImage(coin.name, coin.symbol)} onError={(e) => imageOnErrorHandler(e)} />
+                }
               </td>
               <td>{`${coin.name} (${coin.symbol})`}</td>
-              <td> ${roundPrice(coin.priceUsd)} </td>
+              <td> ${roundPrice(coin.priceUsd)}({coin.quantity}) </td>
               <td>
                 <span className={percentChangeClassNameLogic(coin.changePercent24Hr)}>
                   {coin.changePercent24Hr > 0 ? '+' : null}{twoDecimalPlaces(coin.changePercent24Hr)}%
