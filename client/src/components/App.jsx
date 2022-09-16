@@ -23,6 +23,10 @@ const App = () => {
   const [selectedCoin, setSelectedCoin] = useState('')
   const [user, setUser] = useState(null)
 
+  const userCoins = user?.purchased_coins?.map(coin => coin?.name?.toLowerCase())
+  
+  // console.log(purchasedCoins)
+
   useEffect(() => {
     fetch('/me').then((res) => {
       if (res.ok) {
@@ -46,12 +50,12 @@ const App = () => {
         <Layout user={user} setUser={setUser}>
           <Routes>
             <Route path='/' element={<Homepage setSelectedCoin={setSelectedCoin} />} />
-            <Route path='/trade' element={<CoinPage setUser={setUser} user={user} selectedCoin={selectedCoin} />} />
+            <Route path='/trade' element={<CoinPage setUser={setUser} user={user} selectedCoin={selectedCoin} purchasedCoins={purchasedCoins} setPurchasedCoins={setPurchasedCoins} />} />
             <Route path='/logout' />
             <Route path='/crypto' element={<CryptoPage setSelectedCoin={setSelectedCoin} />} />
-            <Route path='/profile' element={<ProfilePage user={user} setSelectedCoin={setSelectedCoin} />} />
+            <Route path='/profile' element={<ProfilePage user={user} userCoins={userCoins} setSelectedCoin={setSelectedCoin} />} />
             <Route path='/login' element={<LoginPage onLogin={setUser} />} />
-            <Route path='/signup' element={<SignupPage />} />
+            <Route path='/signup' element={<SignupPage onLogin={setUser} />} />
           </Routes>
           {/* <ReactQueryDevtools /> */}
         </Layout>

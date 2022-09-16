@@ -6,15 +6,18 @@ import { getAllCoins } from '../apis/coinApi'
 import Table from './sub-components/Table'
 import { useEffect } from 'react'
 
-const ProfilePage = ({ user, setSelectedCoin }) => {
+const ProfilePage = ({ user, userCoins, setSelectedCoin }) => {
   const { status, error, data: allCoins } = useQuery('coins', () => getAllCoins())
+  const filteredCoins = allCoins?.filter(coin => userCoins?.includes(coin.name.toLowerCase()))
+
+  console.log(userCoins)
+  console.log(filteredCoins)
+
   const [gaining, setGaining] = useState(false)
-  const { name, email, funds } = user
 
   let totalChange = 0
-  allCoins?.slice(0, 1)?.forEach(coin => {
+  filteredCoins?.forEach(coin => {
     totalChange = totalChange + parseFloat(coin.changePercent24Hr)
-    // console.log(totalChange)
   })
 
   const gainCheck = () => {
@@ -34,9 +37,9 @@ const ProfilePage = ({ user, setSelectedCoin }) => {
       <div className="portfolio-page">
         <div className='portfolio-header'>
           <div className='user-info'>
-            <h1> {name}'s Portfolio </h1>
-            <p> {email} </p>
-            <p> <span className='money'>$</span>{funds}</p>
+            <h1> {user?.name}'s Portfolio </h1>
+            <p> {user?.email} </p>
+            <p> <span className='money'>$</span>{user?.funds}</p>
           </div>
           <div className='portfolio-graph'>
             <h3> Your portfolio is {gaining ? 'up' : 'down'}: </h3>
@@ -47,8 +50,8 @@ const ProfilePage = ({ user, setSelectedCoin }) => {
         </div>
 
         <div className='watchlist-container'>
-          <h2> Tracked Coins: </h2>
-          {allCoins?.slice(0, 5).map(coin => {
+          <h2 style={{ color: 'white' }}> Tracked Coins: </h2>
+          {filteredCoins?.slice(0,5).map(coin => {
             return (
               <Card
                 setSelectedCoin={setSelectedCoin}
@@ -64,7 +67,7 @@ const ProfilePage = ({ user, setSelectedCoin }) => {
         <div className='owned-coins-table'>
           <h2> Owned Coins: </h2>
           <Table
-            allCoins={allCoins}
+            allCoins={filteredCoins}
             setSelectedCoin={setSelectedCoin}
           />
         </div>
