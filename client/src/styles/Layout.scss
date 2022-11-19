@@ -10,8 +10,8 @@
     z-index: 1;
     font-weight: bold;
     font-size: 1.2em;
-    box-shadow: 0px 2px 5px $text-color-dark;
-    background-color: $background-color;
+    //  box-shadow: 0px 2px 2px $text-color-dark;
+    background-color: #292e3b;
 }
 
 .header p:hover {
@@ -53,10 +53,17 @@
     align-items: flex-start;
 }
 
+.footer-info a {
+    color: #6bcefa;
+    text-decoration: underline;
+}
+
 .clicked {
-    color: #58f582;
+    text-decoration: underline;
+    text-decoration-color: #58f582;
+    text-decoration-thickness: 2px;
 }
 
 .not-clicked {
-    color: #ffffff;
+    text-decoration: none;
 }
