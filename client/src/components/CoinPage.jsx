@@ -238,6 +238,7 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
          setUser(data);
          findCoin()
          alert('Success!')
+         setPurchasedCoins([...purchasedCoins, coin])
       }
       else {
          console.log('Not enough money')
