@@ -1,6 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = ({ user, setUser }) => {
+   const location = useLocation()
+
+   const checkPage = (btnName) => {
+      if (location.pathname === btnName) {
+         return 'clicked'
+      } else {
+         return 'not-clicked'
+      }
+   }
+
    const handleLogoutClick = () => {
       fetch("/logout", { method: "DELETE" }).then((r) => {
          if (r.ok) {
@@ -15,18 +25,18 @@ const Header = ({ user, setUser }) => {
       <div className='header'>
          <Link to='/'>
             <div className="logo-container">
-               <p style={{ fontSize: '1.5em' }}> 🪙Flypto </p>
+               <p className={checkPage('/')} style={{ fontSize: '1.5em' }}> 🪙Flypto </p>
             </div>
          </Link>
          <div className="nav-buttons">
             <Link to='/trade'>
-               <p> Trade </p>
+               <p className={checkPage('/trade')}> Trade </p>
             </Link>
             <Link to='/crypto'>
-               <p> Crypto </p>
+               <p className={checkPage('/crypto')}> Crypto </p>
             </Link>
             {user.email && <Link to='/profile'>
-               <p> Profile </p>
+               <p className={checkPage('/profile')}> Profile </p>
             </Link>}
 
             {user.email ?
@@ -35,7 +45,7 @@ const Header = ({ user, setUser }) => {
                </Link>
                :
                <Link to='/login'>
-                  <p> Login </p>
+                  <p className={checkPage('/login')}> Login </p>
                </Link>}
          </div>
       </div>

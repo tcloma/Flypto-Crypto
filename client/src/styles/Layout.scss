@@ -1,54 +1,62 @@
 @import '../styles/util-styles/template.module.scss';
 
 .header {
-	@extend .layout-template;
-	justify-content: space-between;
-	padding: 0em 1em;
-	position: fixed;
-	width: 100%;
-	outline: 0;
-	z-index: 1;
-	font-weight: bold;
-	font-size: 1.2em;
-  box-shadow: 0px 2px 5px $text-color-dark;
-  background-color: $background-color;
+    @extend .layout-template;
+    justify-content: space-between;
+    padding: 0em 1em;
+    position: fixed;
+    width: 100%;
+    outline: 0;
+    z-index: 1;
+    font-weight: bold;
+    font-size: 1.2em;
+    box-shadow: 0px 2px 5px $text-color-dark;
+    background-color: $background-color;
 }
 
 .header p:hover {
-  transition-duration: .3s;
-  filter: drop-shadow(0px 0px 20px #58f582);
-  transform: scale(1.02);
+    transition-duration: 0.3s;
+    filter: drop-shadow(0px 0px 20px #58f582);
+    transform: scale(1.02);
 }
 
 .nav-buttons {
-	display: flex;
-	gap: 5em
+    display: flex;
+    gap: 5em;
 }
 
 .footer {
-	@extend .layout-template;
-  position: absolute;
-  width: 100%;
-  min-height: 7vh;
-  display: flex;
-  background-color: #292e3b;
-  // border-top: 1px solid white;
+    @extend .layout-template;
+    position: absolute;
+    width: 100%;
+    min-height: 7vh;
+    display: flex;
+    background-color: #292e3b;
+    // border-top: 1px solid white;
 }
 
-.footer-content{
-  padding-top: 1em;
-  display: flex;
-  // flex-direction: column;
-  align-items: center;
-  border-top: 2px solid $accent-color-lighter;
-  gap: .5em;
-  margin-top: 1em;
-  margin-bottom: .5em;
-  gap: 5em;
+.footer-content {
+    padding-top: 1em;
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    border-top: 2px solid $accent-color-lighter;
+    gap: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    gap: 5em;
 }
 
 .footer-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.clicked {
+    color: #58f582;
+}
+
+.not-clicked {
+    color: #ffffff;
 }
