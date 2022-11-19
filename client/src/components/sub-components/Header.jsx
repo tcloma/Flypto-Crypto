@@ -1,15 +1,6 @@
 import { Link } from "react-router-dom";
 
 const Header = ({ user, setUser }) => {
-
-
-   // const handleLogoutClick = () => {
-   //   fetch('/logout', {
-   //     method: 'DELETE',
-   //   }).then(() => onLogout())
-   //   console.log(onLogout())
-   // }
-
    const handleLogoutClick = () => {
       fetch("/logout", { method: "DELETE" }).then((r) => {
          if (r.ok) {
@@ -37,7 +28,6 @@ const Header = ({ user, setUser }) => {
             {user.email && <Link to='/profile'>
                <p> Profile </p>
             </Link>}
-
 
             {user.email ?
                <Link to='/'>

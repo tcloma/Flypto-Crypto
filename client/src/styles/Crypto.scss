@@ -2,134 +2,131 @@
 @import '../styles/util-styles/template.module.scss';
 
 .crypto-page-container {
-  @extend .container-template;
-  min-height: 90vh;
-  padding-top: 6em;
-  gap: 2em;
-  // background-color: #ececec;
+    @extend .container-template;
+    min-height: 90vh;
+    padding-top: 10em;
+    padding-bottom: 6em;
+    gap: 2em;
+    // background-color: #ececec;
 }
 
 .fastest-growing-cards {
-  @extend .container-template;
-  background-color: $background-color;
-  justify-content: space-between;
-  flex-direction: row;
-  padding: 1em;
-  width: 80vw;
-  gap: 1em;
-  min-height: 34vh;
-  box-shadow: 7px 7px 0px rgb(89, 89, 89);
-  border-top: 2px solid $accent-color-lighter;
-  border-left: 2px solid $accent-color-lighter;
-  // border-radius: 1em;
+    @extend .container-template;
+    background-color: $background-color;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 1em;
+    width: 80vw;
+    gap: 1em;
+    min-height: 34vh;
+    box-shadow: 7px 7px 0px rgb(89, 89, 89);
+    border-top: 2px solid $accent-color-lighter;
+    border-left: 2px solid $accent-color-lighter;
+    // border-radius: 1em;
 }
 
-.growth-selector{
-  display: flex;
-  font-size: 1.2em; 
+.growth-selector {
+    display: flex;
+    font-size: 1.2em;
 }
 
-.growth-selector-button{
-  border: 0;
-  background-color: $accent-color-lighter;
-  color: $text-color-light;
-  border-top-left-radius: .3em;
-  border-top-right-radius: .3em;
-  min-width: 10vw;
+.growth-selector-button {
+    border: 0;
+    background-color: $accent-color-lighter;
+    color: $text-color-light;
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    min-width: 10vw;
 }
 
-.growth-selector-button-clicked{
-  border: 0;
-  background-color: $shadow-color;
-  color: $text-color-dark;
-  border-top-left-radius: .3em;
-  border-top-right-radius: .3em;
-  min-width: 10vw;
+.growth-selector-button-clicked {
+    border: 0;
+    background-color: $shadow-color;
+    color: $text-color-dark;
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    min-width: 10vw;
 }
-
-
 
 .coin-database {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: $off-background-color;
-  box-shadow: 1em 1em 0px $shadow-color;
-  width: 80vw;
-  padding: 2em;
-  gap: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $off-background-color;
+    box-shadow: 1em 1em 0px $shadow-color;
+    width: 80vw;
+    padding: 2em;
+    gap: 1em;
 }
 
-.coin-filters{
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  // flex-direction: row;
-  // align-items: center;
+.coin-filters {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    // flex-direction: row;
+    // align-items: center;
 }
 
 .coin-dropdowns {
-  display: flex;
+    display: flex;
 }
 
 .coin-search {
-  width: 100%;
-  height: 7vh;
+    width: 100%;
+    height: 7vh;
 }
 
 .coins-table {
-  // box-shadow: 4px 4px 0px $shadow-color;
-  border-collapse: collapse;
-  width: 100%;
+    // box-shadow: 4px 4px 0px $shadow-color;
+    border-collapse: collapse;
+    width: 100%;
 }
 
 .coins-table thead {
-  // background-color: $shadow-color;
-  font-weight: bold;
-  border-bottom: 3px solid $accent-color-lighter;
+    // background-color: $shadow-color;
+    font-weight: bold;
+    border-bottom: 3px solid $accent-color-lighter;
 }
 
 .coins-table td {
-  text-align: center;
-  padding: 1em;
-  border: 0;
+    text-align: center;
+    padding: 1em;
+    border: 0;
 }
 
-.coins-table tbody tr:nth-child(odd){
-  background-color: #222630;
-  color: white;
-  cursor:pointer;
+.coins-table tbody tr:nth-child(odd) {
+    background-color: #222630;
+    color: white;
+    cursor: pointer;
 }
 
-.coins-table tbody tr:nth-child(even){
-  background-color: $off-background-color;
-  cursor:pointer;
+.coins-table tbody tr:nth-child(even) {
+    background-color: $off-background-color;
+    cursor: pointer;
 }
 
 .up-arrow {
-  color: green;
+    color: green;
 }
 
-.down-arrow{
-  color: red;
+.down-arrow {
+    color: red;
 }
 
-.coin-images
-{
-  width: 40%;
-  height:40%;
+.coin-images {
+    width: 40%;
+    height: 40%;
 }
 
-.image-row
-{
-  width: 10%
+.image-row {
+    width: 10%;
 }
 
 .change-positive {
-  color: green;
+    color: green;
 }
 
 .change-negative {
-  color: red;
+    color: red;
 }
