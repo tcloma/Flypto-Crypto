@@ -1,10 +1,12 @@
-import Card from './sub-components/Card'
-import React, { useState } from 'react'
-import '../styles/Profile.scss'
+// Dependencies
+import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { getAllCoins } from '../apis/coinApi'
+import '../styles/Profile.scss'
+
+// Components
+import Card from './sub-components/Card'
 import Table from './sub-components/Table'
-import { useEffect } from 'react'
 
 const ProfilePage = ({ user, userCoins = [], setSelectedCoin }) => {
    const { data: allCoins } = useQuery('coins', () => getAllCoins())

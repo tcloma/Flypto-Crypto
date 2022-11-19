@@ -7,10 +7,8 @@ const Card = ({ name, symbol, price, id, setSelectedCoin, change24Hr }) => {
 
    const getCoin = (id) => {
       setSelectedCoin(id)
-      console.log(id)
       navigate('/trade')
    }
-   // console.log(change24Hr)
 
    const priceChangeColor = () => {
       if (change24Hr > 0) {

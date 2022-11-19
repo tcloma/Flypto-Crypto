@@ -347,7 +347,7 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
          )
    }
    console.log(selectedCoin)
-   if (selectedCoin === '') return <div style={{ height: '100vh', backgroundColor: '#222630', marginBottom: '-8vh', display: 'grid', placeContent: 'center' }}> <h1 style={{ color: '#FFFFFF' }} > Select a coin from <span style={{ color: '#58f582', textDecoration: 'underline', cursor: 'pointer' }} onClick={() => navigate('/crypto')}>Crypto Page</span> to display data! </h1></div>
+   if (selectedCoin === '') return <div style={{ height: '100vh', backgroundColor: '#222630', marginBottom: '-7vh', display: 'grid', placeContent: 'center' }}> <h1 style={{ color: '#FFFFFF' }} > Select a coin from <span style={{ color: '#58f582', textDecoration: 'underline', cursor: 'pointer' }} onClick={() => navigate('/crypto')}>Crypto Page</span> to display data! </h1></div>
    return (
       <div className='full-page-container'>
          <div className='coin-chart-container'>

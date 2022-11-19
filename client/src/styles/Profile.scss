@@ -2,95 +2,96 @@
 @import '../styles/util-styles/template.module.scss';
 
 .profile-container {
-  @extend .container-template;
-  // padding: 4em 0em;
-  padding-top: 6em;
-  // margin-bottom: 1em;
+    @extend .container-template;
+    // padding: 4em 0em;
+    padding-top: 6em;
+    padding-bottom: 10vh;
+    //  margin-bottom: 1em;
 }
 
 .portfolio-page {
-  display: flex;
-  flex-direction: column;
-  // outline: 3px solid $text-color-dark;
-  box-shadow: 7px 7px 0px $shadow-color;
-  width: 100%;
-  min-height: 100vh;
-  gap: 1em;
-  align-items: center;
-  background-color: $background-color;
+    display: flex;
+    flex-direction: column;
+    // outline: 3px solid $text-color-dark;
+    //  box-shadow: 7px 7px 0px $shadow-color;
+    width: 100%;
+    min-height: 100vh;
+    gap: 1em;
+    align-items: center;
+    background-color: $background-color;
 }
 
 .portfolio-header {
-  display: flex;
-  flex-flow: row;
-  width: 85%;
-  justify-content: space-around;
-  align-items: center;
-  min-height: 30vh;
+    display: flex;
+    flex-flow: row;
+    width: 85%;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 30vh;
 }
 
 .user-info {
- color: white;
+    color: white;
 }
 
 .portfolio-graph {
-  box-shadow: 7px 7px 0px $accent-color;
-  background-color: $off-background-color;
-  min-height: 20vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 30vw;
-  padding: 1em;
+    box-shadow: 7px 7px 0px $accent-color;
+    background-color: $off-background-color;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    padding: 1em;
 }
 
-.money{
-  color: $accent-color-lighter;
+.money {
+    color: $accent-color-lighter;
 }
 
 .total-gaining {
-  color: green;
+    color: green;
 }
 
 .total-losing {
-  color: red;
+    color: red;
 }
 
 .watchlist-container {
-  // outline: 3px solid green;
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  align-items: center;
-  width: 85%;
-  background-color: $background-color;
-  min-height: 40vh;
-  padding-top: 1em;
+    // outline: 3px solid green;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    width: 85%;
+    background-color: $background-color;
+    min-height: 40vh;
+    padding-top: 1em;
 }
 
 .watchlist-container h2 {
-  position: absolute;
-  top: 0em;
+    position: absolute;
+    top: 0em;
 }
 
 .owned-coins-table {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 85%;
-  background-color: $off-background-color;
-  box-shadow: 7px 7px 0px $shadow-color;
-  padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85%;
+    background-color: $off-background-color;
+    box-shadow: 7px 7px 0px $shadow-color;
+    padding: 1em;
 }
 
 .owned-coins-table tr {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .owned-coins-table h2 {
-  font-size: 2em;
-  margin-top: .2em;
-  margin-bottom: .2em;
-  // text-decoration:underline ;
+    font-size: 2em;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    // text-decoration:underline ;
 }
