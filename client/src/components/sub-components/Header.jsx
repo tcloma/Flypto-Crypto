@@ -19,8 +19,6 @@ const Header = ({ user, setUser }) => {
       });
    }
 
-   console.log('Current User: ', { name: user?.name, email: user?.email, funds: user?.funds })
-
    return (
       <div className='header'>
          <Link to='/'>

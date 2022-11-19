@@ -7,8 +7,8 @@ import Table from './sub-components/Table'
 import { useEffect } from 'react'
 
 const ProfilePage = ({ user, userCoins = [], setSelectedCoin }) => {
-   const { status, error, data: allCoins } = useQuery('coins', () => getAllCoins())
-   const filteredCoins = allCoins?.filter(coin => userCoins.map(coin => coin.name).includes(coin.name.toLowerCase()))
+   const { data: allCoins } = useQuery('coins', () => getAllCoins())
+   const filteredCoins = allCoins?.filter(coin => userCoins?.map(coin => coin.name).includes(coin.name.toLowerCase()))
 
    const findQuantity = (searchCoin) => {
       const matchedCoin = userCoins.find(coin => coin.name === searchCoin)

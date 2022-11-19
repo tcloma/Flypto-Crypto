@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useQuery } from "react-query";
 import { roundPrice } from '../utilFunctions'
+import { useNavigate } from 'react-router-dom';
 import { getCoin, getAllCoins, getCoinGraphData } from '../apis/coinApi';
 import '../styles/CoinPage.scss'
 import axios from 'axios'
@@ -30,6 +31,8 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
    const { isLoading: coinLoading, data: specCoinData } = useQuery('coinData', () => getCoin(selectedCoin));
    const { isLoading: graphLoading, data: graphData, refetch } = useQuery(timePeriod, () => getCoinGraphData(selectedCoin, timePeriod));
    const { data: allCoins } = useQuery('all-coins', () => getAllCoins())
+
+   const navigate = useNavigate()
 
    const coinData = graphData
 
@@ -235,6 +238,7 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
          let res = await axios.get('/me');
          let data = res.data;
          console.log(data)
+         console.log({ coin })
          setUser(data);
          findCoin()
          alert('Success!')
@@ -342,7 +346,8 @@ const CoinPage = ({ selectedCoin, user, setUser, purchasedCoins, setPurchasedCoi
             </>
          )
    }
-
+   console.log(selectedCoin)
+   if (selectedCoin === '') return <div style={{ height: '100vh', backgroundColor: '#222630', marginBottom: '-8vh', display: 'grid', placeContent: 'center' }}> <h1 style={{ color: '#FFFFFF' }} > Select a coin from <span style={{ color: '#58f582', textDecoration: 'underline', cursor: 'pointer' }} onClick={() => navigate('/crypto')}>Crypto Page</span> to display data! </h1></div>
    return (
       <div className='full-page-container'>
          <div className='coin-chart-container'>

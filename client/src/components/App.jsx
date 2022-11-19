@@ -21,9 +21,6 @@ const App = () => {
    const [user, setUser] = useState({})
    const [userCoins, setUserCoins] = useState([])
 
-   console.log('usercoins: ', userCoins)
-   console.log("HERE", user)
-
    useEffect(() => {
       fetch('/me').then((res) => {
          if (res.ok) {
@@ -34,16 +31,26 @@ const App = () => {
             })
          }
       })
+      // fetch('/purchasedcoins')
+      //   .then((res) => {
+      //     if (res.ok) {
+      //       res.json()
+      //         .then((purchasedCoins) => setPurchasedCoins(purchasedCoins))
+      //     }
+      //   })
    }, []);
 
    useEffect(() => {
+      console.log('SET COINS!!! 🪙')
       const coins = user?.purchased_coins?.map(coin => {
          return (
             { name: coin.name.toLowerCase(), quantity: coin.quantity }
          )
       })
       setUserCoins(coins)
-   }, [user])
+   }, [user, purchasedCoins])
+
+   console.log({ userCoins })
 
    return (
       <QueryClientProvider client={queryClient}>
@@ -54,7 +61,7 @@ const App = () => {
                   <Route path='/trade' element={<CoinPage setUser={setUser} user={user} selectedCoin={selectedCoin} purchasedCoins={purchasedCoins} setPurchasedCoins={setPurchasedCoins} />} />
                   <Route path='/logout' />
                   <Route path='/crypto' element={<CryptoPage setSelectedCoin={setSelectedCoin} />} />
-                  <Route path='/profile' element={<ProfilePage user={user} userCoins={userCoins} setSelectedCoin={setUserCoins} />} />
+                  <Route path='/profile' element={<ProfilePage user={user} userCoins={userCoins} setSelectedCoin={setSelectedCoin} />} />
                   <Route path='/login' element={<LoginPage setUser={setUser} />} />
                   <Route path='/signup' element={<SignupPage setUser={setUser} />} />
                </Routes>

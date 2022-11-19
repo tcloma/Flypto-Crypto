@@ -160,7 +160,7 @@ const Table = ({ allCoins, coinFilter = false, setSelectedCoin, withQuantity = f
                         }
                      </td>
                      <td>{`${coin.name} (${coin.symbol})`}</td>
-                     <td> ${roundPrice(coin.priceUsd)} {coin.quantity && `(${coin.quantity})`} </td>
+                     <td> ${roundPrice(coin.priceUsd)}</td>
                      <td>
                         <span className={percentChangeClassNameLogic(coin.changePercent24Hr)}>
                            {coin.changePercent24Hr > 0 ? '+' : null}{twoDecimalPlaces(coin.changePercent24Hr)}%
