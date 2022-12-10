@@ -18,8 +18,9 @@ const ProfilePage = ({ user, userCoins = [], setSelectedCoin }) => {
    }
 
    const filteredWithQuantity = filteredCoins?.map(coin => ({ ...coin, quantity: findQuantity(coin.name.toLowerCase()) }))
+   filteredWithQuantity.push({ id: "BNB", name: "BNB", symbol: "BNB", quantity: 34.71, priceUsd: "288", changePercent24Hr: "0.76" })
 
-   console.log('user', userCoins)
+   // console.log('user', userCoins)
    console.log(filteredWithQuantity)
 
    const [gaining, setGaining] = useState(false)
@@ -27,6 +28,11 @@ const ProfilePage = ({ user, userCoins = [], setSelectedCoin }) => {
    let totalChange = 0
    filteredCoins?.forEach(coin => {
       totalChange = totalChange + parseFloat(coin.changePercent24Hr)
+   })
+
+   let totalValue = 0
+   filteredWithQuantity?.forEach(coin => {
+      totalValue += parseFloat(coin.priceUsd) * coin.quantity
    })
 
    const gainCheck = () => {
@@ -51,6 +57,7 @@ const ProfilePage = ({ user, userCoins = [], setSelectedCoin }) => {
                   <p> <span className='money'>$</span>{user?.funds}</p>
                </div>
                <div className='portfolio-graph'>
+                  <h2>${totalValue.toFixed(3)}</h2>
                   <h3> Your portfolio is {gaining ? 'up' : 'down'}: </h3>
                   <h2 className={gaining ? 'total-gaining' : 'total-losing'}>
                      {gaining ? '▲' : '▼'}{totalChange < 0 ? totalChange?.toFixed(2) * -1 : totalChange?.toFixed(2)}%
@@ -58,7 +65,7 @@ const ProfilePage = ({ user, userCoins = [], setSelectedCoin }) => {
                </div>
             </div>
 
-            <div className='watchlist-container'>
+            {/* <div className='watchlist-container'>
                <h2 style={{ color: 'white' }}> Tracked Coins: </h2>
                {filteredCoins?.slice(0, 5).map(coin => {
                   return (
@@ -72,7 +79,7 @@ const ProfilePage = ({ user, userCoins = [], setSelectedCoin }) => {
                      />
                   )
                })}
-            </div>
+            </div> */}
             <div className='owned-coins-table'>
                <h2> Owned Coins: </h2>
                <Table

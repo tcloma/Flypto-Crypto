@@ -153,10 +153,10 @@ const Table = ({ allCoins, coinFilter = false, setSelectedCoin, withQuantity = f
             {filteredCoins?.sort(sortMethods[sortParam]?.method)?.map(coin => {
                return (
                   <tr key={coin.id} onClick={() => getCoin(coin.id)}>
-                     <td className='image-row'>
+                     <td style={{ width: '10%' }}>
                         {withQuantity ? <span> {coin.quantity}</span>
                            :
-                           <img className='coin-images' src={getImage(coin.name, coin.symbol)} onError={(e) => imageOnErrorHandler(e)} alt='coin icon' />
+                           <img className='coin-images' style={{ marginLeft: 'auto', marginRight: 'auto' }} src={getImage(coin.name, coin.symbol)} onError={(e) => imageOnErrorHandler(e)} alt='coin icon' />
                         }
                      </td>
                      <td>{`${coin.name} (${coin.symbol})`}</td>
