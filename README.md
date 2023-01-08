@@ -8,8 +8,6 @@
 -   Run `npm install --prefix client`
 -   Run `foreman start -f Procfile.dev` to start both servers
 
-Demo: https://youtu.be/zczM6F1afwA
-
 ### Authenticated users at login by encrypting identifying account information via JWT.
 
 ![rails3](https://user-images.githubusercontent.com/105521583/198838132-e7fffbc1-75b7-4c1d-aa65-229b066915d2.png)
